@@ -1,0 +1,39 @@
+diff -ruNp scan-s2.orig/scan.c scan-s2/scan.c
+--- scan-s2.orig/scan.c	-9223372036854775808.000000000
++++ scan-s2/scan.c	2017-03-06 13:13:58.779824163 +0300
+@@ -1950,7 +1950,7 @@ static int __tune_to_transponder (int fr
+ 
+ 	if ((ioctl(frontend_fd, FE_SET_PROPERTY, &cmdseq_clear)) == -1) {
+ 		perror("FE_SET_PROPERTY DTV_CLEAR failed");
+-		return;
++		return -1;
+ 	}
+ 
+ 	if (verbosity >= 1) {
+@@ -2100,7 +2100,7 @@ static int __tune_to_transponder (int fr
+ 
+ 	if ((ioctl(frontend_fd, FE_SET_PROPERTY, &cmdseq_tune)) == -1) {
+ 		perror("FE_SET_PROPERTY TUNE failed");
+-		return;
++		return -1;
+ 	}
+ 
+ 	// wait for zero status indicating start of tunning
+@@ -2144,7 +2144,7 @@ static int __tune_to_transponder (int fr
+ 			// get the actual parameters from the driver for that channel
+ 			if ((ioctl(frontend_fd, FE_GET_PROPERTY, &cmdseq)) == -1) {
+ 				perror("FE_GET_PROPERTY failed");
+-				return;
++				return -1;
+ 			}
+ 
+ 			t->delivery_system = p[0].u.data;
+@@ -3351,7 +3351,7 @@ int main (int argc, char **argv)
+ 		/* query for currently tuned parameters */
+ 		if ((ioctl(frontend_fd, FE_GET_PROPERTY, &cmdseq)) == -1) {
+ 			perror("FE_GET_PROPERTY failed");
+-			return;
++			return -1;
+ 		}
+ 		current_tp = alloc_transponder(p[0].u.data);
+ 		current_tp->delivery_system = p[1].u.data;

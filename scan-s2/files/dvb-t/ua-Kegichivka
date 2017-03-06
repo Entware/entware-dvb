@@ -1,0 +1,6 @@
+# Ukraine, Kegichivka
+# std freq bw fec_hi fec_lo mod transmission-mode guard-interval hierarchy plp_id
+T2 474000000 8MHz 3/5 NONE QAM256 32k 1/16 NONE
+T2 530000000 8MHz 3/5 NONE QAM256 32k 1/16 NONE
+T2 578000000 8MHz 3/5 NONE QAM256 32k 1/16 NONE
+T2 626000000 8MHz 3/5 NONE QAM256 32k 1/16 NONE

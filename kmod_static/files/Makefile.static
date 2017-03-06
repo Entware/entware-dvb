@@ -1,0 +1,45 @@
+#
+# Copyright(C) 2012-2017 by Igor Mokrushin aka McMCC <mcmcc@mail.ru>
+#
+# Permission is hereby granted, free of charge, to any person
+# obtaining a copy of this software and associated documentation
+# files (the "Software"), to deal in the Software without restriction,
+# including without limitation the rights to use, copy, modify,
+# merge, publish, distribute, sublicense, and/or sell copies of
+# the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+#
+# The above copyright notice and this permission notice shall be
+# included in all copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+# EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
+# OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+# NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS
+# BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN
+# AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
+# OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
+# IN THE SOFTWARE.
+#
+
+BINDIR=$(DESTDIR)/bin
+
+all	: kmod
+
+clean	:
+	rm -f kmod libkmod/*.o shared/*.o tools/*.o
+
+install	:
+	mkdir -p $(BINDIR)
+	cp kmod $(BINDIR)/
+
+LIBKMOD_OBJS = libkmod/libkmod.o libkmod/libkmod-elf.o libkmod/libkmod-index.o libkmod/libkmod-module.o \
+		libkmod/libkmod-config.o libkmod/libkmod-file.o libkmod/libkmod-list.o libkmod/libkmod-signature.o
+
+SHARED_OBJS = shared/array.o shared/hash.o shared/scratchbuf.o shared/strbuf.o shared/util.o
+
+TOOLS_OBJS = tools/depmod.o tools/insert.o tools/insmod.o tools/kmod.o tools/log.o tools/lsmod.o tools/modinfo.o \
+		tools/modprobe.o tools/remove.o tools/rmmod.o tools/static-nodes.o
+
+kmod	: $(LIBKMOD_OBJS) $(SHARED_OBJS) $(TOOLS_OBJS)
+		$(CC) -static $(CFLAGS) $^ -s -o $@
