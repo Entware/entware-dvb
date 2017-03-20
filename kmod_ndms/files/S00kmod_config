@@ -1,0 +1,26 @@
+#!/bin/sh
+# Copyright (C) 2015-2017 NDM Systems, McMCC
+
+export LANG=C
+
+PATH=/opt/sbin:/opt/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+
+echo "/opt/sbin/modprobe" > /proc/sys/kernel/modprobe
+
+VER_KMOD=`uname -r`
+DIR_OPT_KMOD=/opt/lib/modules/$VER_KMOD
+DIR_FW_KMOD=/lib/modules/$VER_KMOD
+CHK_ALIAS=$DIR_OPT_KMOD/modules.alias
+CHK_SYMS=$DIR_OPT_KMOD/modules.symbols
+
+if [ ! -d $DIR_OPT_KMOD ] || [ ! -L $DIR_OPT_KMOD/kernel ]; then
+	mkdir -p $DIR_OPT_KMOD 2> /dev/null
+	ln -sfn $DIR_FW_KMOD $DIR_OPT_KMOD/kernel 2> /dev/null
+	rm -f $CHK_ALIAS $CHK_SYMS 2> /dev/null
+fi
+
+if [ ! -f $CHK_ALIAS ] && [ ! -f $CHK_SYMS ]; then
+	/opt/sbin/depmod -a 2> /dev/null
+fi
+
+exit 0
