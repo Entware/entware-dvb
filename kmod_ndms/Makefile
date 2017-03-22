@@ -22,7 +22,7 @@ define Package/kmod_ndms
   CATEGORY:=Utilities
   TITLE:=Linux kernel module handling (Build static)
   URL:=https://www.kernel.org/pub/linux/utils/kernel/kmod/
-  DEPENDS=+libusb-compat
+  DEPENDS=+libusb-compat +dvb-firmware
   PROVIDES:=kmod
 endef
 

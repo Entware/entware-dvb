@@ -5,13 +5,13 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=w_scan
-PKG_VERSION:=20161022
+PKG_VERSION:=20170107
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
 PKG_SOURCE_URL:=http://wirbel.htpc-forum.de/w_scan
 PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME)-$(PKG_VERSION)
-PKG_MD5SUM:=57aa860b4c9e6aa480ca6eb0504bd4f5
+PKG_MD5SUM:=c7f9adf92d46b8da5391be80be6fbd72
 
 include $(INCLUDE_DIR)/package.mk
 include $(INCLUDE_DIR)/nls.mk
