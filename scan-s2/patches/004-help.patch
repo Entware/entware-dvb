@@ -1,0 +1,58 @@
+--- scan-s2.orig/scan.c	2017-03-28 12:21:31.648535075 +0300
++++ scan-s2/scan.c	2017-03-28 12:20:26.632396485 +0300
+@@ -3092,7 +3092,7 @@ static void show_existing_tuning_data_fi
+ #define DATADIR "/usr/local/share"
+ #endif
+ 	static const char* prefixlist[] = { DATADIR "/dvb", "/etc/dvb",
+-		DATADIR "/doc/packages/dvb", 0 };
++		"/opt/share/dtv-scan-tables", DATADIR "/doc/packages/dvb", 0 };
+ 	unsigned int i;
+ 	const char **prefix;
+ 	fprintf(stderr, "initial tuning data files:\n");
+@@ -3104,6 +3104,12 @@ static void show_existing_tuning_data_fi
+ 			for (i=0; i < globbuf.gl_pathc; i++)
+ 				fprintf(stderr, " file: %s\n", globbuf.gl_pathv[i]);
+ 		}
++		memset(globspec, 0, strlen(*prefix)+9);
++		strcpy (globspec, *prefix); strcat (globspec, "/atsc/*");
++		if (! glob (globspec, 0, 0, &globbuf)) {
++			for (i=0; i < globbuf.gl_pathc; i++)
++				fprintf(stderr, " file: %s\n", globbuf.gl_pathv[i]);
++		}
+ 		free (globspec);
+ 		globfree (&globbuf);
+ 	}
+@@ -3124,6 +3130,7 @@ static const char *usage = "\n"
+ "	-c	scan on currently tuned transponder only\n"
+ "	-v 	verbose (repeat for more)\n"
+ "	-q 	quiet (repeat for less)\n"
++"	-h	this help\n"
+ "	-a N	use DVB /dev/dvb/adapterN/\n"
+ "	-f N	use DVB /dev/dvb/adapter?/frontendN\n"
+ "	-d N	use DVB /dev/dvb/adapter?/demuxN\n"
+@@ -3199,7 +3206,7 @@ void bad_usage(char *pname, int problem)
+ 
+ 	case 2:
+ 		show_existing_tuning_data_files();
+-		fprintf (stderr, usage, pname);
++		fprintf (stderr, "\nTry '%s -h' for more information.\n", pname);
+ 		break;
+ 	}
+ }
+@@ -3222,7 +3229,7 @@ int main (int argc, char **argv)
+ 
+ 	/* start with default lnb type */
+ 	lnb_type = *lnb_enum(0);
+-	while ((opt = getopt(argc, argv, "5cnMXpa:f:d:O:k:I:S:s:r:R:H:o:D:x:t:i:l:vquPA:U")) != -1) {
++	while ((opt = getopt(argc, argv, "h5cnMXpa:f:d:O:k:I:S:s:r:R:H:o:D:x:t:i:l:vquPA:U")) != -1) {
+ 		switch (opt) 
+ 		{
+ 		case 'a':
+@@ -3370,6 +3377,7 @@ int main (int argc, char **argv)
+ 			unique_anon_services = 1;
+ 			break;
+ 
++		case 'h':
+ 		default:
+ 			bad_usage(argv[0], 0);
+ 			return -1;
