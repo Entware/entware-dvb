@@ -14,6 +14,7 @@ PKG_SOURCE_SUBDIR:=$(PKG_NAME)
 
 PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME)
 
+include $(INCLUDE_DIR)/nls.mk
 include $(INCLUDE_DIR)/package.mk
 
 define Package/scan-s2
@@ -30,7 +31,7 @@ define Package/scan-s2/description
 endef
 
 define Build/Compile
-	$(MAKE) -C $(PKG_BUILD_DIR) CC="$(TARGET_CC)" CFLG="$(TARGET_CFLAGS) -L $(STAGING_DIR)/opt/lib/libiconv-full/lib -liconv"
+	$(MAKE) -C $(PKG_BUILD_DIR) CC="$(TARGET_CC)" CFLAGS="$(TARGET_CFLAGS) $(ICONV_CFLAGS) $(ICONV_LDFLAGS)" CLIB="-liconv"
 endef
 
 define Package/scan-s2/install

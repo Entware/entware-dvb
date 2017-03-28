@@ -319,7 +319,7 @@ diff -ruNp scan-s2.orig/scan.c scan-s2/scan.c
  static int disable_s1 = FALSE;
  static int disable_s2 = FALSE;
 +static int fix_dvbt2_delivery_system = SYS_DVBT;
-+static char mplp_id[255][1];
++static char mplp_id[256][1];
 +static int lock_mplp_id = 0;
 +static int scan_mplp_enable = 0;
  
