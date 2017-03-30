@@ -46,4 +46,9 @@ define Package/libdvbcsa/install
 	$(CP) $(PKG_BUILD_DIR)/src/.libs/libdvbcsa.so* $(1)/opt/usr/lib/
 endef
 
+define Package/libdvbcsa/postinst
+#!/bin/sh
+ldconfig
+endef
+
 $(eval $(call BuildPackage,libdvbcsa))

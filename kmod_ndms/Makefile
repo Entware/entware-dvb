@@ -63,4 +63,9 @@ define Package/kmod_ndms/install
 	done
 endef
 
+define Package/kmod_ndms/postinst
+#!/bin/sh
+/opt/etc/init.d/S00kmod_config
+endef
+
 $(eval $(call BuildPackage,kmod_ndms))

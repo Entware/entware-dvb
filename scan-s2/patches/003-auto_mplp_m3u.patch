@@ -516,7 +516,7 @@ diff -ruNp scan-s2.orig/scan.c scan-s2/scan.c
  "		Larger number will make scan longer on every channel\n"
 -"	-o fmt	output format: 'vdr' (default), 'vdr16x' for VDR version 1.6.x or 'zap'\n"
 +"	-M	Scan with support Multiple-PLP (DVB-T2 only)\n"
-+"	-H url	Generation M3U playlist for SATIP, use as 'http://host:port' or 'rtsp://host:port'\n"
++"	-H url	Generation M3U playlist for SATIP, use as 'http://host:port', 'rtsp://host[:port]' or 'satip://host[:port]'\n"
 +"	-o fmt	output format: 'm3u', 'vdr' (default), 'vdr16x' for VDR version 1.6.x or 'zap'\n"
  "	-x N	Conditional Access, (default -1)\n"
  "		N=-2  gets all channels (FTA and encrypted),\n"
@@ -554,7 +554,7 @@ diff -ruNp scan-s2.orig/scan.c scan-s2/scan.c
  			break;
  
 +		case 'H':
-+			if(!strncmp(optarg, "http://", 7) || !strncmp(optarg, "rtsp://", 7))
++			if(!strncmp(optarg, "http://", 7) || !strncmp(optarg, "rtsp://", 7) || !strncmp(optarg, "satip://", 8))
 +				strncpy(url, optarg, sizeof(url)-1);
 +			else {
 +				bad_usage(argv[0], 0);
