@@ -243,7 +243,7 @@ diff -ruNp scan-s2.orig/dump-m3u.c scan-s2/dump-m3u.c
 +
 +	if(!start_header_m3u)
 +	{
-+		fprintf (f, "#EXTM3U\n");
++		fprintf (f, "#EXTM3U name=\"My DVB scan list\"\n");
 +		start_header_m3u = 1;
 +	}
 +

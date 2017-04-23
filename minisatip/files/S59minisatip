@@ -2,7 +2,7 @@
 
 ENABLED=yes
 PROCS=minisatip
-ARGS="-R /opt/share/minisatip"
+ARGS="-R /opt/share/minisatip/html"
 PREARGS=""
 DESC=$PROCS
 PATH=/opt/sbin:/opt/bin:/opt/usr/bin:/opt/usr/sbin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin

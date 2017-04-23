@@ -9,7 +9,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=kmod_ndms
 PKG_VERSION:=24
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 
 PKG_SOURCE:=kmod-$(PKG_VERSION).tar.xz
 PKG_SOURCE_URL:=https://www.kernel.org/pub/linux/utils/kernel/kmod/
