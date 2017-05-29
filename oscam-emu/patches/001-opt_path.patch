@@ -111,7 +111,7 @@ diff -ruN oscam-keenopt.orig/oscam.c oscam-keenopt/oscam.c
 +		{	"/opt/etc/tuxbox/config/", 
 +			"/opt/etc/tuxbox/config/oscam/",
 +			"/opt/var/tuxbox/config/", 
-+			"/opt/usr/share/oscam/keys/", 
++			"/opt/share/oscam/keys/", 
 +			"/opt/var/keys/",
 +			"/opt/var/etc/oscam/",
 +			"/opt/var/etc/",

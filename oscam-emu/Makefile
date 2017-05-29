@@ -9,7 +9,7 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=oscam-emu
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 
 PKG_SOURCE_URL:=http://www.streamboard.tv/svn/oscam/trunk
 PKG_REV:=11142
@@ -48,8 +48,8 @@ endif
 
 define Build/Compile
 	$(MAKE) -C $(PKG_BUILD_DIR) $(TARGET_CONFIGURE_OPTS) CC="$(TARGET_CC)" \
-		LDFLAGS="$(TARGET_CFLAGS) -L $(STAGING_DIR)/opt/lib/ -L $(STAGING_DIR)/lib/ -L $(STAGING_DIR)/usr/lib/" \
-		CFLAGS="$(TARGET_CFLAGS) -I $(STAGING_DIR)/opt/include/ -I $(STAGING_DIR)/opt/include/PCSC -I $(STAGING_DIR)/usr/include/ -I $(STAGING_DIR)/include/" \
+		LDFLAGS="$(TARGET_CFLAGS) $(TARGET_LDFLAGS)" \
+		CFLAGS="$(TARGET_CFLAGS) -I $(STAGING_DIR)/opt/include -I $(STAGING_DIR)/opt/include/PCSC" \
 		OSCAM_BIN="Distribution/oscam" $(MAKE_FLAGS) SVN_REV=$(PKG_REV)
 endef
 
@@ -60,8 +60,8 @@ define Package/oscam-emu/conffiles
 endef
 
 define Package/oscam-emu/install
-	$(INSTALL_DIR) $(1)/opt/usr/bin
-	$(INSTALL_BIN) $(PKG_BUILD_DIR)/Distribution/oscam $(1)/opt/usr/bin/oscam
+	$(INSTALL_DIR) $(1)/opt/bin
+	$(INSTALL_BIN) $(PKG_BUILD_DIR)/Distribution/oscam $(1)/opt/bin/oscam
 	$(INSTALL_DIR) $(1)/opt/etc/oscam
 	$(INSTALL_CONF) ./files/oscam.conf $(1)/opt/etc/oscam/
 	$(INSTALL_CONF) ./files/oscam.server $(1)/opt/etc/oscam/
@@ -71,8 +71,8 @@ define Package/oscam-emu/install
 endef
 
 define Package/list-smargo-emu/install
-	$(INSTALL_DIR) $(1)/opt/usr/bin
-	$(INSTALL_BIN) $(PKG_BUILD_DIR)/Distribution/list-smargo $(1)/opt/usr/bin/list-smargo
+	$(INSTALL_DIR) $(1)/opt/bin
+	$(INSTALL_BIN) $(PKG_BUILD_DIR)/Distribution/list-smargo $(1)/opt/bin/list-smargo
 endef
 
 $(eval $(call BuildPackage,oscam-emu))
