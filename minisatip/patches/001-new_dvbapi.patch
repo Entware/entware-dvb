@@ -890,15 +890,3 @@ diff -ruNp minisatip.orig/include/linux/dvb/version.h minisatip/include/linux/dv
 +#define DVB_API_VERSION_MINOR 10
 +
 +#endif /*_DVBVERSION_H_*/
-diff -ruNp minisatip.orig/Makefile.in minisatip/Makefile.in
---- minisatip.orig/Makefile.in	2017-02-03 10:17:18.000000000 +0300
-+++ minisatip/Makefile.in	2017-03-28 12:55:31.240674503 +0300
-@@ -21,6 +21,8 @@ OBJS=minisatip.o socketworks.o stream.o
- 
- TABLES=0
- 
-+CFLAGS+=-I ./include
-+
- ifeq ($(DVBAES),1)
- LIBS+=crypto
- OBJS+=aes.o

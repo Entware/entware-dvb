@@ -1,0 +1,8 @@
+--- minisatip.orig/src/Makefile.in	2017-12-03 08:48:29.000000000 +0300
++++ minisatip/src/Makefile.in	2017-12-08 18:44:37.382669735 +0300
+@@ -1,4 +1,4 @@
+-
++CFLAGS += -I ../include -DOLD_SIGNAL_API
+ AUTOMAKE_OPTIONS = foreign
+ BUILDDIR := ../build
+ TARGET:=../minisatip

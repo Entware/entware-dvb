@@ -6,8 +6,8 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=minisatip
 PKG_VERSION:=0.7
-PKG_RELEASE:=1
-PKG_SOURCE_VERSION:=$(PKG_VERSION)
+PKG_RELEASE:=3
+PKG_SOURCE_VERSION:=HEAD
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_URL:=git://github.com/catalinii/minisatip.git
 PKG_SOURCE:=$(PKG_NAME).tar.gz
