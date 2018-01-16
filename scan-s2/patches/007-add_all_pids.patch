@@ -1,0 +1,25 @@
+diff -ruNp scan-s2.orig/dump-m3u.c scan-s2/dump-m3u.c
+--- scan-s2.orig/dump-m3u.c	2018-01-14 13:40:48.000000000 +0300
++++ scan-s2/dump-m3u.c	2018-01-14 13:35:41.000000000 +0300
+@@ -258,13 +258,21 @@ void m3u_dump_service_parameter_set (FIL
+ 			return;
+ 		}
+ 		fprintf (f, ",%i", s->service_id);
++		if((s->service_id != s->pmt_pid) && (s->pmt_pid > 0))
++			fprintf (f, ",%i", s->pmt_pid);
+ 		fprintf (f, ",%i", s->audio_pid[0]);
+ 		for (i = 1; i < s->audio_num; i++)
+ 			fprintf (f, ",%i", s->audio_pid[i]);
++		if (s->ac3_pid > 0)
++			fprintf (f, ",%i", s->ac3_pid);
+ 		if(s->video_pid > 0)
+ 			fprintf (f, ",%i", s->video_pid);
++		if((s->video_pid != s->pcr_pid) && (s->pcr_pid > 0))
++			fprintf (f, ",%i", s->pcr_pid);
+ 		if(s->teletext_pid > 0)
+ 			fprintf (f, ",%i", s->teletext_pid);
++		if(s->subtitling_pid > 0)
++			fprintf (f, ",%i", s->subtitling_pid);
+ 		fprintf (f, "\n");
+ 	} else {
+ 		fprintf (f, "#EXTVLCOPT:program=%i\n", s->service_id);
