@@ -6,14 +6,14 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=minisatip
 PKG_VERSION:=0.7
-PKG_RELEASE:=3
-PKG_SOURCE_VERSION:=HEAD
+PKG_RELEASE:=4
+PKG_SOURCE_VERSION:=cea9e4deee1062c492bcef2fa7967468ec8c908d
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_URL:=git://github.com/catalinii/minisatip.git
-PKG_SOURCE:=$(PKG_NAME).tar.gz
-PKG_SOURCE_SUBDIR:=$(PKG_NAME)
+PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION)-$(PKG_SOURCE_VERSION).tar.gz
+PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
 
-PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME)
+PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME)-$(PKG_VERSION)
 
 include $(INCLUDE_DIR)/package.mk
 
@@ -56,7 +56,18 @@ endif
 
 TARGET_CFLAGS += -pthread
 
+define Package/minisatip/postinst
+#!/bin/sh
+ln -sfn /opt/etc/init.d/S59minisatip /opt/etc/default/usb_services/dvb/S59minisatip
+endef
+
+define Package/minisatip/postrm
+#!/bin/sh
+rm -rf /opt/etc/default/usb_services/dvb/S59minisatip
+endef
+
 define Package/minisatip/install
+	$(INSTALL_DIR) $(1)/opt/etc/default/usb_services/dvb
 	$(INSTALL_DIR) $(1)/opt/usr/sbin
 	$(INSTALL_BIN) $(PKG_BUILD_DIR)/minisatip $(1)/opt/usr/sbin/
 	$(INSTALL_DIR) $(1)/opt/share/minisatip

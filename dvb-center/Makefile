@@ -8,7 +8,7 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=dvb-center
-PKG_VERSION:=0.1
+PKG_VERSION:=0.2
 PKG_RELEASE:=1
 
 include $(INCLUDE_DIR)/package.mk
@@ -16,7 +16,7 @@ include $(INCLUDE_DIR)/package.mk
 define Package/dvb-center
 	SECTION:=dvb
 	CATEGORY:=keendev
-	DEPENDS:=+kmod_ndms +minisatip +xupnpd +scan-s2
+	DEPENDS:=+kmod_ndms +minisatip +xupnpd +scan-s2 +tvheadend_ndms
 	TITLE:=configs and scripts files for dvb-center
    ifeq ($(ARCH),mips)
 	PKGARCH:=keenbe-3x
@@ -43,11 +43,6 @@ define Package/dvb-center/install
 	$(INSTALL_DIR) $(1)/opt/etc/default/usb_services/dvb
 	$(INSTALL_DIR) $(1)/opt/etc/ndm/usb.d
 	$(INSTALL_BIN) ./files/002-dvb.sh $(1)/opt/etc/ndm/usb.d/
-endef
-
-define Package/dvb-center/postinst
-#!/bin/sh
-ln -sfn /opt/etc/init.d/S59minisatip /opt/etc/default/usb_services/dvb/S59minisatip
 endef
 
 $(eval $(call BuildPackage,dvb-center))

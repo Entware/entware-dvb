@@ -1,0 +1,48 @@
+diff -ruNp tvheadend_ndms.orig/src/input/mpegts/linuxdvb/linuxdvb_adapter.c tvheadend_ndms/src/input/mpegts/linuxdvb/linuxdvb_adapter.c
+--- tvheadend_ndms.orig/src/input/mpegts/linuxdvb/linuxdvb_adapter.c	2018-02-22 22:16:01.000000000 +0300
++++ tvheadend_ndms/src/input/mpegts/linuxdvb/linuxdvb_adapter.c	2018-02-23 02:56:21.232742056 +0300
+@@ -297,6 +297,34 @@ linuxdvb_get_systems(int fd, struct dtv_
+ }
+ #endif
+ 
++struct skip_fe_name {
++  const char *name_fe;
++};
++
++static struct skip_fe_name skip_fe_name_list[] = {
++  { "Panasonic MN88472" },
++  { "Panasonic MN88473" },
++  { NULL },
++};
++
++static int
++linuxdvb_skip_next_frontend ( char *name_fe )
++{
++  int i = 0;
++
++  for (;;) {
++     if (skip_fe_name_list[i].name_fe == NULL)
++       break;
++
++     if (!strncmp(skip_fe_name_list[i].name_fe, name_fe, strlen(skip_fe_name_list[i].name_fe)))
++       return 1;
++
++     i++;
++  }
++
++  return 0;
++}
++
+ /*
+  * Add adapter by path
+  */
+@@ -431,6 +459,9 @@ linuxdvb_adapter_add ( const char *path
+     linuxdvb_frontend_create(feconf, la, i, fe_path, dmx_path, dvr_path, type, name);
+ #endif
+     pthread_mutex_unlock(&global_lock);
++
++    if (linuxdvb_skip_next_frontend(dfi.name))
++      break;
+   }
+ 
+   /* Process each CA device */

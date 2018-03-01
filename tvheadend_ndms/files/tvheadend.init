@@ -1,0 +1,155 @@
+#!/bin/sh
+# Copyright (C) 2018 NDM Systems, McMCC
+
+PATH=/opt/bin:/opt/sbin:/opt/usr/bin:/opt/usr/sbin:/sbin:/bin:/usr/sbin:/usr/bin
+
+ENABLED=yes
+NAME=tvheadend
+
+PROG="/opt/usr/sbin/$NAME"
+PIDFILE="/var/run/$NAME.pid"
+LOCKFILE="/opt/var/lock/$NAME.lock"
+CONFDIR="/opt/etc/$NAME"
+LOG_ARG="-S -l /opt/var/log/$NAME.log"
+FIX_SATIP_ARG="--satip_bindaddr 0.0.0.0"
+USER_RUN_ARG="-u root -g root"
+CONF_ARG="-c $CONFDIR"
+FIRST_ARG="-A -B -C"
+FORK_ARG="-f -B"
+HTS_SUPERUSERCONF="$CONFDIR/superuser"
+
+ansi_red="\033[1;31m";
+ansi_white="\033[1;37m";
+ansi_green="\033[1;32m";
+ansi_yellow="\033[1;33m";
+ansi_blue="\033[1;34m";
+ansi_cyan="\033[1;36m";
+ansi_std="\033[m";
+
+create_superuser() {
+	rm -f $HTS_SUPERUSERCONF 2> /dev/null
+	touch $HTS_SUPERUSERCONF 2> /dev/null
+	chmod 600 $HTS_SUPERUSERCONF 2> /dev/null
+	chown root:root $HTS_SUPERUSERCONF
+	echo "{" >> $HTS_SUPERUSERCONF
+	echo "	\"username\": \"admin\"," >> $HTS_SUPERUSERCONF
+	echo "	\"password\": \"admin\"" >> $HTS_SUPERUSERCONF
+	echo "}" >> $HTS_SUPERUSERCONF
+}
+
+prog_status()
+{
+	[ -f $PIDFILE ] && [ -d /proc/`cat $PIDFILE 2> /dev/null` ]
+}
+
+prog_first_run()
+{
+	if [ ! -d $CONFDIR ]; then
+		$PROG $FIRST_ARG $LOG_ARG $USER_RUN_ARG $CONF_ARG $FIX_SATIP_ARG 2> /dev/null
+		create_superuser
+		sleep 1
+	fi
+}
+
+prog_kill()
+{
+	COUNTER=0
+	LIMIT=20
+	while [ -n "`pidof $NAME`" -a "$COUNTER" -le "$LIMIT" ]; do
+		sleep 1;
+		COUNTER=`expr $COUNTER + 1`
+	done
+	[ -n "`pidof $NAME`" ] && killall -9 $NAME 2> /dev/null
+	rm -f $PIDFILE 2> /dev/null
+}
+
+prog_start()
+{
+	[ "$ENABLED" != "yes" ] && return 8
+	[ -f $LOCKFILE ] && return 1
+	echo "1" > $LOCKFILE
+	rm -f $PIDFILE 2> /dev/null
+	prog_first_run
+	$PROG $FORK_ARG $LOG_ARG $USER_RUN_ARG $CONF_ARG $FIX_SATIP_ARG
+	[ -f $LOCKFILE ] && rm -f $LOCKFILE 2> /dev/null
+}
+
+prog_stop()
+{
+	kill -15 `cat $PIDFILE 2> /dev/null` 2> /dev/null
+	prog_kill
+}
+
+start() {
+	echo -e -n "$ansi_white Starting $NAME... $ansi_std"
+	if prog_status
+	then
+		echo -e "            $ansi_yellow already running. $ansi_std"
+	else
+		prog_start
+		if [ -z "`pidof $NAME`" ]; then
+			echo -e "            $ansi_red failed. $ansi_std"
+		else
+			echo -e "            $ansi_green done. $ansi_std"
+			logger "$NAME started." 2> /dev/null
+		fi
+	fi
+}
+
+stop() {
+	echo -e -n "$ansi_white Shutting down $NAME... $ansi_std"
+	if prog_status
+	then
+		prog_stop
+		if [ -z "`pidof $NAME`" ]; then
+			echo -e "       $ansi_green done. $ansi_std"
+			logger "$NAME stoped." 2> /dev/null
+		else
+			echo -e "       $ansi_red failed. $ansi_std"
+		fi
+	else
+		echo -e "       $ansi_blue is not running. $ansi_std"
+	fi
+}
+
+status() {
+	echo -e -n "$ansi_white Status $NAME... $ansi_std"
+	if prog_status
+	then
+		echo -e "              $ansi_yellow is running. $ansi_std"
+	else
+		echo -e "              $ansi_blue is not running. $ansi_std"
+	fi
+}
+
+clean() {
+	stop
+	echo -e -n "$ansi_white Temporary files $NAME... $ansi_std"
+	rm -rf $HTS_SUPERUSERCONF 2> /dev/null
+	sleep 3
+	echo -e "     $ansi_cyan deleted. $ansi_std"
+	start
+}
+
+case "$1" in
+	start)
+		start
+		;;
+	stop)
+		stop
+		;;
+	status)
+		status
+		;;
+	restart)
+		stop
+		sleep 3
+		start
+		;;
+	clean)
+		clean
+		;;
+	*)
+		echo -e "$ansi_white Usage: $0 (start|stop|restart|status|clean) $ansi_std"
+		;;
+esac

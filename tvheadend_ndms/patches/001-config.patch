@@ -1,0 +1,24 @@
+diff -ruN tvheadend.orig/configure tvheadend/configure
+--- tvheadend.orig/configure	2017-10-18 16:39:58.000000000 +0300
++++ tvheadend/configure	2017-12-13 00:48:37.375969318 +0300
+@@ -36,7 +36,7 @@
+   "avahi:auto"
+   "zlib:auto"
+   "libav:auto"
+-  "ffmpeg_static:yes"
++  "ffmpeg_static:no"
+   "libx264:yes"
+   "libx264_static:yes"
+   "libx265:yes"
+diff -ruN tvheadend.orig/Makefile tvheadend/Makefile
+--- tvheadend.orig/Makefile	2017-10-18 16:39:58.000000000 +0300
++++ tvheadend/Makefile	2017-12-13 00:49:51.314127208 +0300
+@@ -52,7 +52,7 @@
+ CFLAGS  += -Wmissing-prototypes
+ CFLAGS  += -fms-extensions -funsigned-char -fno-strict-aliasing
+ CFLAGS  += -D_FILE_OFFSET_BITS=64
+-CFLAGS  += -I${BUILDDIR} -I${ROOTDIR}/src -I${ROOTDIR}
++CFLAGS  += -I ./vendor/dvb-api/5.10 -I${BUILDDIR} -I${ROOTDIR}/src -I${ROOTDIR}
+ ifeq ($(CONFIG_ANDROID),yes)
+ LDFLAGS += -ldl -lm
+ else
