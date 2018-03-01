@@ -34,6 +34,7 @@ define Package/tvheadend_ndms
   CATEGORY:=Multimedia
   TITLE:=Tvheadend is a TV streaming server for Linux
   DEPENDS:=+libopenssl +librt +zlib +TVHEADEND_NDMS_AVAHI_SUPPORT:libavahi-client $(ICONV_DEPENDS)
+  CONFLICTS:=tvheadend
   URL:=https://tvheadend.org
 endef
 
@@ -51,8 +52,12 @@ define Package/tvheadend_ndms/config
   endmenu
 endef
 
-ifeq ($(CONFIG_GCC_VERSION_6_3_0),y)
+ifeq ($(CONFIG_GCC_USE_VERSION_6_3_0)$(CONFIG_GCC_USE_VERSION_7_3_0),y)
 TARGET_CFLAGS+=-Wno-error=misleading-indentation
+endif
+
+ifeq ($(CONFIG_GCC_USE_VERSION_7_3_0),y)
+TARGET_CFLAGS+=-Wno-error=format-truncation -Wno-error=pointer-compare
 endif
 
 ifeq ($(CONFIG_TVHEADEND_NDMS_CWC_SUPPORT),)
