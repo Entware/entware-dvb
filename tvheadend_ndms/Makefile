@@ -5,11 +5,11 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=tvheadend_ndms
-PKG_VERSION:=4.2.2
+PKG_VERSION:=4.2.5
 PKG_RELEASE:=1
 
 PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
-PKG_SOURCE_VERSION:=a2fab13ad3133d3314ab040a885b9c7050b9dc2c
+PKG_SOURCE_VERSION:=8973d48e59b2c134aafec78de0c14756d6b15e8b
 # This is stable git version...
 # PKG_SOURCE_VERSION:=1a0262f5870e4fabd6b9c70a7bf2ebe420bc956e
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION)-$(PKG_SOURCE_VERSION).tar.gz
@@ -112,6 +112,7 @@ define Package/tvheadend_ndms/install
 
 	$(INSTALL_DIR) $(1)/opt/usr/sbin
 	$(INSTALL_BIN) $(PKG_BUILD_DIR)/build.linux/tvheadend $(1)/opt/usr/sbin/
+	$(INSTALL_BIN) ./files/tv_grab_ru  $(1)/opt/usr/sbin/
 	$(INSTALL_DIR) $(1)/opt/share/tvheadend/data/dvb-scan/dvb-t
 	$(CP) ./files/ru-all_dvb* $(1)/opt/share/tvheadend/data/dvb-scan/dvb-t/
 endef

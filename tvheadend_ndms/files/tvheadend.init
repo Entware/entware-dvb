@@ -3,7 +3,7 @@
 
 PATH=/opt/bin:/opt/sbin:/opt/usr/bin:/opt/usr/sbin:/sbin:/bin:/usr/sbin:/usr/bin
 
-ENABLED=yes
+ENABLED=no
 NAME=tvheadend
 
 PROG="/opt/usr/sbin/$NAME"
