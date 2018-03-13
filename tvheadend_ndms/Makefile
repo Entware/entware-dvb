@@ -6,7 +6,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=tvheadend_ndms
 PKG_VERSION:=4.2.5
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 
 PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
 PKG_SOURCE_VERSION:=8973d48e59b2c134aafec78de0c14756d6b15e8b
@@ -36,6 +36,9 @@ define Package/tvheadend_ndms
   DEPENDS:=+libopenssl +librt +zlib +TVHEADEND_NDMS_AVAHI_SUPPORT:libavahi-client $(ICONV_DEPENDS)
   CONFLICTS:=tvheadend
   URL:=https://tvheadend.org
+ifneq (,$(filter mips mipsel,$(ARCH)))
+  PKGARCH:=$(BOARD)_kn
+endif
 endef
 
 define Package/tvheadend_ndms/description

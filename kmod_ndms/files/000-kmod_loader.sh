@@ -1,5 +1,5 @@
 #!/opt/bin/sh
-# Copyright (C) 2015-2017 NDM Systems, McMCC
+# Copyright (C) 2015-2018 NDM Systems, McMCC
 
 export LANG=C
 
@@ -11,6 +11,8 @@ GET_CLASS=`/opt/sbin/usbdev_get_class 0x${usb_vendor} 0x${usb_model}`
 DIR_KMOD=/opt/lib/modules/$VER_KMOD
 CHK_ALIAS=$DIR_KMOD/modules.alias
 CHK_SYMS=$DIR_KMOD/modules.symbols
+CHK_TEST=`/opt/sbin/modinfo $DIR_KMOD/kernel/compat.ko | grep ^version: | cut -f15 -d " "`
+CHK_SAVE=/opt/etc/default/kmod_ndms
 
 if [ ! -d $DIR_KMOD ]; then
 	exit 0
@@ -18,6 +20,17 @@ fi
 
 if [ ! -f $CHK_ALIAS ] && [ ! -f $CHK_SYMS ]; then
 	/opt/sbin/depmod -a 2> /dev/null
+	echo $CHK_TEST > $CHK_SAVE
+fi
+
+if [ -f $CHK_SAVE ]; then
+	if [ "`cat $CHK_SAVE`" != "$CHK_TEST" ]; then
+		/opt/sbin/depmod -a 2> /dev/null
+		echo $CHK_TEST > $CHK_SAVE
+	fi
+elif [ -f $CHK_ALIAS ] && [ -f $CHK_SYMS ]; then
+	/opt/sbin/depmod -a 2> /dev/null
+	echo $CHK_TEST > $CHK_SAVE
 fi
 
 if [ "$1" = "start" ]; then

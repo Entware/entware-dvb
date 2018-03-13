@@ -1,5 +1,5 @@
 #!/bin/sh
-# Copyright (C) 2015-2017 NDM Systems, McMCC
+# Copyright (C) 2015-2018 NDM Systems, McMCC
 
 export LANG=C
 
@@ -12,15 +12,28 @@ DIR_OPT_KMOD=/opt/lib/modules/$VER_KMOD
 DIR_FW_KMOD=/lib/modules/$VER_KMOD
 CHK_ALIAS=$DIR_OPT_KMOD/modules.alias
 CHK_SYMS=$DIR_OPT_KMOD/modules.symbols
+CHK_TEST=`/opt/sbin/modinfo $DIR_KMOD/kernel/compat.ko | grep ^version: | cut -f15 -d " "`
+CHK_SAVE=/opt/etc/default/kmod_ndms
 
 if [ ! -d $DIR_OPT_KMOD ] || [ ! -L $DIR_OPT_KMOD/kernel ]; then
 	mkdir -p $DIR_OPT_KMOD 2> /dev/null
 	ln -sfn $DIR_FW_KMOD $DIR_OPT_KMOD/kernel 2> /dev/null
-	rm -f $CHK_ALIAS $CHK_SYMS 2> /dev/null
+	rm -f $CHK_ALIAS $CHK_SYMS $CHK_SAVE 2> /dev/null
 fi
 
 if [ ! -f $CHK_ALIAS ] && [ ! -f $CHK_SYMS ]; then
 	/opt/sbin/depmod -a 2> /dev/null
+	echo $CHK_TEST > $CHK_SAVE
+fi
+
+if [ -f $CHK_SAVE ]; then
+	if [ "`cat $CHK_SAVE`" != "$CHK_TEST" ]; then
+		/opt/sbin/depmod -a 2> /dev/null
+		echo $CHK_TEST > $CHK_SAVE
+	fi
+elif [ -f $CHK_ALIAS ] && [ -f $CHK_SYMS ]; then
+	/opt/sbin/depmod -a 2> /dev/null
+	echo $CHK_TEST > $CHK_SAVE
 fi
 
 exit 0

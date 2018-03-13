@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2012-2017 NDM Systems, McMCC
+# Copyright (C) 2012-2018 NDM Systems, McMCC
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -9,7 +9,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=kmod_ndms
 PKG_VERSION:=24
-PKG_RELEASE:=2
+PKG_RELEASE:=3
 
 PKG_SOURCE:=kmod-$(PKG_VERSION).tar.xz
 PKG_SOURCE_URL:=https://www.kernel.org/pub/linux/utils/kernel/kmod/
@@ -24,6 +24,9 @@ define Package/kmod_ndms
   URL:=https://www.kernel.org/pub/linux/utils/kernel/kmod/
   DEPENDS=+libusb-compat +dvb-firmware
   CONFLICTS:=kmod
+ifneq (,$(filter mips mipsel,$(ARCH)))
+  PKGARCH:=$(BOARD)_kn
+endif
 endef
 
 define Package/kmod_ndms/description
@@ -57,6 +60,7 @@ define Package/kmod_ndms/install
 	$(CP) $(PKG_BUILD_DIR)/kmod $(1)/opt/sbin/kmod_ndms
 	$(INSTALL_DIR) $(1)/opt/etc/ndm/usb.d
 	$(INSTALL_BIN) ./files/000-kmod_loader.sh $(1)/opt/etc/ndm/usb.d/
+	$(INSTALL_DIR) $(1)/opt/etc/default
 
 	for a in $(KMOD_BINARIES); do \
 		ln -sf kmod_ndms $(1)/opt/sbin/$$$$a ; \

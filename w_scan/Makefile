@@ -22,6 +22,9 @@ define Package/w_scan
   TITLE:=w_scan performs frequency scans for DVB and ATSC.
   DEPENDS:=+libiconv-full
   URL:=http://wirbel.htpc-forum.de/w_scan/index_en.html
+ifneq (,$(filter mips mipsel,$(ARCH)))
+  PKGARCH:=$(BOARD)_kn
+endif
 endef
 
 TARGET_LDFLAGS += \

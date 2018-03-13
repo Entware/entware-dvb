@@ -6,7 +6,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=dvb-firmware
 PKG_VERSION:=1.0
-PKG_RELEASE:=3
+PKG_RELEASE:=4
 
 include $(INCLUDE_DIR)/package.mk
 
@@ -14,6 +14,9 @@ define Package/dvb-firmware
 	SECTION:=dvb-firmware
 	CATEGORY:=Firmware
 	TITLE:=dvb-firmware megapack
+    ifneq (,$(filter mips mipsel,$(ARCH)))
+	PKGARCH:=$(BOARD)_kn
+    endif
 endef
 
 define Package/dvb-firmware/description

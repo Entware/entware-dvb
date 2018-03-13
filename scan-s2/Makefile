@@ -24,6 +24,9 @@ define Package/scan-s2
   TITLE:=scan-s2 channels scanning tool for the Linux DVB S2 API
   DEPENDS:=+libiconv-full
   URL:=https://bitbucket.org/CrazyCat/scan-s2
+ifneq (,$(filter mips mipsel,$(ARCH)))
+  PKGARCH:=$(BOARD)_kn
+endif
 endef
 
 define Package/scan-s2/description

@@ -6,7 +6,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=minisatip
 PKG_VERSION:=0.7
-PKG_RELEASE:=4
+PKG_RELEASE:=5
 PKG_SOURCE_VERSION:=cea9e4deee1062c492bcef2fa7967468ec8c908d
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_URL:=git://github.com/catalinii/minisatip.git
@@ -23,6 +23,9 @@ define Package/minisatip
   TITLE:= MiniSatIP server for Linux
   DEPENDS:=+librt +libpthread +MINISATIP_DVBAES_SUPPORT:libopenssl +MINISATIP_DVBCSA_SUPPORT:libdvbcsa
   URL:=https://github.com/catalinii/minisatip
+ifneq (,$(filter mips mipsel,$(ARCH)))
+  PKGARCH:=$(BOARD)_kn
+endif
 endef
 
 define Package/minisatip/description

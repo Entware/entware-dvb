@@ -31,6 +31,9 @@ define Package/oscam-emu
   URL:=http://www.streamboard.tv/oscam/wiki/BuildingOscam
   DEPENDS:=+libopenssl +libpcsclite +libusb-1.0 +ccid +pcscd
   PROVIDES:=oscam
+ifneq (,$(filter mips mipsel,$(ARCH)))
+  PKGARCH:=$(BOARD)_kn
+endif
 endef
 
 define Package/list-smargo-emu

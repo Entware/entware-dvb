@@ -23,6 +23,9 @@ define Package/libdvbcsa
   TITLE:=libdvbcsa
   URL:=http://www.videolan.org/developers/libdvbcsa.html
   MENU:=1
+ifneq (,$(filter mips mipsel,$(ARCH)))
+  PKGARCH:=$(BOARD)_kn
+endif
 endef
 
 define Package/libdvbcsa/description
@@ -42,8 +45,8 @@ define Build/InstallDev
 endef
 
 define Package/libdvbcsa/install
-	$(INSTALL_DIR) $(1)/opt/usr/lib
-	$(CP) $(PKG_BUILD_DIR)/src/.libs/libdvbcsa.so* $(1)/opt/usr/lib/
+	$(INSTALL_DIR) $(1)/opt/lib
+	$(CP) $(PKG_BUILD_DIR)/src/.libs/libdvbcsa.so* $(1)/opt/lib/
 endef
 
 define Package/libdvbcsa/postinst
