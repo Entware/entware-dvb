@@ -3,14 +3,16 @@
 
 PATH=/opt/bin:/opt/sbin:/opt/usr/bin:/opt/usr/sbin:/sbin:/bin:/usr/sbin:/usr/bin
 
-ENABLED=no
+ENABLED=yes
 NAME=tvheadend
+WRITE_LOG=no
 
 PROG="/opt/usr/sbin/$NAME"
 PIDFILE="/var/run/$NAME.pid"
 LOCKFILE="/opt/var/lock/$NAME.lock"
 CONFDIR="/opt/etc/$NAME"
-LOG_ARG="-S -l /opt/var/log/$NAME.log"
+LOG_ARG="-S"
+WLOG="-l /opt/var/log/$NAME.log"
 FIX_SATIP_ARG="--satip_bindaddr 0.0.0.0"
 USER_RUN_ARG="-u root -g root"
 CONF_ARG="-c $CONFDIR"
@@ -70,7 +72,8 @@ prog_start()
 	echo "1" > $LOCKFILE
 	rm -f $PIDFILE 2> /dev/null
 	prog_first_run
-	$PROG $FORK_ARG $LOG_ARG $USER_RUN_ARG $CONF_ARG $FIX_SATIP_ARG
+	[ "$WRITE_LOG" != "yes" ] && WLOG=""
+	$PROG $FORK_ARG $LOG_ARG $WLOG $USER_RUN_ARG $CONF_ARG $FIX_SATIP_ARG
 	[ -f $LOCKFILE ] && rm -f $LOCKFILE 2> /dev/null
 }
 
