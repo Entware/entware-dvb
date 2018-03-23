@@ -4,14 +4,12 @@
 
 include $(TOPDIR)/rules.mk
 
-PKG_NAME:=tvheadend_ndms
-PKG_VERSION:=4.2.5
-PKG_RELEASE:=4
+PKG_NAME:=tvheadend_ndms_devel
+PKG_VERSION:=4.3.0
+PKG_RELEASE:=1
 
 PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
-PKG_SOURCE_VERSION:=1997b348aef279f0d0504ea50f907e458319864e
-# This is stable git version...
-# PKG_SOURCE_VERSION:=1a0262f5870e4fabd6b9c70a7bf2ebe420bc956e
+PKG_SOURCE_VERSION:=c64482d65db0e0cdb57b8dd991e4f21fc27b64be
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION)-$(PKG_SOURCE_VERSION).tar.gz
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_URL:=https://github.com/tvheadend/tvheadend.git
@@ -29,28 +27,31 @@ SHORT_GIT_VER:=$(shell echo $(PKG_SOURCE_VERSION) | cut -b -7)
 include $(INCLUDE_DIR)/package.mk
 include $(INCLUDE_DIR)/nls.mk
 
-define Package/tvheadend_ndms
+define Package/tvheadend_ndms_devel
   SECTION:=multimedia
   CATEGORY:=Multimedia
   TITLE:=Tvheadend is a TV streaming server for Linux
-  DEPENDS:=+libopenssl +librt +zlib +TVHEADEND_NDMS_AVAHI_SUPPORT:libavahi-client $(ICONV_DEPENDS)
+  DEPENDS:=+libpcre +libopenssl +librt +zlib +TVHEADEND_NDMS_DEVEL_AVAHI_SUPPORT:libavahi-client $(ICONV_DEPENDS)
   CONFLICTS:=tvheadend
+  PROVIDES:=tvheadend_ndms
   URL:=https://tvheadend.org
 ifneq (,$(filter mips mipsel,$(ARCH)))
   PKGARCH:=$(BOARD)_kn
 endif
 endef
 
-define Package/tvheadend_ndms/description
+define Package/tvheadend_ndms_devel/description
+  Warning! This is only developers version! Not recommendation for use, not stable!
+
   Tvheadend is a TV streaming server and recorder for Linux, FreeBSD and Android
   supporting DVB-S, DVB-S2, DVB-C, DVB-T, ATSC, IPTV, SAT>IP and HDHomeRun as input sources.
 
   Tvheadend offers the HTTP (VLC, MPlayer), HTSP (Kodi, Movian) and SAT>IP streaming.
 endef
 
-define Package/tvheadend_ndms/config
+define Package/tvheadend_ndms_devel/config
   menu "Configuration"
-  depends on PACKAGE_tvheadend_ndms
+  depends on PACKAGE_tvheadend_ndms_devel
   source "$(SOURCE)/Config.in"
   endmenu
 endef
@@ -63,19 +64,19 @@ ifeq ($(CONFIG_GCC_USE_VERSION_7_3_0),y)
 TARGET_CFLAGS+=-Wno-error=format-truncation -Wno-error=pointer-compare
 endif
 
-ifeq ($(CONFIG_TVHEADEND_NDMS_CWC_SUPPORT),)
+ifeq ($(CONFIG_TVHEADEND_NDMS_DEVEL_CWC_SUPPORT),)
   CONFIGURE_ARGS += --disable-cwc
 endif
 
-ifeq ($(CONFIG_TVHEADEND_NDMS_LINUXDVB_SUPPORT),)
+ifeq ($(CONFIG_TVHEADEND_NDMS_DEVEL_LINUXDVB_SUPPORT),)
   CONFIGURE_ARGS += --disable-linuxdvb
 endif
 
-ifeq ($(CONFIG_TVHEADEND_NDMS_DVBSCAN_SUPPORT),)
+ifeq ($(CONFIG_TVHEADEND_NDMS_DEVEL_DVBSCAN_SUPPORT),)
   CONFIGURE_ARGS += --disable-dvbscan
 endif
 
-ifeq ($(CONFIG_TVHEADEND_NDMS_AVAHI_SUPPORT),)
+ifeq ($(CONFIG_TVHEADEND_NDMS_DEVEL_AVAHI_SUPPORT),)
   CONFIGURE_ARGS += --disable-avahi
 else
   CONFIGURE_ARGS += --enable-avahi
@@ -98,17 +99,17 @@ define Package/conffiles
 /opt/etc/config/tvheadend
 endef
 
-define Package/tvheadend_ndms/postinst
+define Package/tvheadend_ndms_devel/postinst
 #!/bin/sh
 ln -sfn /opt/etc/init.d/S58tvheadend /opt/etc/default/usb_services/dvb/S58tvheadend
 endef
 
-define Package/tvheadend_ndms/postrm
+define Package/tvheadend_ndms_devel/postrm
 #!/bin/sh
 rm -rf /opt/etc/default/usb_services/dvb/S58tvheadend
 endef
 
-define Package/tvheadend_ndms/install
+define Package/tvheadend_ndms_devel/install
 	$(INSTALL_DIR) $(1)/opt/etc/default/usb_services/dvb
 	$(INSTALL_DIR) $(1)/opt/etc/init.d
 	$(INSTALL_BIN) ./files/tvheadend.init $(1)/opt/etc/init.d/S58tvheadend
@@ -120,4 +121,4 @@ define Package/tvheadend_ndms/install
 	$(CP) ./files/ru-all_dvb* $(1)/opt/share/tvheadend/data/dvb-scan/dvb-t/
 endef
 
-$(eval $(call BuildPackage,tvheadend_ndms))
+$(eval $(call BuildPackage,tvheadend_ndms_devel))
