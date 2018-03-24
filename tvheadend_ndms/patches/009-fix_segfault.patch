@@ -1,0 +1,12 @@
+diff -ruNp tvheadend_ndms-4.2.5.orig/src/satip/server.c tvheadend_ndms-4.2.5/src/satip/server.c
+--- tvheadend_ndms-4.2.5.orig/src/satip/server.c	2018-03-20 13:26:37.000000000 +0300
++++ tvheadend_ndms-4.2.5/src/satip/server.c	2018-03-24 21:50:44.820038457 +0300
+@@ -132,6 +132,8 @@ satip_server_http_xml(http_connection_t
+     {}
+   };
+ 
++  if (http_server_ip == NULL)
++    return 0;
+ 
+   htsbuf_queue_init(&q, 0);
+ 
