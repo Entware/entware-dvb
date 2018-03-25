@@ -1,7 +1,7 @@
-diff -ruN oscam-keenopt.orig/globals.h oscam-keenopt/globals.h
---- oscam-keenopt.orig/globals.h	2015-11-26 19:47:03.000000000 +0300
-+++ oscam-keenopt/globals.h	2015-11-26 21:56:02.015946208 +0300
-@@ -367,10 +367,10 @@
+diff -ruNp trunk.orig/globals.h trunk/globals.h
+--- trunk.orig/globals.h	2018-03-25 14:31:51.715352888 +0300
++++ trunk/globals.h	2018-03-25 14:36:57.185706785 +0300
+@@ -369,10 +369,10 @@ typedef unsigned char uchar;
  #   define CS_TARGET "unknown"
  #endif
  #ifndef CS_CONFDIR
@@ -14,10 +14,10 @@ diff -ruN oscam-keenopt.orig/globals.h oscam-keenopt/globals.h
  #endif
  #define CS_QLEN       128 // size of request queue
  #define CS_MAXPROV    32
-diff -ruN oscam-keenopt.orig/module-dvbapi.c oscam-keenopt/module-dvbapi.c
---- oscam-keenopt.orig/module-dvbapi.c	2015-11-26 19:47:03.000000000 +0300
-+++ oscam-keenopt/module-dvbapi.c	2015-11-26 22:00:01.499447974 +0300
-@@ -271,17 +271,17 @@
+diff -ruNp trunk.orig/module-dvbapi.c trunk/module-dvbapi.c
+--- trunk.orig/module-dvbapi.c	2018-03-25 14:31:52.807350444 +0300
++++ trunk/module-dvbapi.c	2018-03-25 14:36:57.189706801 +0300
+@@ -271,17 +271,17 @@ const char *boxdesc[] = { "none", "dream
  
  static const struct box_devices devices[BOX_COUNT] =
  {
@@ -43,7 +43,7 @@ diff -ruN oscam-keenopt.orig/module-dvbapi.c oscam-keenopt/module-dvbapi.c
  };
  
  static int32_t selected_box = -1;
-@@ -5035,7 +5035,7 @@
+@@ -5160,7 +5160,7 @@ static void *dvbapi_main_local(void *cli
  	int32_t maxpfdsize = (MAX_DEMUX * maxfilter) + MAX_DEMUX + 2;
  	struct pollfd pfd2[maxpfdsize];
  	struct timeb start, end;  // start time poll, end time poll
@@ -52,9 +52,9 @@ diff -ruN oscam-keenopt.orig/module-dvbapi.c oscam-keenopt/module-dvbapi.c
  	struct sockaddr_un saddr;
  	saddr.sun_family = AF_UNIX;
  	strncpy(saddr.sun_path, PMT_SERVER_SOCKET, 107);
-diff -ruN oscam-keenopt.orig/module-dvbapi.h oscam-keenopt/module-dvbapi.h
---- oscam-keenopt.orig/module-dvbapi.h	2015-11-26 19:47:03.000000000 +0300
-+++ oscam-keenopt/module-dvbapi.h	2015-11-26 21:58:33.058141974 +0300
+diff -ruNp trunk.orig/module-dvbapi.h trunk/module-dvbapi.h
+--- trunk.orig/module-dvbapi.h	2018-03-25 14:31:52.555351007 +0300
++++ trunk/module-dvbapi.h	2018-03-25 14:36:57.189706801 +0300
 @@ -21,9 +21,9 @@
  #define STANDBY_FILE    "./.pauseoscam"
  #define ECMINFO_FILE    "./ecm.info"
@@ -68,10 +68,26 @@ diff -ruN oscam-keenopt.orig/module-dvbapi.h oscam-keenopt/module-dvbapi.h
  #endif
  
  #define MAX_DEMUX 16
-diff -ruN oscam-keenopt.orig/oscam.c oscam-keenopt/oscam.c
---- oscam-keenopt.orig/oscam.c	2015-11-26 19:47:03.000000000 +0300
-+++ oscam-keenopt/oscam.c	2015-11-26 22:04:14.603062440 +0300
-@@ -158,7 +158,7 @@
+diff -ruNp trunk.orig/module-dvbapi-mca.c trunk/module-dvbapi-mca.c
+--- trunk.orig/module-dvbapi-mca.c	2018-03-25 14:31:52.555351007 +0300
++++ trunk/module-dvbapi-mca.c	2018-03-25 14:45:32.974363503 +0300
+@@ -61,9 +61,9 @@ static int fd_mdvbi = -1;
+ static int fd_mdesc = -1;
+ static int fd_mflt = -1;
+ 
+-#define MCA_DVBI "/tmp/mdvbi"
+-#define MCA_DESC "/tmp/mdesc"
+-#define MCA_FLT  "/tmp/mflt"
++#define MCA_DVBI "/opt/tmp/mdvbi"
++#define MCA_DESC "/opt/tmp/mdesc"
++#define MCA_FLT  "/opt/tmp/mflt"
+ 
+ enum eOPENXCAS_FILTER_TYPE
+ {
+diff -ruNp trunk.orig/oscam.c trunk/oscam.c
+--- trunk.orig/oscam.c	2018-03-25 14:31:52.547351025 +0300
++++ trunk/oscam.c	2018-03-25 14:40:58.154262359 +0300
+@@ -160,7 +160,7 @@ static void show_usage(void)
  #if defined(__CYGWIN__)
  	printf("                         . Default: (OS-TMP)\n");
  #else
@@ -80,7 +96,7 @@ diff -ruN oscam-keenopt.orig/oscam.c oscam-keenopt/oscam.c
  #endif
  	printf("\n Startup:\n");
  #if defined(WITH_STAPI) || defined(WITH_STAPI5)
-@@ -624,12 +624,12 @@
+@@ -638,12 +638,12 @@ static void cs_dumpstack(int32_t sig)
  	fprintf(fp, "FATAL: Signal %d: %s Fault. Logged StackTrace:\n\n", sig, (sig == SIGSEGV) ? "Segmentation" : ((sig == SIGBUS) ? "Bus" : "Unknown"));
  	fclose(fp);
  
@@ -95,23 +111,23 @@ diff -ruN oscam-keenopt.orig/oscam.c oscam-keenopt/oscam.c
  	if(system(buf) == -1)
  		{ fprintf(stderr, "Fatal error on trying to start gdb process."); }
  
-@@ -1590,15 +1590,15 @@
- static void find_conf_dir(void) 
+@@ -1645,15 +1645,15 @@ const struct s_cardreader *cardreaders[]
+ static void find_conf_dir(void)
   {
- 	static const char* confdirs[] = 
--		{	"/etc/tuxbox/config/", 
+ 	static const char* confdirs[] =
+-		{	"/etc/tuxbox/config/",
 -			"/etc/tuxbox/config/oscam/",
--			"/var/tuxbox/config/", 
--			"/usr/keys/", 
+-			"/var/tuxbox/config/",
+-			"/usr/keys/",
 -			"/var/keys/",
 -			"/var/etc/oscam/",
 -			"/var/etc/",
 -			"/var/oscam/",
 -			"/config/oscam/",
-+		{	"/opt/etc/tuxbox/config/", 
++		{	"/opt/etc/tuxbox/config/",
 +			"/opt/etc/tuxbox/config/oscam/",
-+			"/opt/var/tuxbox/config/", 
-+			"/opt/share/oscam/keys/", 
++			"/opt/var/tuxbox/config/",
++			"/opt/usr/share/oscam/keys/",
 +			"/opt/var/keys/",
 +			"/opt/var/etc/oscam/",
 +			"/opt/var/etc/",
@@ -119,11 +135,11 @@ diff -ruN oscam-keenopt.orig/oscam.c oscam-keenopt/oscam.c
 +			"/opt/etc/oscam/",
  			NULL
  		};
-  	
-diff -ruN oscam-keenopt.orig/oscam-files.c oscam-keenopt/oscam-files.c
---- oscam-keenopt.orig/oscam-files.c	2015-11-26 19:47:03.000000000 +0300
-+++ oscam-keenopt/oscam-files.c	2015-11-26 21:57:46.645445224 +0300
-@@ -31,7 +31,7 @@
+ 
+diff -ruNp trunk.orig/oscam-files.c trunk/oscam-files.c
+--- trunk.orig/oscam-files.c	2018-03-25 14:31:53.151349672 +0300
++++ trunk/oscam-files.c	2018-03-25 14:36:57.189706801 +0300
+@@ -31,7 +31,7 @@ char *get_tmp_dir(void)
  		{ strcat(cs_tmpdir, "/"); }
  	strcat(cs_tmpdir, "_oscam");
  #else

@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2015-2017 NDM Systems, McMCC
+# Copyright (C) 2015-2018 NDM Systems, McMCC
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -9,12 +9,11 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=oscam-emu
-PKG_RELEASE:=2
-
+PKG_RELEASE:=1
 PKG_SOURCE_URL:=http://www.streamboard.tv/svn/oscam/trunk
-PKG_REV:=11142
-PKG_VER:=2015-12-12
-PKG_VERSION:=$(PKG_VER)-$(PKG_REV)
+PKG_REV:=11401
+PKG_VER:=2018-02-03
+PKG_VERSION:=$(PKG_VER)-r$(PKG_REV)
 
 PKG_SOURCE_PROTO:=svn
 PKG_SOURCE_VERSION:=$(PKG_REV)
@@ -60,6 +59,8 @@ define Package/oscam-emu/conffiles
 /opt/etc/oscam/oscam.conf
 /opt/etc/oscam/oscam.server
 /opt/etc/oscam/oscam.user
+/opt/etc/oscam/oscam.dvbapi
+/opt/etc/oscam/SoftCam.Key
 endef
 
 define Package/oscam-emu/install
@@ -69,8 +70,10 @@ define Package/oscam-emu/install
 	$(INSTALL_CONF) ./files/oscam.conf $(1)/opt/etc/oscam/
 	$(INSTALL_CONF) ./files/oscam.server $(1)/opt/etc/oscam/
 	$(INSTALL_CONF) ./files/oscam.user $(1)/opt/etc/oscam/
+	$(INSTALL_CONF) ./files/oscam.dvbapi $(1)/opt/etc/oscam/
+	$(INSTALL_CONF) ./files/SoftCam.Key $(1)/opt/etc/oscam/
 	$(INSTALL_DIR) $(1)/opt/etc/init.d
-	$(INSTALL_BIN) ./files/oscam.init $(1)/opt/etc/init.d/S59oscam
+	$(INSTALL_BIN) ./files/oscam.init $(1)/opt/etc/init.d/S48oscam
 endef
 
 define Package/list-smargo-emu/install

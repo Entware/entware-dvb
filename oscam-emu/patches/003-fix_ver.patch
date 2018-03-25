@@ -1,7 +1,7 @@
-diff -ruN oscam-2015-11-26-11178.orig/Makefile oscam-2015-11-26-11178/Makefile
---- oscam-2015-11-26-11178.orig/Makefile	2015-10-01 00:11:35.000000000 +0300
-+++ oscam-2015-11-26-11178/Makefile	2015-11-26 23:03:29.338911796 +0300
-@@ -5,7 +5,7 @@
+diff -ruNp trunk.orig/Makefile trunk/Makefile
+--- trunk.orig/Makefile	2018-03-25 14:31:51.587353173 +0300
++++ trunk/Makefile	2018-03-25 14:56:11.591981095 +0300
+@@ -5,7 +5,7 @@ SHELL = /bin/sh
  .PHONY: all tests help README.build README.config simple default debug config menuconfig allyesconfig allnoconfig defconfig clean distclean
  
  VER     := $(shell ./config.sh --oscam-version)
@@ -10,7 +10,7 @@ diff -ruN oscam-2015-11-26-11178.orig/Makefile oscam-2015-11-26-11178/Makefile
  
  uname_S := $(shell sh -c 'uname -s 2>/dev/null || echo not')
  
-@@ -35,7 +35,7 @@
+@@ -35,7 +35,7 @@ ifdef USE_SSL
  	override USE_LIBCRYPTO=1
  endif
  
