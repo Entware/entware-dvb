@@ -1,0 +1,34 @@
+diff -ruN tvheadend_ndms-4.2.6.orig/configure tvheadend_ndms-4.2.6/configure
+--- tvheadend_ndms-4.2.6.orig/configure	2018-03-30 20:24:31.857686564 +0300
++++ tvheadend_ndms-4.2.6/configure	2018-03-30 20:27:36.318998569 +0300
+@@ -60,7 +60,7 @@
+   "bundle:no"
+   "pngquant:no"
+   "dvbcsa:no"
+-  "dvben50221:auto"
++  "dvben50221:yes"
+   "kqueue:no"
+   "dbus_1:auto"
+   "android:no"
+@@ -276,20 +276,7 @@
+ fi
+ 
+ if enabled_or_auto dvben50221; then
+-  check_cc_snippet libdvben50221 '
+-  #include <libdvben50221/en50221_session.h>
+-  #define TEST test
+-  int test(void)
+-  {
+-    struct en50221_transport_layer *tl = en50221_tl_create(5, 32);
+-    return 0;
+-  }
+-  ' '-ldvben50221 -ldvbapi -lucsi'
+-  if enabled libdvben50221; then
+-    enable dvben50221
+-  else
+-    disable dvben50221
+-  fi
++  enable libdvben50221
+ fi
+ 
+ check_cc_snippet ifnames '

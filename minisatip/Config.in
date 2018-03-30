@@ -11,6 +11,11 @@ config MINISATIP_DVBAES_SUPPORT
 	bool "AES support"
 	default n
 
+config MINISATIP_DVBCA_SUPPORT
+        depends on MINISATIP_DVBCSA_SUPPORT && MINISATIP_DVBAES_SUPPORT
+	bool "CAM module CI/CI+ support"
+	default n
+
 config MINISATIP_CLIENT_SUPPORT
 	bool "SatIP client support"
 	default n

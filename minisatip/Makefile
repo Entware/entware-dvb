@@ -6,7 +6,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=minisatip
 PKG_VERSION:=0.7
-PKG_RELEASE:=5
+PKG_RELEASE:=6
 PKG_SOURCE_VERSION:=cea9e4deee1062c492bcef2fa7967468ec8c908d
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_URL:=git://github.com/catalinii/minisatip.git
@@ -17,11 +17,13 @@ PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME)-$(PKG_VERSION)
 
 include $(INCLUDE_DIR)/package.mk
 
+DEP_CAS:=+libdvben50221 +libdvbapi +libucsi +ci-plus-sert
+
 define Package/minisatip
   SECTION:=multimedia
   CATEGORY:=Multimedia
   TITLE:= MiniSatIP server for Linux
-  DEPENDS:=+librt +libpthread +MINISATIP_DVBAES_SUPPORT:libopenssl +MINISATIP_DVBCSA_SUPPORT:libdvbcsa
+  DEPENDS:=+librt +libpthread +MINISATIP_DVBAES_SUPPORT:libopenssl +MINISATIP_DVBCSA_SUPPORT:libdvbcsa +MINISATIP_DVBCA_SUPPORT:$(DEP_CAS)
   URL:=https://github.com/catalinii/minisatip
 ifneq (,$(filter mips mipsel,$(ARCH)))
   PKGARCH:=$(BOARD)_kn
@@ -39,12 +41,16 @@ define Package/minisatip/config
 endef
 
 CONFIGURE_ARGS += \
-	--disable-netceiver \
-	--disable-dvbca
+	--disable-netceiver
 
 ifeq ($(CONFIG_MINISATIP_DVBCSA_SUPPORT),)
   CONFIGURE_ARGS += \
 	--disable-dvbcsa
+endif
+
+ifeq ($(CONFIG_MINISATIP_DVBCA_SUPPORT),)
+  CONFIGURE_ARGS += \
+	--disable-dvbca
 endif
 
 ifeq ($(CONFIG_MINISATIP_DVBAES_SUPPORT),)

@@ -6,7 +6,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=tvheadend_ndms
 PKG_VERSION:=4.2.6
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 
 PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
 PKG_SOURCE_VERSION:=74220185d4f71f4c72b386b23cb3ca15cca2d051
@@ -29,11 +29,14 @@ SHORT_GIT_VER:=$(shell echo $(PKG_SOURCE_VERSION) | cut -b -7)
 include $(INCLUDE_DIR)/package.mk
 include $(INCLUDE_DIR)/nls.mk
 
+DEP_CAS:=+libdvben50221 +libdvbapi +libucsi
+
 define Package/tvheadend_ndms
   SECTION:=multimedia
   CATEGORY:=Multimedia
   TITLE:=Tvheadend is a TV streaming server for Linux
-  DEPENDS:=+libopenssl +librt +zlib +TVHEADEND_NDMS_AVAHI_SUPPORT:libavahi-client $(ICONV_DEPENDS)
+  DEPENDS:=+libopenssl +librt +zlib +TVHEADEND_NDMS_AVAHI_SUPPORT:libavahi-client $(ICONV_DEPENDS) \
+           +TVHEADEND_NDMS_LINUXDVB_CA_SUPPORT:$(DEP_CAS)
   CONFLICTS:=tvheadend
   URL:=https://tvheadend.org
 ifneq (,$(filter mips mipsel,$(ARCH)))
@@ -69,6 +72,10 @@ endif
 
 ifeq ($(CONFIG_TVHEADEND_NDMS_LINUXDVB_SUPPORT),)
   CONFIGURE_ARGS += --disable-linuxdvb
+endif
+
+ifneq ($(CONFIG_TVHEADEND_NDMS_LINUXDVB_CA_SUPPORT),)
+  CONFIGURE_ARGS += --enable-dvben50221
 endif
 
 ifeq ($(CONFIG_TVHEADEND_NDMS_DVBSCAN_SUPPORT),)
