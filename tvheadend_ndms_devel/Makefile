@@ -9,7 +9,7 @@ PKG_VERSION:=4.3.0
 PKG_RELEASE:=1
 
 PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
-PKG_SOURCE_VERSION:=5de70b42e078170172af604f58831f26360fa710
+PKG_SOURCE_VERSION:=39a8ef2c1fdcea9ba101bac56bb94165e425d3b0
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION)-$(PKG_SOURCE_VERSION).tar.gz
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_URL:=https://github.com/tvheadend/tvheadend.git
@@ -31,7 +31,7 @@ define Package/tvheadend_ndms_devel
   SECTION:=multimedia
   CATEGORY:=Multimedia
   TITLE:=Tvheadend is a TV streaming server for Linux
-  DEPENDS:=+libpcre +libopenssl +librt +zlib +TVHEADEND_NDMS_DEVEL_AVAHI_SUPPORT:libavahi-client $(ICONV_DEPENDS)
+  DEPENDS:=+libpcre +libopenssl +librt +zlib +libdvbcsa +TVHEADEND_NDMS_DEVEL_AVAHI_SUPPORT:libavahi-client $(ICONV_DEPENDS)
   CONFLICTS:=tvheadend
   PROVIDES:=tvheadend_ndms
   URL:=https://tvheadend.org
