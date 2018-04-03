@@ -1,6 +1,6 @@
-diff -ruNp trunk.orig/CMakeLists.txt trunk/CMakeLists.txt
---- trunk.orig/CMakeLists.txt	2018-03-25 14:31:53.151349672 +0300
-+++ trunk/CMakeLists.txt	2018-03-25 15:00:12.373807008 +0300
+diff -ruNp trunk.patches/CMakeLists.txt trunk/CMakeLists.txt
+--- trunk.patches/CMakeLists.txt	2018-04-03 02:44:09.770266229 +0300
++++ trunk/CMakeLists.txt	2018-04-03 03:20:07.654045339 +0300
 @@ -101,6 +101,7 @@ include_directories (
      ${CMAKE_CURRENT_SOURCE_DIR}/csctapi
      ${CMAKE_CURRENT_SOURCE_DIR}/cscrypt
@@ -92,9 +92,9 @@ diff -ruNp trunk.orig/CMakeLists.txt trunk/CMakeLists.txt
 +endif (WITH_EMU)
 +
  message (STATUS "")
-diff -ruNp trunk.orig/config.h trunk/config.h
---- trunk.orig/config.h	2018-03-25 14:46:42.842348711 +0300
-+++ trunk/config.h	2018-03-25 15:00:12.373807008 +0300
+diff -ruNp trunk.patches/config.h trunk/config.h
+--- trunk.patches/config.h	2018-04-03 02:48:33.320455383 +0300
++++ trunk/config.h	2018-04-03 03:20:07.654045339 +0300
 @@ -1,6 +1,7 @@
  #ifndef CONFIG_H_
  #define CONFIG_H_
@@ -103,9 +103,9 @@ diff -ruNp trunk.orig/config.h trunk/config.h
  #define WEBIF 1
  #define WEBIF_LIVELOG 1
  #define WEBIF_JQUERY 1
-diff -ruNp trunk.orig/config.sh trunk/config.sh
---- trunk.orig/config.sh	2018-03-25 14:31:52.547351025 +0300
-+++ trunk/config.sh	2018-03-25 15:00:12.373807008 +0300
+diff -ruNp trunk.patches/config.sh trunk/config.sh
+--- trunk.patches/config.sh	2018-04-03 02:44:09.134260896 +0300
++++ trunk/config.sh	2018-04-03 03:20:07.654045339 +0300
 @@ -1,6 +1,6 @@
  #!/bin/sh
  
@@ -161,9 +161,9 @@ diff -ruNp trunk.orig/config.sh trunk/config.sh
  		2> ${tempfile}
  
  	opt=${?}
-diff -ruNp trunk.orig/cscrypt/aes.c trunk/cscrypt/aes.c
---- trunk.orig/cscrypt/aes.c	2018-03-25 14:31:53.299349341 +0300
-+++ trunk/cscrypt/aes.c	2018-03-25 15:00:12.377807034 +0300
+diff -ruNp trunk.patches/cscrypt/aes.c trunk/cscrypt/aes.c
+--- trunk.patches/cscrypt/aes.c	2018-04-03 02:44:10.098268979 +0300
++++ trunk/cscrypt/aes.c	2018-04-03 03:20:07.654045339 +0300
 @@ -1250,4 +1250,71 @@ void AES_decrypt(const unsigned char *in
  		rk[3];
  	PUTU32(out + 12, s3);
@@ -236,9 +236,9 @@ diff -ruNp trunk.orig/cscrypt/aes.c trunk/cscrypt/aes.c
 +	}
 +}
  #endif
-diff -ruNp trunk.orig/cscrypt/aes.h trunk/cscrypt/aes.h
---- trunk.orig/cscrypt/aes.h	2018-03-25 14:31:53.299349341 +0300
-+++ trunk/cscrypt/aes.h	2018-03-25 15:00:12.377807034 +0300
+diff -ruNp trunk.patches/cscrypt/aes.h trunk/cscrypt/aes.h
+--- trunk.patches/cscrypt/aes.h	2018-04-03 02:44:10.098268979 +0300
++++ trunk/cscrypt/aes.h	2018-04-03 03:20:07.654045339 +0300
 @@ -42,6 +42,9 @@ void AES_encrypt(const unsigned char *in
  void AES_decrypt(const unsigned char *in, unsigned char *out,
  				 const AES_KEY *key);
@@ -249,9 +249,9 @@ diff -ruNp trunk.orig/cscrypt/aes.h trunk/cscrypt/aes.h
  #endif /* !HEADER_AES_H */
  
  #endif
-diff -ruNp trunk.orig/cscrypt/md5.c trunk/cscrypt/md5.c
---- trunk.orig/cscrypt/md5.c	2018-03-25 14:31:53.175349619 +0300
-+++ trunk/cscrypt/md5.c	2018-03-25 15:00:12.377807034 +0300
+diff -ruNp trunk.patches/cscrypt/md5.c trunk/cscrypt/md5.c
+--- trunk.patches/cscrypt/md5.c	2018-04-03 02:44:10.090268912 +0300
++++ trunk/cscrypt/md5.c	2018-04-03 03:20:07.654045339 +0300
 @@ -25,13 +25,6 @@
  
  #if !defined(WITH_SSL) && !defined(WITH_LIBCRYPTO)
@@ -293,9 +293,9 @@ diff -ruNp trunk.orig/cscrypt/md5.c trunk/cscrypt/md5.c
  {
  	unsigned count;
  	unsigned char *p;
-diff -ruNp trunk.orig/cscrypt/md5.h trunk/cscrypt/md5.h
---- trunk.orig/cscrypt/md5.h	2018-03-25 14:31:53.299349341 +0300
-+++ trunk/cscrypt/md5.h	2018-03-25 15:00:12.377807034 +0300
+diff -ruNp trunk.patches/cscrypt/md5.h trunk/cscrypt/md5.h
+--- trunk.patches/cscrypt/md5.h	2018-04-03 02:44:10.102269013 +0300
++++ trunk/cscrypt/md5.h	2018-04-03 03:20:07.654045339 +0300
 @@ -7,8 +7,16 @@
  #define MD5_DIGEST_LENGTH 16
  
@@ -315,9 +315,9 @@ diff -ruNp trunk.orig/cscrypt/md5.h trunk/cscrypt/md5.h
 +#endif
 +char *__md5_crypt(const char *text_pass, const char *salt, char *crypted_passwd);
  #endif
-diff -ruNp trunk.orig/csctapi/cardreaders.h trunk/csctapi/cardreaders.h
---- trunk.orig/csctapi/cardreaders.h	2018-03-25 14:31:52.547351025 +0300
-+++ trunk/csctapi/cardreaders.h	2018-03-25 15:00:12.377807034 +0300
+diff -ruNp trunk.patches/csctapi/cardreaders.h trunk/csctapi/cardreaders.h
+--- trunk.patches/csctapi/cardreaders.h	2018-04-03 02:44:09.226261666 +0300
++++ trunk/csctapi/cardreaders.h	2018-04-03 03:20:07.654045339 +0300
 @@ -14,5 +14,6 @@ extern const struct s_cardreader cardrea
  extern const struct s_cardreader cardreader_stapi;
  extern const struct s_cardreader cardreader_stinger;
@@ -325,9 +325,9 @@ diff -ruNp trunk.orig/csctapi/cardreaders.h trunk/csctapi/cardreaders.h
 +extern const struct s_cardreader cardreader_emu;
  
  #endif
-diff -ruNp trunk.orig/ffdecsa/CMakeLists.txt trunk/ffdecsa/CMakeLists.txt
---- trunk.orig/ffdecsa/CMakeLists.txt	1970-01-01 03:00:00.000000000 +0300
-+++ trunk/ffdecsa/CMakeLists.txt	2018-03-25 15:00:12.377807034 +0300
+diff -ruNp trunk.patches/ffdecsa/CMakeLists.txt trunk/ffdecsa/CMakeLists.txt
+--- trunk.patches/ffdecsa/CMakeLists.txt	1970-01-01 03:00:00.000000000 +0300
++++ trunk/ffdecsa/CMakeLists.txt	2018-04-03 03:20:07.654045339 +0300
 @@ -0,0 +1,8 @@
 +project (ffdecsa)
 +
@@ -337,9 +337,9 @@ diff -ruNp trunk.orig/ffdecsa/CMakeLists.txt trunk/ffdecsa/CMakeLists.txt
 +set (lib_name "ffdecsa")
 +
 +add_library (${lib_name} STATIC ${ffdecsa_srcs} ${ffdecsa_hdrs})
-diff -ruNp trunk.orig/ffdecsa/COPYING trunk/ffdecsa/COPYING
---- trunk.orig/ffdecsa/COPYING	1970-01-01 03:00:00.000000000 +0300
-+++ trunk/ffdecsa/COPYING	2018-03-25 15:00:12.377807034 +0300
+diff -ruNp trunk.patches/ffdecsa/COPYING trunk/ffdecsa/COPYING
+--- trunk.patches/ffdecsa/COPYING	1970-01-01 03:00:00.000000000 +0300
++++ trunk/ffdecsa/COPYING	2018-04-03 03:20:07.658045369 +0300
 @@ -0,0 +1,339 @@
 +		    GNU GENERAL PUBLIC LICENSE
 +		       Version 2, June 1991
@@ -680,9 +680,9 @@ diff -ruNp trunk.orig/ffdecsa/COPYING trunk/ffdecsa/COPYING
 +consider it more useful to permit linking proprietary applications with the
 +library.  If this is what you want to do, use the GNU Library General
 +Public License instead of this License.
-diff -ruNp trunk.orig/ffdecsa/ffdecsa.c trunk/ffdecsa/ffdecsa.c
---- trunk.orig/ffdecsa/ffdecsa.c	1970-01-01 03:00:00.000000000 +0300
-+++ trunk/ffdecsa/ffdecsa.c	2018-03-25 15:00:12.377807034 +0300
+diff -ruNp trunk.patches/ffdecsa/ffdecsa.c trunk/ffdecsa/ffdecsa.c
+--- trunk.patches/ffdecsa/ffdecsa.c	1970-01-01 03:00:00.000000000 +0300
++++ trunk/ffdecsa/ffdecsa.c	2018-04-03 03:20:07.658045369 +0300
 @@ -0,0 +1,926 @@
 +/* FFdecsa -- fast decsa algorithm
 + *
@@ -1610,9 +1610,9 @@ diff -ruNp trunk.orig/ffdecsa/ffdecsa.c trunk/ffdecsa/ffdecsa.c
 +
 +  return advanced;
 +}
-diff -ruNp trunk.orig/ffdecsa/ffdecsa.h trunk/ffdecsa/ffdecsa.h
---- trunk.orig/ffdecsa/ffdecsa.h	1970-01-01 03:00:00.000000000 +0300
-+++ trunk/ffdecsa/ffdecsa.h	2018-03-25 15:00:12.377807034 +0300
+diff -ruNp trunk.patches/ffdecsa/ffdecsa.h trunk/ffdecsa/ffdecsa.h
+--- trunk.patches/ffdecsa/ffdecsa.h	1970-01-01 03:00:00.000000000 +0300
++++ trunk/ffdecsa/ffdecsa.h	2018-04-03 03:20:07.658045369 +0300
 @@ -0,0 +1,62 @@
 +/* FFdecsa -- fast decsa algorithm
 + *
@@ -1676,9 +1676,9 @@ diff -ruNp trunk.orig/ffdecsa/ffdecsa.h trunk/ffdecsa/ffdecsa.h
 +int decrypt_packets(void *keys, unsigned char **cluster);
 +
 +#endif
-diff -ruNp trunk.orig/ffdecsa/fftable.h trunk/ffdecsa/fftable.h
---- trunk.orig/ffdecsa/fftable.h	1970-01-01 03:00:00.000000000 +0300
-+++ trunk/ffdecsa/fftable.h	2018-03-25 15:00:12.377807034 +0300
+diff -ruNp trunk.patches/ffdecsa/fftable.h trunk/ffdecsa/fftable.h
+--- trunk.patches/ffdecsa/fftable.h	1970-01-01 03:00:00.000000000 +0300
++++ trunk/ffdecsa/fftable.h	2018-04-03 03:20:07.658045369 +0300
 @@ -0,0 +1,56 @@
 +/* FFdecsa -- fast decsa algorithm
 + *
@@ -1736,15 +1736,15 @@ diff -ruNp trunk.orig/ffdecsa/fftable.h trunk/ffdecsa/fftable.h
 +}
 +
 +#endif //FFTABLE_H 
-diff -ruNp trunk.orig/ffdecsa/Makefile trunk/ffdecsa/Makefile
---- trunk.orig/ffdecsa/Makefile	1970-01-01 03:00:00.000000000 +0300
-+++ trunk/ffdecsa/Makefile	2018-03-25 15:00:12.377807034 +0300
+diff -ruNp trunk.patches/ffdecsa/Makefile trunk/ffdecsa/Makefile
+--- trunk.patches/ffdecsa/Makefile	1970-01-01 03:00:00.000000000 +0300
++++ trunk/ffdecsa/Makefile	2018-04-03 03:20:07.658045369 +0300
 @@ -0,0 +1,2 @@
 +parent:
 +	@$(MAKE) --no-print-directory -C ..
-diff -ruNp trunk.orig/ffdecsa/parallel_032_int.h trunk/ffdecsa/parallel_032_int.h
---- trunk.orig/ffdecsa/parallel_032_int.h	1970-01-01 03:00:00.000000000 +0300
-+++ trunk/ffdecsa/parallel_032_int.h	2018-03-25 15:00:12.377807034 +0300
+diff -ruNp trunk.patches/ffdecsa/parallel_032_int.h trunk/ffdecsa/parallel_032_int.h
+--- trunk.patches/ffdecsa/parallel_032_int.h	1970-01-01 03:00:00.000000000 +0300
++++ trunk/ffdecsa/parallel_032_int.h	2018-04-03 03:20:07.658045369 +0300
 @@ -0,0 +1,55 @@
 +/* FFdecsa -- fast decsa algorithm
 + *
@@ -1801,9 +1801,9 @@ diff -ruNp trunk.orig/ffdecsa/parallel_032_int.h trunk/ffdecsa/parallel_032_int.
 +#define B_FFN_ALL_80() 0x80808080
 +
 +#define M_EMPTY()
-diff -ruNp trunk.orig/ffdecsa/parallel_064_long.h trunk/ffdecsa/parallel_064_long.h
---- trunk.orig/ffdecsa/parallel_064_long.h	1970-01-01 03:00:00.000000000 +0300
-+++ trunk/ffdecsa/parallel_064_long.h	2018-03-25 15:00:12.377807034 +0300
+diff -ruNp trunk.patches/ffdecsa/parallel_064_long.h trunk/ffdecsa/parallel_064_long.h
+--- trunk.patches/ffdecsa/parallel_064_long.h	1970-01-01 03:00:00.000000000 +0300
++++ trunk/ffdecsa/parallel_064_long.h	2018-04-03 03:20:07.658045369 +0300
 @@ -0,0 +1,39 @@
 +/* FFdecsa -- fast decsa algorithm
 + *
@@ -1844,9 +1844,9 @@ diff -ruNp trunk.orig/ffdecsa/parallel_064_long.h trunk/ffdecsa/parallel_064_lon
 +#define M_EMPTY()
 +
 +#include "fftable.h"
-diff -ruNp trunk.orig/ffdecsa/parallel_128_sse2.h trunk/ffdecsa/parallel_128_sse2.h
---- trunk.orig/ffdecsa/parallel_128_sse2.h	1970-01-01 03:00:00.000000000 +0300
-+++ trunk/ffdecsa/parallel_128_sse2.h	2018-03-25 15:00:12.377807034 +0300
+diff -ruNp trunk.patches/ffdecsa/parallel_128_sse2.h trunk/ffdecsa/parallel_128_sse2.h
+--- trunk.patches/ffdecsa/parallel_128_sse2.h	1970-01-01 03:00:00.000000000 +0300
++++ trunk/ffdecsa/parallel_128_sse2.h	2018-04-03 03:20:07.658045369 +0300
 @@ -0,0 +1,82 @@
 +/* FFdecsa -- fast decsa algorithm
 + *
@@ -1930,9 +1930,9 @@ diff -ruNp trunk.orig/ffdecsa/parallel_128_sse2.h trunk/ffdecsa/parallel_128_sse
 +}
 +
 +#include "fftable.h"
-diff -ruNp trunk.orig/ffdecsa/parallel_generic.h trunk/ffdecsa/parallel_generic.h
---- trunk.orig/ffdecsa/parallel_generic.h	1970-01-01 03:00:00.000000000 +0300
-+++ trunk/ffdecsa/parallel_generic.h	2018-03-25 15:00:12.377807034 +0300
+diff -ruNp trunk.patches/ffdecsa/parallel_generic.h trunk/ffdecsa/parallel_generic.h
+--- trunk.patches/ffdecsa/parallel_generic.h	1970-01-01 03:00:00.000000000 +0300
++++ trunk/ffdecsa/parallel_generic.h	2018-04-03 03:20:07.658045369 +0300
 @@ -0,0 +1,102 @@
 +/* FFdecsa -- fast decsa algorithm
 + *
@@ -2036,9 +2036,9 @@ diff -ruNp trunk.orig/ffdecsa/parallel_generic.h trunk/ffdecsa/parallel_generic.
 +
 +#define END_MM             do{ }while(0);
 +#endif
-diff -ruNp trunk.orig/ffdecsa/parallel_std_def.h trunk/ffdecsa/parallel_std_def.h
---- trunk.orig/ffdecsa/parallel_std_def.h	1970-01-01 03:00:00.000000000 +0300
-+++ trunk/ffdecsa/parallel_std_def.h	2018-03-25 15:00:12.377807034 +0300
+diff -ruNp trunk.patches/ffdecsa/parallel_std_def.h trunk/ffdecsa/parallel_std_def.h
+--- trunk.patches/ffdecsa/parallel_std_def.h	1970-01-01 03:00:00.000000000 +0300
++++ trunk/ffdecsa/parallel_std_def.h	2018-04-03 03:20:07.658045369 +0300
 @@ -0,0 +1,29 @@
 +/* FFdecsa -- fast decsa algorithm
 + *
@@ -2069,9 +2069,9 @@ diff -ruNp trunk.orig/ffdecsa/parallel_std_def.h trunk/ffdecsa/parallel_std_def.
 +#define B_FFXOR(a,b) ((a)^(b))
 +#define B_FFSH8L(a,n) ((a)<<(n))
 +#define B_FFSH8R(a,n) ((a)>>(n))
-diff -ruNp trunk.orig/ffdecsa/stream.c trunk/ffdecsa/stream.c
---- trunk.orig/ffdecsa/stream.c	1970-01-01 03:00:00.000000000 +0300
-+++ trunk/ffdecsa/stream.c	2018-03-25 15:00:12.377807034 +0300
+diff -ruNp trunk.patches/ffdecsa/stream.c trunk/ffdecsa/stream.c
+--- trunk.patches/ffdecsa/stream.c	1970-01-01 03:00:00.000000000 +0300
++++ trunk/ffdecsa/stream.c	2018-04-03 03:20:07.658045369 +0300
 @@ -0,0 +1,906 @@
 +/* FFdecsa -- fast decsa algorithm
 + *
@@ -2979,10 +2979,10 @@ diff -ruNp trunk.orig/ffdecsa/stream.c trunk/ffdecsa/stream.c
 +
 +}
 +
-diff -ruNp trunk.orig/globals.h trunk/globals.h
---- trunk.orig/globals.h	2018-03-25 14:36:57.185706785 +0300
-+++ trunk/globals.h	2018-03-25 15:00:12.377807034 +0300
-@@ -389,17 +389,17 @@ typedef unsigned char uchar;
+diff -ruNp trunk.patches/globals.h trunk/globals.h
+--- trunk.patches/globals.h	2018-04-03 03:02:59.558440627 +0300
++++ trunk/globals.h	2018-04-03 03:20:07.658045369 +0300
+@@ -392,17 +392,17 @@ typedef unsigned char uchar;
  #define CS_ECM_RINGBUFFER_MAX 0x10 // max size for ECM last responsetimes ringbuffer. Keep this set to power of 2 values!
  
  // Support for multiple CWs per channel and other encryption algos
@@ -3004,7 +3004,7 @@ diff -ruNp trunk.orig/globals.h trunk/globals.h
  #define MSGLOGSIZE 64   //size of string buffer for a ecm to return messages
  
  #define D_TRACE     0x0001  // Generate very detailed error/trace messages per routine
-@@ -431,6 +431,7 @@ typedef unsigned char uchar;
+@@ -434,6 +434,7 @@ typedef unsigned char uchar;
  #define R_SMART     0x7 // Smartreader+
  #define R_PCSC      0x8 // PCSC
  #define R_DRECAS    0x9 // Reader DRECAS
@@ -3012,7 +3012,7 @@ diff -ruNp trunk.orig/globals.h trunk/globals.h
  /////////////////// proxy readers after R_CS378X
  #define R_CAMD35    0x20  // Reader cascading camd 3.5x
  #define R_CAMD33    0x21  // Reader cascading camd 3.3x
-@@ -858,6 +859,13 @@ typedef struct s_entitlement
+@@ -861,6 +862,13 @@ typedef struct s_entitlement
  	uint32_t        class;              // the class needed for some systems
  	time_t          start;              // startdate
  	time_t          end;                // enddate
@@ -3026,7 +3026,7 @@ diff -ruNp trunk.orig/globals.h trunk/globals.h
  } S_ENTITLEMENT;
  
  struct s_client ;
-@@ -982,6 +990,7 @@ struct s_cardsystem
+@@ -985,6 +993,7 @@ struct s_cardsystem
  	void (*post_process)(struct s_reader *);
  	int32_t (*get_emm_type)(struct emm_packet_t *, struct s_reader *);
  	int32_t (*get_emm_filter)(struct s_reader *, struct s_csystem_emm_filter **, unsigned int *);
@@ -3034,7 +3034,7 @@ diff -ruNp trunk.orig/globals.h trunk/globals.h
  	int32_t (*get_tunemm_filter)(struct s_reader *, struct s_csystem_emm_filter **, unsigned int *);
  };
  
-@@ -1714,6 +1723,14 @@ struct s_reader
+@@ -1717,6 +1726,14 @@ struct s_reader
  #ifdef MODULE_GHTTP
  	uint8_t         ghttp_use_ssl;
  #endif
@@ -3049,7 +3049,7 @@ diff -ruNp trunk.orig/globals.h trunk/globals.h
  	uint8_t cnxlastecm; // == 0 - las ecm has not been paired ecm, > 0 last ecm has been paired ecm
  	LLIST           *emmstat; //emm stats
  	CS_MUTEX_LOCK   emmstat_lock;
-@@ -2164,6 +2181,7 @@ struct s_config
+@@ -2167,6 +2184,7 @@ struct s_config
  	int8_t      dvbapi_read_sdt;
  	int8_t      dvbapi_write_sdt_prov;
  	int8_t      dvbapi_extended_cw_api;
@@ -3057,7 +3057,7 @@ diff -ruNp trunk.orig/globals.h trunk/globals.h
  #endif
  
  #ifdef CS_ANTICASC
-@@ -2210,6 +2228,18 @@ struct s_config
+@@ -2213,6 +2231,18 @@ struct s_config
  	IN_ADDR_T   scam_srvip;
  	struct s_ip *scam_allowed;
  #endif
@@ -3076,7 +3076,7 @@ diff -ruNp trunk.orig/globals.h trunk/globals.h
  	int32_t    max_cache_time;  //seconds ecms are stored in ecmcwcache
  	int32_t    max_hitcache_time;  //seconds hits are stored in cspec_hitcache (to detect dyn wait_time)
  
-@@ -2391,4 +2421,8 @@ static inline bool caid_is_bulcrypt(uint
+@@ -2394,4 +2424,8 @@ static inline bool caid_is_bulcrypt(uint
  static inline bool caid_is_dre(uint16_t caid) { return caid == 0x4AE0 || caid == 0x4AE1 || caid == 0x2710;}
  const char *get_cardsystem_desc_by_caid(uint16_t caid);
  
@@ -3085,10 +3085,10 @@ diff -ruNp trunk.orig/globals.h trunk/globals.h
 +#endif
 +
  #endif
-diff -ruNp trunk.orig/Makefile trunk/Makefile
---- trunk.orig/Makefile	2018-03-25 14:56:11.591981095 +0300
-+++ trunk/Makefile	2018-03-25 15:00:12.373807008 +0300
-@@ -65,6 +65,13 @@ STRIP = $(CROSS_DIR)$(CROSS)strip
+diff -ruNp trunk.patches/Makefile trunk/Makefile
+--- trunk.patches/Makefile	2018-04-03 03:01:12.325689204 +0300
++++ trunk/Makefile	2018-04-03 03:20:07.654045339 +0300
+@@ -67,6 +67,13 @@ STRIP = $(CROSS_DIR)$(CROSS)strip
  
  LDFLAGS = -Wl,--gc-sections
  
@@ -3102,7 +3102,7 @@ diff -ruNp trunk.orig/Makefile trunk/Makefile
  # The linker for powerpc have bug that prevents --gc-sections from working
  # Check for the linker version and if it matches disable --gc-sections
  # For more information about the bug see:
-@@ -268,6 +275,21 @@ SRC-$(CONFIG_CS_CACHEEX) += module-cccam
+@@ -270,6 +277,21 @@ SRC-$(CONFIG_CS_CACHEEX) += module-cccam
  SRC-$(CONFIG_MODULE_CCCAM) += module-cccam.c
  SRC-$(CONFIG_MODULE_CCCSHARE) += module-cccshare.c
  SRC-$(CONFIG_MODULE_CONSTCW) += module-constcw.c
@@ -3124,7 +3124,7 @@ diff -ruNp trunk.orig/Makefile trunk/Makefile
  SRC-$(CONFIG_CS_CACHEEX) += module-csp.c
  SRC-$(CONFIG_CW_CYCLE_CHECK) += module-cw-cycle-check.c
  SRC-$(CONFIG_WITH_AZBOX) += module-dvbapi-azbox.c
-@@ -366,7 +388,7 @@ SRC := $(subst config.c,$(OBJDIR)/config
+@@ -368,7 +390,7 @@ SRC := $(subst config.c,$(OBJDIR)/config
  # starts the compilation.
  all:
  	@./config.sh --use-flags "$(USE_FLAGS)" --objdir "$(OBJDIR)" --make-config.mak
@@ -3133,9 +3133,9 @@ diff -ruNp trunk.orig/Makefile trunk/Makefile
  	@-printf "\
  +-------------------------------------------------------------------------------\n\
  | OSCam ver: $(VER) rev: $(SVN_REV) target: $(TARGET)\n\
-diff -ruNp trunk.orig/module-dvbapi.c trunk/module-dvbapi.c
---- trunk.orig/module-dvbapi.c	2018-03-25 14:36:57.189706801 +0300
-+++ trunk/module-dvbapi.c	2018-03-25 15:00:12.377807034 +0300
+diff -ruNp trunk.patches/module-dvbapi.c trunk/module-dvbapi.c
+--- trunk.patches/module-dvbapi.c	2018-04-03 03:06:13.063827549 +0300
++++ trunk/module-dvbapi.c	2018-04-03 03:20:07.658045369 +0300
 @@ -1471,7 +1471,15 @@ void dvbapi_start_emm_filter(int32_t dem
  			}
  			if(match)
@@ -3328,9 +3328,9 @@ diff -ruNp trunk.orig/module-dvbapi.c trunk/module-dvbapi.c
  		switch(selected_api)
  		{
  #if defined(WITH_STAPI) || defined(WITH_STAPI5)
-diff -ruNp trunk.orig/module-dvbapi.h trunk/module-dvbapi.h
---- trunk.orig/module-dvbapi.h	2018-03-25 14:36:57.189706801 +0300
-+++ trunk/module-dvbapi.h	2018-03-25 15:00:12.377807034 +0300
+diff -ruNp trunk.patches/module-dvbapi.h trunk/module-dvbapi.h
+--- trunk.patches/module-dvbapi.h	2018-04-03 02:48:24.956386446 +0300
++++ trunk/module-dvbapi.h	2018-04-03 03:20:07.658045369 +0300
 @@ -136,6 +136,7 @@ struct s_ecmpids
  	int8_t useMultipleIndices;
  	uint32_t streams;
@@ -3349,9 +3349,9 @@ diff -ruNp trunk.orig/module-dvbapi.h trunk/module-dvbapi.h
  } FILTERTYPE;
  
  struct s_emmpids
-diff -ruNp trunk.orig/module-emulator.c trunk/module-emulator.c
---- trunk.orig/module-emulator.c	1970-01-01 03:00:00.000000000 +0300
-+++ trunk/module-emulator.c	2018-03-25 15:00:12.381807059 +0300
+diff -ruNp trunk.patches/module-emulator.c trunk/module-emulator.c
+--- trunk.patches/module-emulator.c	1970-01-01 03:00:00.000000000 +0300
++++ trunk/module-emulator.c	2018-04-03 03:20:07.662045399 +0300
 @@ -0,0 +1,904 @@
 +#define MODULE_LOG_PREFIX "emu"
 +
@@ -4257,10 +4257,10 @@ diff -ruNp trunk.orig/module-emulator.c trunk/module-emulator.c
 +
 +	cs_log("OSCam-Emu version %d", GetOSemuVersion());
 +}
-diff -ruNp trunk.orig/module-emulator-osemu.c trunk/module-emulator-osemu.c
---- trunk.orig/module-emulator-osemu.c	1970-01-01 03:00:00.000000000 +0300
-+++ trunk/module-emulator-osemu.c	2018-03-25 15:00:12.381807059 +0300
-@@ -0,0 +1,6479 @@
+diff -ruNp trunk.patches/module-emulator-osemu.c trunk/module-emulator-osemu.c
+--- trunk.patches/module-emulator-osemu.c	1970-01-01 03:00:00.000000000 +0300
++++ trunk/module-emulator-osemu.c	2018-04-03 03:20:07.658045369 +0300
+@@ -0,0 +1,6488 @@
 +#define MODULE_LOG_PREFIX "emu"
 +
 +#include "globals.h"
@@ -4295,7 +4295,7 @@ diff -ruNp trunk.orig/module-emulator-osemu.c trunk/module-emulator-osemu.c
 +// Version info
 +uint32_t GetOSemuVersion(void)
 +{
-+	return atoi("$Version: 768 $"+10);
++	return atoi("$Version: 769 $"+10);
 +}
 +
 +/*
@@ -7801,6 +7801,11 @@ diff -ruNp trunk.orig/module-emulator-osemu.c trunk/module-emulator-osemu.c
 +					  0x10, 0x11, 0x14, 0x12, 0x13, 0x15, 0x19, 0x16, 0x29, 0x26, 0x03, 0x17, 0x1A, 0x1C, 0x1C, 0x1E,
 +					  0x30, 0x31, 0x34, 0x32, 0x37, 0x3A, 0x3B, 0x3D, 0x3C, 0x3E, 0x3F, 0x1B, 0x05, 0x18, 0x27, 0x1F };
 +
++uint8_t table0A[] = { 0x00, 0x04, 0x05, 0x0B, 0x0C, 0x06, 0x09, 0x0A, 0x0E, 0x0D, 0x0F, 0x25, 0x15, 0x1B, 0x1C, 0x16,
++					  0x10, 0x11, 0x01, 0x02, 0x03, 0x07, 0x08, 0x12, 0x13, 0x17, 0x18, 0x14, 0x23, 0x27, 0x28, 0x24,
++					  0x30, 0x31, 0x32, 0x33, 0x37, 0x38, 0x34, 0x35, 0x3B, 0x3C, 0x20, 0x21, 0x22, 0x2B, 0x2C, 0x26,
++					  0x36, 0x39, 0x3A, 0x3E, 0x3D, 0x19, 0x1A, 0x1E, 0x1C, 0x1F, 0x3F, 0x29, 0x2A, 0x2E, 0x2D, 0x2F };
++
 +static void PowervuHashModes04to0ATables(uint8_t *data, uint8_t *hash, uint8_t *table)
 +{
 +	int i;
@@ -7860,6 +7865,10 @@ diff -ruNp trunk.orig/module-emulator-osemu.c trunk/module-emulator-osemu.c
 +
 +		case 9:
 +			PowervuHashModes04to0ATables(dataPadded, hash, table09);
++			break;
++
++		case 10:
++			PowervuHashModes04to0ATables(dataPadded, hash, table0A);
 +			break;
 +
 +		default:
@@ -10740,9 +10749,9 @@ diff -ruNp trunk.orig/module-emulator-osemu.c trunk/module-emulator-osemu.c
 +
 +	return result;
 +}
-diff -ruNp trunk.orig/module-emulator-osemu.h trunk/module-emulator-osemu.h
---- trunk.orig/module-emulator-osemu.h	1970-01-01 03:00:00.000000000 +0300
-+++ trunk/module-emulator-osemu.h	2018-03-25 15:00:12.381807059 +0300
+diff -ruNp trunk.patches/module-emulator-osemu.h trunk/module-emulator-osemu.h
+--- trunk.patches/module-emulator-osemu.h	1970-01-01 03:00:00.000000000 +0300
++++ trunk/module-emulator-osemu.h	2018-04-03 03:20:07.658045369 +0300
 @@ -0,0 +1,127 @@
 +#include "globals.h"
 +#include "module-emulator-stream.h"
@@ -10871,9 +10880,9 @@ diff -ruNp trunk.orig/module-emulator-osemu.h trunk/module-emulator-osemu.h
 +#endif
 +
 +#endif
-diff -ruNp trunk.orig/module-emulator-stream.c trunk/module-emulator-stream.c
---- trunk.orig/module-emulator-stream.c	1970-01-01 03:00:00.000000000 +0300
-+++ trunk/module-emulator-stream.c	2018-03-25 15:00:12.381807059 +0300
+diff -ruNp trunk.patches/module-emulator-stream.c trunk/module-emulator-stream.c
+--- trunk.patches/module-emulator-stream.c	1970-01-01 03:00:00.000000000 +0300
++++ trunk/module-emulator-stream.c	2018-04-03 03:20:07.658045369 +0300
 @@ -0,0 +1,1105 @@
 +#define MODULE_LOG_PREFIX "emu"
 +
@@ -11980,9 +11989,9 @@ diff -ruNp trunk.orig/module-emulator-stream.c trunk/module-emulator-stream.c
 +	shutdown(glistenfd, 2);
 +	close(glistenfd);
 +}
-diff -ruNp trunk.orig/module-emulator-stream.h trunk/module-emulator-stream.h
---- trunk.orig/module-emulator-stream.h	1970-01-01 03:00:00.000000000 +0300
-+++ trunk/module-emulator-stream.h	2018-03-25 15:00:12.381807059 +0300
+diff -ruNp trunk.patches/module-emulator-stream.h trunk/module-emulator-stream.h
+--- trunk.patches/module-emulator-stream.h	1970-01-01 03:00:00.000000000 +0300
++++ trunk/module-emulator-stream.h	2018-04-03 03:20:07.658045369 +0300
 @@ -0,0 +1,75 @@
 +#ifndef EMU_STREAM_SERVER_H_
 +#define EMU_STREAM_SERVER_H_
@@ -12059,9 +12068,9 @@ diff -ruNp trunk.orig/module-emulator-stream.h trunk/module-emulator-stream.h
 +#endif
 +
 +#endif
-diff -ruNp trunk.orig/module-newcamd.c trunk/module-newcamd.c
---- trunk.orig/module-newcamd.c	2018-03-25 14:31:53.143349691 +0300
-+++ trunk/module-newcamd.c	2018-03-25 15:00:12.381807059 +0300
+diff -ruNp trunk.patches/module-newcamd.c trunk/module-newcamd.c
+--- trunk.patches/module-newcamd.c	2018-04-03 02:44:10.086268878 +0300
++++ trunk/module-newcamd.c	2018-04-03 03:20:07.662045399 +0300
 @@ -919,6 +919,13 @@ static int8_t newcamd_auth_client(IN_ADD
  			// set userfilter for au enabled clients
  			if(aureader)
@@ -12132,9 +12141,9 @@ diff -ruNp trunk.orig/module-newcamd.c trunk/module-newcamd.c
  					if(!found)
  					{
  						mbuf[22 + 11 * j] = 0x00;
-diff -ruNp trunk.orig/module-newcamd-des.c trunk/module-newcamd-des.c
---- trunk.orig/module-newcamd-des.c	2018-03-25 14:31:53.303349332 +0300
-+++ trunk/module-newcamd-des.c	2018-03-25 15:00:12.381807059 +0300
+diff -ruNp trunk.patches/module-newcamd-des.c trunk/module-newcamd-des.c
+--- trunk.patches/module-newcamd-des.c	2018-04-03 02:44:10.106269046 +0300
++++ trunk/module-newcamd-des.c	2018-04-03 03:20:07.662045399 +0300
 @@ -5,10 +5,7 @@
  #define DES_IP              1
  #define DES_IP_1            2
@@ -12155,9 +12164,9 @@ diff -ruNp trunk.orig/module-newcamd-des.c trunk/module-newcamd-des.c
  {
  	unsigned char i;
  	unsigned char left[8];
-diff -ruNp trunk.orig/module-newcamd-des.h trunk/module-newcamd-des.h
---- trunk.orig/module-newcamd-des.h	2018-03-25 14:31:53.299349341 +0300
-+++ trunk/module-newcamd-des.h	2018-03-25 15:00:12.381807059 +0300
+diff -ruNp trunk.patches/module-newcamd-des.h trunk/module-newcamd-des.h
+--- trunk.patches/module-newcamd-des.h	2018-04-03 02:44:10.214269951 +0300
++++ trunk/module-newcamd-des.h	2018-04-03 03:20:07.662045399 +0300
 @@ -1,8 +1,15 @@
  #ifndef MODULE_NEWCAMD_DES_H_
  #define MODULE_NEWCAMD_DES_H_
@@ -12174,9 +12183,9 @@ diff -ruNp trunk.orig/module-newcamd-des.h trunk/module-newcamd-des.h
 +	void nc_des(unsigned char key[], unsigned char mode, unsigned char data[]);
 +
  #endif
-diff -ruNp trunk.orig/module-stat.c trunk/module-stat.c
---- trunk.orig/module-stat.c	2018-03-25 14:31:53.155349664 +0300
-+++ trunk/module-stat.c	2018-03-25 15:00:12.381807059 +0300
+diff -ruNp trunk.patches/module-stat.c trunk/module-stat.c
+--- trunk.patches/module-stat.c	2018-04-03 02:44:09.474263747 +0300
++++ trunk/module-stat.c	2018-04-03 03:20:07.662045399 +0300
 @@ -903,7 +903,7 @@ void check_lb_auto_betatunnel_mode(ECM_R
  
  uint16_t get_rdr_caid(struct s_reader *rdr)
@@ -12195,9 +12204,9 @@ diff -ruNp trunk.orig/module-stat.c trunk/module-stat.c
  			{
  				prv = ea;
  				continue; // proxy can convert or reject
-diff -ruNp trunk.orig/module-webif.c trunk/module-webif.c
---- trunk.orig/module-webif.c	2018-03-25 14:31:51.723352869 +0300
-+++ trunk/module-webif.c	2018-03-25 15:00:12.381807059 +0300
+diff -ruNp trunk.patches/module-webif.c trunk/module-webif.c
+--- trunk.patches/module-webif.c	2018-04-03 02:44:08.458255227 +0300
++++ trunk/module-webif.c	2018-04-03 03:20:07.662045399 +0300
 @@ -101,6 +101,7 @@ static bool use_srvid2 = false;
  #define MNU_CFG_LCD			14
  #define MNU_CFG_MONITOR		15
@@ -12403,9 +12412,9 @@ diff -ruNp trunk.orig/module-webif.c trunk/module-webif.c
  		{
  			cs_log("error: too much data received from %s", cs_inet_ntoa(in));
  			NULLFREE(*result);
-diff -ruNp trunk.orig/module-webif-tpl.c trunk/module-webif-tpl.c
---- trunk.orig/module-webif-tpl.c	2018-03-25 14:31:53.159349654 +0300
-+++ trunk/module-webif-tpl.c	2018-03-25 15:00:12.381807059 +0300
+diff -ruNp trunk.patches/module-webif-tpl.c trunk/module-webif-tpl.c
+--- trunk.patches/module-webif-tpl.c	2018-04-03 02:44:09.754266095 +0300
++++ trunk/module-webif-tpl.c	2018-04-03 03:20:07.662045399 +0300
 @@ -457,6 +457,7 @@ char *tpl_getUnparsedTpl(const char *nam
  											check_conf(WITH_SSL, ptr2);
  											check_conf(WITH_STAPI, ptr2);
@@ -12414,9 +12423,9 @@ diff -ruNp trunk.orig/module-webif-tpl.c trunk/module-webif-tpl.c
  										} // for
  										if(ok == 0)
  										{
-diff -ruNp trunk.orig/oscam-aes.c trunk/oscam-aes.c
---- trunk.orig/oscam-aes.c	2018-03-25 14:31:53.303349332 +0300
-+++ trunk/oscam-aes.c	2018-03-25 15:00:12.381807059 +0300
+diff -ruNp trunk.patches/oscam-aes.c trunk/oscam-aes.c
+--- trunk.patches/oscam-aes.c	2018-04-03 02:44:10.106269046 +0300
++++ trunk/oscam-aes.c	2018-04-03 03:20:07.662045399 +0300
 @@ -37,6 +37,16 @@ void aes_encrypt_idx(struct aes_keys *ae
  	}
  }
@@ -12434,9 +12443,9 @@ diff -ruNp trunk.orig/oscam-aes.c trunk/oscam-aes.c
  /* Creates an AES_ENTRY and adds it to the given linked list. */
  void add_aes_entry(AES_ENTRY **list, uint16_t caid, uint32_t ident, int32_t keyid, uchar *aesKey)
  {
-diff -ruNp trunk.orig/oscam-aes.h trunk/oscam-aes.h
---- trunk.orig/oscam-aes.h	2018-03-25 14:31:53.411349090 +0300
-+++ trunk/oscam-aes.h	2018-03-25 15:00:12.381807059 +0300
+diff -ruNp trunk.patches/oscam-aes.h trunk/oscam-aes.h
+--- trunk.patches/oscam-aes.h	2018-04-03 02:44:10.110269080 +0300
++++ trunk/oscam-aes.h	2018-04-03 03:20:07.662045399 +0300
 @@ -5,6 +5,8 @@ void aes_set_key(struct aes_keys *aes, c
  bool aes_set_key_alloc(struct aes_keys **aes, char *key);
  void aes_decrypt(struct aes_keys *aes, uchar *buf, int32_t n);
@@ -12446,9 +12455,9 @@ diff -ruNp trunk.orig/oscam-aes.h trunk/oscam-aes.h
  
  void add_aes_entry(AES_ENTRY **list, uint16_t caid, uint32_t ident, int32_t keyid, uchar *aesKey);
  void parse_aes_entry(AES_ENTRY **list, char *label, char *value);
-diff -ruNp trunk.orig/oscam.c trunk/oscam.c
---- trunk.orig/oscam.c	2018-03-25 14:40:58.154262359 +0300
-+++ trunk/oscam.c	2018-03-25 15:00:12.385807083 +0300
+diff -ruNp trunk.patches/oscam.c trunk/oscam.c
+--- trunk.patches/oscam.c	2018-04-03 03:10:28.813703490 +0300
++++ trunk/oscam.c	2018-04-03 03:20:07.662045399 +0300
 @@ -41,6 +41,11 @@
  #include "reader-common.h"
  #include "module-gbox.h"
@@ -12461,7 +12470,7 @@ diff -ruNp trunk.orig/oscam.c trunk/oscam.c
  #ifdef WITH_SSL
  #include <openssl/crypto.h>
  #include <openssl/ssl.h>
-@@ -421,6 +426,7 @@ static void write_versionfile(bool use_s
+@@ -422,6 +427,7 @@ static void write_versionfile(bool use_s
  	write_conf(CW_CYCLE_CHECK, "CW Cycle Check support");
  	write_conf(LCDSUPPORT, "LCD support");
  	write_conf(LEDSUPPORT, "LED support");
@@ -12469,7 +12478,7 @@ diff -ruNp trunk.orig/oscam.c trunk/oscam.c
  	switch (cs_getclocktype()) {
  		case CLOCK_TYPE_UNKNOWN  : write_conf(CLOCKFIX, "Clockfix with UNKNOWN clock"); break;
  		case CLOCK_TYPE_REALTIME : write_conf(CLOCKFIX, "Clockfix with realtime clock"); break;
-@@ -1639,6 +1645,9 @@ const struct s_cardreader *cardreaders[]
+@@ -1640,6 +1646,9 @@ const struct s_cardreader *cardreaders[]
  #ifdef CARDREADER_STINGER
  	&cardreader_stinger,
  #endif
@@ -12479,7 +12488,7 @@ diff -ruNp trunk.orig/oscam.c trunk/oscam.c
  	NULL
  };
  
-@@ -1810,6 +1819,9 @@ int32_t main(int32_t argc, char *argv[])
+@@ -1811,6 +1820,9 @@ int32_t main(int32_t argc, char *argv[])
  
  	init_sidtab();
  	init_readerdb();
@@ -12489,7 +12498,7 @@ diff -ruNp trunk.orig/oscam.c trunk/oscam.c
  	cfg.account = init_userdb();
  	init_signal();
  	init_provid();
-@@ -1897,6 +1909,9 @@ int32_t main(int32_t argc, char *argv[])
+@@ -1898,6 +1910,9 @@ int32_t main(int32_t argc, char *argv[])
   if(!cfg.gsms_dis)
  	{ stop_sms_sender(); }
  #endif
@@ -12499,9 +12508,9 @@ diff -ruNp trunk.orig/oscam.c trunk/oscam.c
  	webif_close();
  	azbox_close();
  	coolapi_close_all();
-diff -ruNp trunk.orig/oscam-chk.c trunk/oscam-chk.c
---- trunk.orig/oscam-chk.c	2018-03-25 14:31:52.811350434 +0300
-+++ trunk/oscam-chk.c	2018-03-25 15:00:12.381807059 +0300
+diff -ruNp trunk.patches/oscam-chk.c trunk/oscam-chk.c
+--- trunk.patches/oscam-chk.c	2018-04-03 02:44:09.470263713 +0300
++++ trunk/oscam-chk.c	2018-04-03 03:20:07.662045399 +0300
 @@ -758,7 +758,7 @@ int32_t matching_reader(ECM_REQUEST *er,
  		return 0;
  	}
@@ -12538,9 +12547,9 @@ diff -ruNp trunk.orig/oscam-chk.c trunk/oscam-chk.c
  	{
  		return 1; //reader caid is not real caid
  	}
-diff -ruNp trunk.orig/oscam-config-global.c trunk/oscam-config-global.c
---- trunk.orig/oscam-config-global.c	2018-03-25 14:31:51.719352878 +0300
-+++ trunk/oscam-config-global.c	2018-03-25 15:00:12.381807059 +0300
+diff -ruNp trunk.patches/oscam-config-global.c trunk/oscam-config-global.c
+--- trunk.patches/oscam-config-global.c	2018-04-03 02:44:08.394254690 +0300
++++ trunk/oscam-config-global.c	2018-04-03 03:20:07.662045399 +0300
 @@ -854,6 +854,30 @@ static const struct config_list scam_opt
  #else
  static const struct config_list scam_opts[] = { DEF_LAST_OPT };
@@ -12588,9 +12597,9 @@ diff -ruNp trunk.orig/oscam-config-global.c trunk/oscam-config-global.c
  	{ "dvbapi",	dvbapi_opts },
  	{ "monitor",	monitor_opts },
  	{ "webif",	webif_opts },
-diff -ruNp trunk.orig/oscam-config.h trunk/oscam-config.h
---- trunk.orig/oscam-config.h	2018-03-25 14:31:53.147349681 +0300
-+++ trunk/oscam-config.h	2018-03-25 15:00:12.381807059 +0300
+diff -ruNp trunk.patches/oscam-config.h trunk/oscam-config.h
+--- trunk.patches/oscam-config.h	2018-04-03 02:44:09.470263713 +0300
++++ trunk/oscam-config.h	2018-04-03 03:20:07.662045399 +0300
 @@ -22,6 +22,7 @@ void    free_reader(struct s_reader *rdr
  int32_t free_readerdb(void);
  int32_t write_server(void);
@@ -12609,9 +12618,9 @@ diff -ruNp trunk.orig/oscam-config.h trunk/oscam-config.h
  };
  
  void ftab_fn(const char *token, char *value, void *setting, long ftab_type, FILE *f);
-diff -ruNp trunk.orig/oscam-config-reader.c trunk/oscam-config-reader.c
---- trunk.orig/oscam-config-reader.c	2018-03-25 14:31:52.807350444 +0300
-+++ trunk/oscam-config-reader.c	2018-03-25 15:00:12.381807059 +0300
+diff -ruNp trunk.patches/oscam-config-reader.c trunk/oscam-config-reader.c
+--- trunk.patches/oscam-config-reader.c	2018-04-03 02:44:09.758266128 +0300
++++ trunk/oscam-config-reader.c	2018-04-03 03:20:07.662045399 +0300
 @@ -109,6 +109,7 @@ static void protocol_fn(const char *toke
  			{ "newcamd525", R_NEWCAMD },
  			{ "newcamd524", R_NEWCAMD },
@@ -12654,9 +12663,9 @@ diff -ruNp trunk.orig/oscam-config-reader.c trunk/oscam-config-reader.c
  	DEF_OPT_INT8("deprecated"           , OFS(deprecated),              0),
  	DEF_OPT_INT8("audisabled"           , OFS(audisabled),              0),
  	DEF_OPT_FUNC("auprovid"             , 0,                            auprovid_fn),
-diff -ruNp trunk.orig/oscam-ecm.c trunk/oscam-ecm.c
---- trunk.orig/oscam-ecm.c	2018-03-25 14:31:51.459353459 +0300
-+++ trunk/oscam-ecm.c	2018-03-25 15:00:12.381807059 +0300
+diff -ruNp trunk.patches/oscam-ecm.c trunk/oscam-ecm.c
+--- trunk.patches/oscam-ecm.c	2018-04-03 02:44:08.174252846 +0300
++++ trunk/oscam-ecm.c	2018-04-03 03:20:07.662045399 +0300
 @@ -1585,7 +1585,7 @@ int32_t write_ecm_answer(struct s_reader
  
  	if(reader && cw && rc < E_NOTFOUND)
@@ -12666,9 +12675,9 @@ diff -ruNp trunk.orig/oscam-ecm.c trunk/oscam-ecm.c
  		{
  			uint8_t selectedForIgnChecksum = chk_if_ignore_checksum(er, cfg.disablecrccws, &cfg.disablecrccws_only_for)
  					+ chk_if_ignore_checksum(er, reader->disablecrccws, &reader->disablecrccws_only_for);
-diff -ruNp trunk.orig/oscam-emm.c trunk/oscam-emm.c
---- trunk.orig/oscam-emm.c	2018-03-25 14:31:53.151349672 +0300
-+++ trunk/oscam-emm.c	2018-03-25 15:00:12.381807059 +0300
+diff -ruNp trunk.patches/oscam-emm.c trunk/oscam-emm.c
+--- trunk.patches/oscam-emm.c	2018-04-03 02:44:09.758266128 +0300
++++ trunk/oscam-emm.c	2018-04-03 03:20:07.662045399 +0300
 @@ -50,7 +50,14 @@ static int8_t do_simple_emm_filter(struc
  	unsigned int j, filter_count = 0;
  
@@ -12710,9 +12719,9 @@ diff -ruNp trunk.orig/oscam-emm.c trunk/oscam-emm.c
  	if(prid == provid)
  	{
  		rdr_log_dbg(reader, D_EMM, "reader auprovid = %06X matching with emm provid = %06X -> SEND!", prid, provid);
-diff -ruNp trunk.orig/oscam-string.c trunk/oscam-string.c
---- trunk.orig/oscam-string.c	2018-03-25 14:31:53.143349691 +0300
-+++ trunk/oscam-string.c	2018-03-25 15:00:12.381807059 +0300
+diff -ruNp trunk.patches/oscam-string.c trunk/oscam-string.c
+--- trunk.patches/oscam-string.c	2018-04-03 02:44:09.762266162 +0300
++++ trunk/oscam-string.c	2018-04-03 03:20:07.662045399 +0300
 @@ -510,6 +510,62 @@ uint32_t crc32(uint32_t crc, const uint8
  	return crc ^ 0xffffffffL;
  }
@@ -12776,9 +12785,9 @@ diff -ruNp trunk.orig/oscam-string.c trunk/oscam-string.c
  static uint16_t ccitt_crc_table [256] =
  {
  	0x0000, 0x1021, 0x2042, 0x3063, 0x4084, 0x50a5,
-diff -ruNp trunk.orig/oscam-string.h trunk/oscam-string.h
---- trunk.orig/oscam-string.h	2018-03-25 14:31:53.151349672 +0300
-+++ trunk/oscam-string.h	2018-03-25 15:00:12.381807059 +0300
+diff -ruNp trunk.patches/oscam-string.h trunk/oscam-string.h
+--- trunk.patches/oscam-string.h	2018-04-03 02:44:10.090268912 +0300
++++ trunk/oscam-string.h	2018-04-03 03:20:07.662045399 +0300
 @@ -37,6 +37,7 @@ void get_random_bytes_init(void);
  void get_random_bytes(uint8_t *dst, uint32_t dst_len);
  
@@ -12787,9 +12796,9 @@ diff -ruNp trunk.orig/oscam-string.h trunk/oscam-string.h
  uint16_t ccitt_crc(uint8_t *data, size_t length, uint16_t seed, uint16_t final);
  uint32_t jhash(const char *key, size_t len);
  
-diff -ruNp trunk.orig/reader-common.c trunk/reader-common.c
---- trunk.orig/reader-common.c	2018-03-25 14:31:52.807350444 +0300
-+++ trunk/reader-common.c	2018-03-25 15:00:12.385807083 +0300
+diff -ruNp trunk.patches/reader-common.c trunk/reader-common.c
+--- trunk.patches/reader-common.c	2018-04-03 02:44:09.758266128 +0300
++++ trunk/reader-common.c	2018-04-03 03:20:07.662045399 +0300
 @@ -15,6 +15,7 @@
  #include "reader-common.h"
  //#include "csctapi/atr.h"
@@ -12818,9 +12827,9 @@ diff -ruNp trunk.orig/reader-common.c trunk/reader-common.c
  	for(i = 0; cardsystems[i]; i++)
  	{
  		NULLFREE(reader->csystem_data);
-diff -ruNp trunk.orig/readers.h trunk/readers.h
---- trunk.orig/readers.h	2018-03-25 14:31:53.159349654 +0300
-+++ trunk/readers.h	2018-03-25 15:00:12.385807083 +0300
+diff -ruNp trunk.patches/readers.h trunk/readers.h
+--- trunk.patches/readers.h	2018-04-03 02:44:09.762266162 +0300
++++ trunk/readers.h	2018-04-03 03:20:07.662045399 +0300
 @@ -16,5 +16,6 @@ extern const struct s_cardsystem reader_
  extern const struct s_cardsystem reader_bulcrypt;
  extern const struct s_cardsystem reader_griffin;
@@ -12828,9 +12837,9 @@ diff -ruNp trunk.orig/readers.h trunk/readers.h
 +extern const struct s_cardsystem reader_emu;
  
  #endif
-diff -ruNp trunk.orig/webif/config/dvbapi.html trunk/webif/config/dvbapi.html
---- trunk.orig/webif/config/dvbapi.html	2018-03-25 14:31:51.719352878 +0300
-+++ trunk/webif/config/dvbapi.html	2018-03-25 15:00:12.385807083 +0300
+diff -ruNp trunk.patches/webif/config/dvbapi.html trunk/webif/config/dvbapi.html
+--- trunk.patches/webif/config/dvbapi.html	2018-04-03 02:44:08.322254087 +0300
++++ trunk/webif/config/dvbapi.html	2018-04-03 03:20:07.666045429 +0300
 @@ -53,7 +53,7 @@
  			</TD>
  		</TR>
@@ -12863,9 +12872,9 @@ diff -ruNp trunk.orig/webif/config/dvbapi.html trunk/webif/config/dvbapi.html
 +			</TD>
 +		</TR>
 \ В конце файла нет новой строки
-diff -ruNp trunk.orig/webif/config/menu.html trunk/webif/config/menu.html
---- trunk.orig/webif/config/menu.html	2018-03-25 14:31:51.723352869 +0300
-+++ trunk/webif/config/menu.html	2018-03-25 15:00:12.385807083 +0300
+diff -ruNp trunk.patches/webif/config/menu.html trunk/webif/config/menu.html
+--- trunk.patches/webif/config/menu.html	2018-04-03 02:44:08.458255227 +0300
++++ trunk/webif/config/menu.html	2018-04-03 03:20:07.666045429 +0300
 @@ -16,6 +16,7 @@
  ##TPLCONFIGMENUDVBAPI##		<!-- CMENUACTIVE13 -->
  ##TPLCONFIGMENULCD##		<!-- CMENUACTIVE14 -->
@@ -12874,14 +12883,14 @@ diff -ruNp trunk.orig/webif/config/menu.html trunk/webif/config/menu.html
  			<LI CLASS="##CMENUACTIVE16##"><A HREF="config.html?part=webif">WebIf</A></LI>
  	</UL>
  </DIV>
-diff -ruNp trunk.orig/webif/config/menu_streamrelay.html trunk/webif/config/menu_streamrelay.html
---- trunk.orig/webif/config/menu_streamrelay.html	1970-01-01 03:00:00.000000000 +0300
-+++ trunk/webif/config/menu_streamrelay.html	2018-03-25 15:00:12.385807083 +0300
+diff -ruNp trunk.patches/webif/config/menu_streamrelay.html trunk/webif/config/menu_streamrelay.html
+--- trunk.patches/webif/config/menu_streamrelay.html	1970-01-01 03:00:00.000000000 +0300
++++ trunk/webif/config/menu_streamrelay.html	2018-04-03 03:20:07.666045429 +0300
 @@ -0,0 +1 @@
 +			<LI CLASS="##CMENUACTIVE17##"><A HREF="config.html?part=streamrelay">Stream Relay</A></LI>
-diff -ruNp trunk.orig/webif/config/streamrelay.html trunk/webif/config/streamrelay.html
---- trunk.orig/webif/config/streamrelay.html	1970-01-01 03:00:00.000000000 +0300
-+++ trunk/webif/config/streamrelay.html	2018-03-25 15:00:12.385807083 +0300
+diff -ruNp trunk.patches/webif/config/streamrelay.html trunk/webif/config/streamrelay.html
+--- trunk.patches/webif/config/streamrelay.html	1970-01-01 03:00:00.000000000 +0300
++++ trunk/webif/config/streamrelay.html	2018-04-03 03:20:07.666045429 +0300
 @@ -0,0 +1,25 @@
 +		<input name="part" type="hidden" value="streamrelay">
 +		<TABLE CLASS="config">
@@ -12909,9 +12918,9 @@ diff -ruNp trunk.orig/webif/config/streamrelay.html trunk/webif/config/streamrel
 +				</TD>
 +			</TR>
 \ В конце файла нет новой строки
-diff -ruNp trunk.orig/webif/files/menu.html trunk/webif/files/menu.html
---- trunk.orig/webif/files/menu.html	2018-03-25 14:31:51.763352780 +0300
-+++ trunk/webif/files/menu.html	2018-03-25 15:00:12.385807083 +0300
+diff -ruNp trunk.patches/webif/files/menu.html trunk/webif/files/menu.html
+--- trunk.patches/webif/files/menu.html	2018-04-03 02:44:08.458255227 +0300
++++ trunk/webif/files/menu.html	2018-04-03 03:20:07.666045429 +0300
 @@ -10,7 +10,7 @@
  		<LI CLASS="##CMENUACTIVE7##"><A HREF="files.html?file=logfile">logfile</A></LI>
  		<LI CLASS="##CMENUACTIVE8##"><A HREF="files.html?file=userfile">userfile</A></LI>
@@ -12929,14 +12938,14 @@ diff -ruNp trunk.orig/webif/files/menu.html trunk/webif/files/menu.html
  			</UL>
  		</LI>
  	</UL>
-diff -ruNp trunk.orig/webif/files/menu_softcamkey.html trunk/webif/files/menu_softcamkey.html
---- trunk.orig/webif/files/menu_softcamkey.html	1970-01-01 03:00:00.000000000 +0300
-+++ trunk/webif/files/menu_softcamkey.html	2018-03-25 15:00:12.385807083 +0300
+diff -ruNp trunk.patches/webif/files/menu_softcamkey.html trunk/webif/files/menu_softcamkey.html
+--- trunk.patches/webif/files/menu_softcamkey.html	1970-01-01 03:00:00.000000000 +0300
++++ trunk/webif/files/menu_softcamkey.html	2018-04-03 03:20:07.666045429 +0300
 @@ -0,0 +1 @@
 +			<LI CLASS="##CMENUACTIVE30##"><A HREF="files.html?file=SoftCam.Key">SoftCam.Key</A></LI>
-diff -ruNp trunk.orig/webif/pages_index.txt trunk/webif/pages_index.txt
---- trunk.orig/webif/pages_index.txt	2018-03-25 14:31:51.995352262 +0300
-+++ trunk/webif/pages_index.txt	2018-03-25 15:00:12.385807083 +0300
+diff -ruNp trunk.patches/webif/pages_index.txt trunk/webif/pages_index.txt
+--- trunk.patches/webif/pages_index.txt	2018-04-03 02:44:08.678257072 +0300
++++ trunk/webif/pages_index.txt	2018-04-03 03:20:07.666045429 +0300
 @@ -80,11 +80,13 @@ CONFIGMENUMONITOR             config/men
  CONFIGMENUNEWCAMD             config/menu_newcamd.html                                    MODULE_NEWCAMD
  CONFIGMENURADEGAST            config/menu_radegast.html                                   MODULE_RADEGAST
@@ -12967,9 +12976,9 @@ diff -ruNp trunk.orig/webif/pages_index.txt trunk/webif/pages_index.txt
  READERCONFIGCS378XBIT         readerconfig/readerconfig_cs378xbit.html                    MODULE_CAMD35_TCP
  READERCONFIGGBOXBIT           readerconfig/readerconfig_gboxbit.html                      MODULE_GBOX
  READERCONFIGGHTTPBIT          readerconfig/readerconfig_ghttpbit.html                     MODULE_GHTTP
-diff -ruNp trunk.orig/webif/readerconfig/readerconfig_emubit.html trunk/webif/readerconfig/readerconfig_emubit.html
---- trunk.orig/webif/readerconfig/readerconfig_emubit.html	1970-01-01 03:00:00.000000000 +0300
-+++ trunk/webif/readerconfig/readerconfig_emubit.html	2018-03-25 15:00:12.385807083 +0300
+diff -ruNp trunk.patches/webif/readerconfig/readerconfig_emubit.html trunk/webif/readerconfig/readerconfig_emubit.html
+--- trunk.patches/webif/readerconfig/readerconfig_emubit.html	1970-01-01 03:00:00.000000000 +0300
++++ trunk/webif/readerconfig/readerconfig_emubit.html	2018-04-03 03:20:07.666045429 +0300
 @@ -0,0 +1,6 @@
 +			<TR><TD><A>AU providers:</A></TD><TD><textarea name="emu_auproviders" rows="3" class="bt">##EMUAUPROVIDERS##</textarea></TD></TR>
 +			<TR><TD><A>[BISS] Enable date-coded keys:</A></TD><TD><input name="emu_datecodedenabled" type="hidden" value="0"><input name="emu_datecodedenabled" type="checkbox" value="1" ##EMUDATECODEDENABLED##><label></label></TD></TR>

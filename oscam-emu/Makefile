@@ -11,9 +11,10 @@ include $(TOPDIR)/rules.mk
 PKG_NAME:=oscam-emu
 PKG_RELEASE:=1
 PKG_SOURCE_URL:=http://www.streamboard.tv/svn/oscam/trunk
-PKG_REV:=11401
-PKG_VER:=2018-02-03
-PKG_VERSION:=$(PKG_VER)-r$(PKG_REV)
+PKG_REV:=11402
+EMU_REV:=769
+PKG_VER:=2018-04-03
+PKG_VERSION:=$(PKG_VER)-r$(PKG_REV)_r$(EMU_REV)
 
 PKG_SOURCE_PROTO:=svn
 PKG_SOURCE_VERSION:=$(PKG_REV)
@@ -52,7 +53,7 @@ define Build/Compile
 	$(MAKE) -C $(PKG_BUILD_DIR) $(TARGET_CONFIGURE_OPTS) CC="$(TARGET_CC)" \
 		LDFLAGS="$(TARGET_CFLAGS) $(TARGET_LDFLAGS)" \
 		CFLAGS="$(TARGET_CFLAGS) -I $(STAGING_DIR)/opt/include -I $(STAGING_DIR)/opt/include/PCSC" \
-		OSCAM_BIN="Distribution/oscam" $(MAKE_FLAGS) SVN_REV=$(PKG_REV)
+		OSCAM_BIN="Distribution/oscam" $(MAKE_FLAGS) SVN_REV="$(PKG_REV)" EMU_REV="$(EMU_REV)"
 endef
 
 define Package/oscam-emu/conffiles
