@@ -1,16 +1,16 @@
 diff -ruN tvheadend_ndms_devel-4.3.0.orig/configure tvheadend_ndms_devel-4.3.0/configure
 --- tvheadend_ndms_devel-4.3.0.orig/configure	2018-03-30 16:56:55.558219923 +0300
 +++ tvheadend_ndms_devel-4.3.0/configure	2018-03-30 17:25:44.712400580 +0300
-@@ -648,9 +648,9 @@
-   enable tvhcsa
-   enable dvbcsa
-   if enabled dvbcsa; then
--    (check_cc_header "dvbcsa/dvbcsa" dvbcsa_h &&\
--     check_cc_lib    dvbcsa dvbcsa_l) ||\
--    die "Failed to find dvbcsa library"
-+#    (check_cc_header "dvbcsa/dvbcsa" dvbcsa_h &&\
-+#     check_cc_lib    dvbcsa dvbcsa_l) ||\
-+#    die "Failed to find dvbcsa library"
-     LDFLAGS="$LDFLAGS -ldvbcsa"
-   fi
- fi
+@@ -649,9 +649,9 @@
+     enable tvhcsa
+     enable dvbcsa
+     if enabled dvbcsa; then
+-      (check_cc_header "dvbcsa/dvbcsa" dvbcsa_h &&\
+-       check_cc_lib    dvbcsa dvbcsa_l) ||\
+-      die "Failed to find dvbcsa library"
++#      (check_cc_header "dvbcsa/dvbcsa" dvbcsa_h &&\
++#       check_cc_lib    dvbcsa dvbcsa_l) ||\
++#      die "Failed to find dvbcsa library"
+       LDFLAGS="$LDFLAGS -ldvbcsa"
+     fi
+   else

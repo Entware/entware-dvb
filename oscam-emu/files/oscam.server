@@ -42,7 +42,7 @@ inactivitytimeout             = 200
 reconnecttimeout              = 10
 connectoninit                 = 1
 caid                          = 0500
-ident                         = 0500:060A00,041200,060C00,040620
+ident                         = 0500:060A00,050A00,060C00,040610
 group                         = 1
 cccreshare                    = 1
 
@@ -55,7 +55,15 @@ device                        = s4.oscam.org,333
 user                          = test3
 password                      = test3
 caid                          = 0500
-ident                         = 0500:060A00,041200,060C00,040620
+ident                         = 0500:060A00,050A00,060C00,040610
 group                         = 1
 cccreshare                    = 1
 
+[reader]
+label                         = usbreader
+description                   = USB
+enable                        = 0
+protocol                      = pcsc
+device                        = 0
+detect                        = cd
+group                         = 1
