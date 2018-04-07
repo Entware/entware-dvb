@@ -9,7 +9,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=kmod_ndms
 PKG_VERSION:=24
-PKG_RELEASE:=4
+PKG_RELEASE:=5
 
 PKG_SOURCE:=kmod-$(PKG_VERSION).tar.xz
 PKG_SOURCE_URL:=https://www.kernel.org/pub/linux/utils/kernel/kmod/
@@ -49,7 +49,7 @@ define Build/Compile
 	$(MAKE) -C $(PKG_BUILD_DIR) -f Makefile.static \
 		CC="$(TARGET_CC)" CFLAGS="$(TARGET_CFLAGS) -I./ -include config.h -DSYSCONFDIR="\\\"/opt/etc"\\\" -lc -lgcc_eh"
 	$(TARGET_CC) $(TARGET_CFLAGS) -I $(STAGING_DIR)/opt/include/ -L $(STAGING_DIR)/opt/lib/ \
-		-s -o $(PKG_BUILD_DIR)/usbdev_get_class $(PKG_BUILD_DIR)/usbdev_get_class.c -lusb -lusb-1.0
+		-s -o $(PKG_BUILD_DIR)/usbdev_get_class $(PKG_BUILD_DIR)/usbdev_get_class.c $(TARGET_LDFLAGS) -lusb -lusb-1.0
 endef
 
 define Package/kmod_ndms/install

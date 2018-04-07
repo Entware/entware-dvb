@@ -6,7 +6,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=scan-s2
 PKG_VERSION:=1.0
-PKG_RELEASE:=3
+PKG_RELEASE:=4
 PKG_SOURCE_VERSION:=default
 PKG_SOURCE_PROTO:=hg
 PKG_SOURCE_URL:=https://bitbucket.org/CrazyCat/scan-s2
@@ -35,7 +35,7 @@ define Package/scan-s2/description
 endef
 
 define Build/Compile
-	$(MAKE) -C $(PKG_BUILD_DIR) CC="$(TARGET_CC)" CFLAGS="$(TARGET_CFLAGS) $(ICONV_CFLAGS) $(ICONV_LDFLAGS)" CLIB="-liconv"
+	$(MAKE) -C $(PKG_BUILD_DIR) CC="$(TARGET_CC)" CFLAGS="$(TARGET_CFLAGS) $(ICONV_CFLAGS) $(ICONV_LDFLAGS)" CLIB="$(TARGET_LDFLAGS) -liconv"
 endef
 
 define Package/scan-s2/install
