@@ -1,0 +1,12 @@
+diff -ruN astra-sm-0.2.88.orig/build-aux/git-version-gen astra-sm-0.2.88/build-aux/git-version-gen
+--- astra-sm-0.2.88.orig/build-aux/git-version-gen	2018-04-10 03:18:59.695111044 +0300
++++ astra-sm-0.2.88/build-aux/git-version-gen	2018-04-10 03:20:42.763651603 +0300
+@@ -1,5 +1,8 @@
+ #! /bin/sh
+ 
++echo -n "0.2.88"
++exit 0
++
+ fatal()
+ {
+     echo "$1" 1>&1

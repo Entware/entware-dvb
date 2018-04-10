@@ -1,0 +1,12 @@
+diff -ruN astra-sm-0.2.88.orig/tools/Makefile.am astra-sm-0.2.88/tools/Makefile.am
+--- astra-sm-0.2.88.orig/tools/Makefile.am	2017-01-25 16:52:40.000000000 +0300
++++ astra-sm-0.2.88/tools/Makefile.am	2018-04-10 03:32:50.215939674 +0300
+@@ -4,7 +4,7 @@
+ if HAVE_INSCRIPT
+ BUILT_SOURCES += mkscript$(BUILD_EXEEXT)
+ mkscript$(BUILD_EXEEXT): mkscript.c
+-	$(AM_V_GEN)$(CC_FOR_BUILD) $(WARN_CFLAGS) $(LUA_CFLAGS) $(CFLAGS) \
++	$(AM_V_GEN)$(CC_FOR_BUILD) -O2 $(WARN_CFLAGS) $(LUA_CFLAGS) \
+ 	    -o $@ $(srcdir)/mkscript.c
+ endif
+ 

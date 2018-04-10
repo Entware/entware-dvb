@@ -1,0 +1,10 @@
+#!/bin/sh
+
+ENABLED=no
+PROCS=astra
+ARGS=""
+PREARGS=""
+DESC=$PROCS
+PATH=/opt/sbin:/opt/bin:/opt/usr/bin:/opt/usr/sbin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+
+. /opt/etc/init.d/rc.func
