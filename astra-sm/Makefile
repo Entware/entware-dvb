@@ -6,7 +6,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=astra-sm
 PKG_VERSION:=0.2.88
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 PKG_SOURCE_VERSION:=450d4ec79dcb9f267784a42484fcf65b36230b78
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_URL:=https://gitlab.com/berdyansk/astra-sm.git
@@ -67,6 +67,7 @@ define Package/astra-sm/install
 	$(INSTALL_DIR) $(1)/opt/etc/default/usb_services/dvb
 	$(INSTALL_DIR) $(1)/opt/bin
 	$(INSTALL_BIN) $(PKG_BUILD_DIR)/src/astra $(1)/opt/bin/
+	$(INSTALL_BIN) $(PKG_BUILD_DIR)/tests/t2mi_decap $(1)/opt/bin/
 	$(INSTALL_DIR) $(1)/opt/etc/init.d
 	$(CP) ./files/S55astra $(1)/opt/etc/init.d/
 endef
