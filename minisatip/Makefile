@@ -6,7 +6,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=minisatip
 PKG_VERSION:=0.7
-PKG_RELEASE:=6
+PKG_RELEASE:=7
 PKG_SOURCE_VERSION:=cea9e4deee1062c492bcef2fa7967468ec8c908d
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_URL:=git://github.com/catalinii/minisatip.git
@@ -67,12 +67,12 @@ TARGET_CFLAGS += -pthread
 
 define Package/minisatip/postinst
 #!/bin/sh
-ln -sfn /opt/etc/init.d/S59minisatip /opt/etc/default/usb_services/dvb/S59minisatip
+ln -sfn /opt/etc/init.d/S54minisatip /opt/etc/default/usb_services/dvb/S54minisatip
 endef
 
 define Package/minisatip/postrm
 #!/bin/sh
-rm -rf /opt/etc/default/usb_services/dvb/S59minisatip
+rm -rf /opt/etc/default/usb_services/dvb/S54minisatip
 endef
 
 define Package/minisatip/install
@@ -82,7 +82,7 @@ define Package/minisatip/install
 	$(INSTALL_DIR) $(1)/opt/share/minisatip
 	$(CP) $(PKG_BUILD_DIR)/html $(1)/opt/share/minisatip
 	$(INSTALL_DIR) $(1)/opt/etc/init.d
-	$(CP) ./files/S59minisatip $(1)/opt/etc/init.d/
+	$(CP) ./files/S54minisatip $(1)/opt/etc/init.d/
 endef
 
 $(eval $(call BuildPackage,minisatip))
