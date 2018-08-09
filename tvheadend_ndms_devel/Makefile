@@ -6,10 +6,10 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=tvheadend_ndms_devel
 PKG_VERSION:=4.3.0
-PKG_RELEASE:=5
+PKG_RELEASE:=6
 
 PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
-PKG_SOURCE_VERSION:=595fd174fa6512efc220e7dcd82b0f9b129f14b0
+PKG_SOURCE_VERSION:=9b9ee6859be90fedb5d43ad1d770dfcdb8b1caf4
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION)-$(PKG_SOURCE_VERSION).tar.gz
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_URL:=https://github.com/tvheadend/tvheadend.git

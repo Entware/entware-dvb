@@ -2733,11 +2733,11 @@ diff -ruNp tvheadend/src/input/mpegts/linuxdvb/linuxdvb_adapter.c tvheadend.new/
 +static struct skip_fe_name skip_fe_name_list[] = {
 +  { "Panasonic MN88472" },
 +  { "Panasonic MN88473" },
++  { "Sony CXD2837ER DVB-T/T2/C demodulator" },
 +  { NULL },
 +};
 +
-+static int
-+linuxdvb_skip_next_frontend ( char *name_fe )
++static int linuxdvb_skip_next_frontend ( char *name_fe )
 +{
 +  int i = 0;
 +
