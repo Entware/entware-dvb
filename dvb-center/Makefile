@@ -9,14 +9,14 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=dvb-center
 PKG_VERSION:=0.2
-PKG_RELEASE:=2
+PKG_RELEASE:=3
 
 include $(INCLUDE_DIR)/package.mk
 
 define Package/dvb-center
 	SECTION:=dvb
 	CATEGORY:=keendev
-	DEPENDS:=+kmod_ndms +minisatip +xupnpd +scan-s2 +tvheadend_ndms
+	DEPENDS:=+kmod_ndms +minisatip_ndms +xupnpd +scan-s2 +tvheadend_ndms
 	TITLE:=configs and scripts files for dvb-center
     ifneq (,$(filter mips mipsel,$(ARCH)))
 	PKGARCH:=$(BOARD)_kn
