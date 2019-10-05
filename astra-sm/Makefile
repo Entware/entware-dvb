@@ -6,7 +6,8 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=astra-sm
 PKG_VERSION:=0.2.88
-PKG_RELEASE:=2
+PKG_RELEASE:=2a
+
 PKG_SOURCE_VERSION:=450d4ec79dcb9f267784a42484fcf65b36230b78
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_URL:=https://gitlab.com/berdyansk/astra-sm.git
@@ -47,7 +48,8 @@ define Build/Configure
 		    --prefix=/opt \
 		    --target=$(GNU_TARGET_NAME) \
 		    --host=$(GNU_TARGET_NAME) \
-		    --build=$(GNU_HOST_NAME)
+		    --build=$(GNU_HOST_NAME) \
+		    --without-lua
 endef
 
 define Package/astra-sm/postinst
