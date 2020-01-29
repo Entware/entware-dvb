@@ -1,0 +1,41 @@
+---  scan-s2.orig/dump-m3u.c
++++  scan-s2/dump-m3u.c
+@@ -136,7 +136,7 @@
+ 		case SYS_DVBS:
+ 		case SYS_DVBS2:
+ 			if(use_url) {
+-				fprintf (f, "freq=%i&", t->frequency / 1000000);
++				fprintf (f, "freq=%g&", (float)t->frequency / 1000000);
+ 				if(t->bandwidth != BANDWIDTH_AUTO)
+ 					fprintf (f, "bw=%s&", bw_name[t->bandwidth]);
+ 				fprintf (f, "sr=%i&", t->symbol_rate / 1000);
+@@ -176,7 +176,7 @@
+ 		case SYS_DVBC_ANNEX_AC:
+ 		case SYS_DVBC_ANNEX_B:
+ 			if(use_url) {
+-				fprintf (f, "freq=%i&", t->frequency / 1000000);
++				fprintf (f, "freq=%g&", (float)t->frequency / 1000000);
+ 				fprintf (f, "sr=%i&", t->symbol_rate / 1000);
+ 				if(t->bandwidth != BANDWIDTH_AUTO)
+ 					fprintf (f, "bw=%s&", bw_name[t->bandwidth]);
+@@ -198,7 +198,7 @@
+ 		case SYS_DVBT:
+ 		case SYS_DVBT2:
+ 			if(use_url) {
+-				fprintf (f, "freq=%i&", t->frequency / 1000000);
++				fprintf (f, "freq=%g&", (float)t->frequency / 1000000);
+ 				if(t->bandwidth != BANDWIDTH_AUTO)
+ 					fprintf (f, "bw=%s&", bw_name[t->bandwidth]);
+ 				if((t->delivery_system == SYS_DVBT2) && (t->stream_id > 0))
+@@ -245,9 +245,9 @@
+ 
+ //	fprintf (f, "#EXTINF:-1,%s\n", s->service_name);
+ 	fprintf (f, "#EXTINF:-1,");
+-	if (s->service_id)
++	if (s->channel_num)
+ 	{
+-		fprintf (f, "%i. ", s->service_id);
++		fprintf (f, "%i) ", s->channel_num);
+ 	}
+ 	fprintf (f, "%s\n", s->service_name);
+ 
