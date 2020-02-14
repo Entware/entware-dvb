@@ -6,7 +6,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=w_scan
 PKG_VERSION:=20170107
-PKG_RELEASE:=1
+PKG_RELEASE:=1a
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
 PKG_SOURCE_URL:=http://wirbel.htpc-forum.de/w_scan
@@ -20,7 +20,7 @@ define Package/w_scan
   SECTION:=utils
   CATEGORY:=Utilities
   TITLE:=w_scan performs frequency scans for DVB and ATSC.
-  DEPENDS:=+libiconv-full
+  DEPENDS:=$(ICONV_DEPENDS)
   URL:=http://wirbel.htpc-forum.de/w_scan/index_en.html
 ifneq (,$(filter mips mipsel,$(ARCH)))
   PKGARCH:=$(BOARD)_kn
