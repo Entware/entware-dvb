@@ -6,7 +6,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=scan-s2
 PKG_VERSION:=1.0
-PKG_RELEASE:=4
+PKG_RELEASE:=4a
 PKG_SOURCE_VERSION:=default
 PKG_SOURCE_PROTO:=hg
 PKG_SOURCE_URL:=https://bitbucket.org/CrazyCat/scan-s2
@@ -15,14 +15,14 @@ PKG_SOURCE_SUBDIR:=$(PKG_NAME)
 
 PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME)
 
-include $(INCLUDE_DIR)/nls.mk
 include $(INCLUDE_DIR)/package.mk
+include $(INCLUDE_DIR)/nls.mk
 
 define Package/scan-s2
   SECTION:=utils
   CATEGORY:=Utilities
   TITLE:=scan-s2 channels scanning tool for the Linux DVB S2 API
-  DEPENDS:=+libiconv-full
+  DEPENDS:=$(ICONV_DEPENDS)
   URL:=https://bitbucket.org/CrazyCat/scan-s2
 ifneq (,$(filter mips mipsel,$(ARCH)))
   PKGARCH:=$(BOARD)_kn
