@@ -9,7 +9,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=dvb-center
 PKG_VERSION:=0.2
-PKG_RELEASE:=3a
+PKG_RELEASE:=3b
 
 include $(INCLUDE_DIR)/package.mk
 
