@@ -1,7 +1,6 @@
-diff -ruN tvheadend_ndms-4.2.6.orig/configure tvheadend_ndms-4.2.6/configure
---- tvheadend_ndms-4.2.6.orig/configure	2018-03-30 20:24:31.857686564 +0300
-+++ tvheadend_ndms-4.2.6/configure	2018-03-30 20:27:36.318998569 +0300
-@@ -60,7 +60,7 @@
+--- a/configure
++++ b/configure
+@@ -61,7 +61,7 @@ OPTIONS=(
    "bundle:no"
    "pngquant:no"
    "dvbcsa:no"
@@ -10,7 +9,7 @@ diff -ruN tvheadend_ndms-4.2.6.orig/configure tvheadend_ndms-4.2.6/configure
    "kqueue:no"
    "dbus_1:auto"
    "android:no"
-@@ -276,20 +276,7 @@
+@@ -291,20 +291,7 @@ else
  fi
  
  if enabled_or_auto dvben50221; then

@@ -1,7 +1,6 @@
-diff -ruN tvheadend_ndms.orig/src/tcp.c tvheadend_ndms/src/tcp.c
---- tvheadend_ndms.orig/src/tcp.c	2017-12-10 18:18:13.000000000 +0300
-+++ tvheadend_ndms/src/tcp.c	2017-12-13 19:56:09.917366012 +0300
-@@ -984,12 +984,12 @@
+--- a/src/tcp.c
++++ b/src/tcp.c
+@@ -989,12 +989,12 @@ tcp_default_ip_addr ( struct sockaddr_st
    ss.ss_family = family == PF_UNSPEC ? tcp_preferred_address_family : family;
    if (inet_pton(ss.ss_family,
                  ss.ss_family == AF_INET ?

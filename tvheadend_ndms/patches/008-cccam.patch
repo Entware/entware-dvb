@@ -1,6 +1,5 @@
-diff -ruNp tvheadend_ndms-4.2.5.orig/configure tvheadend_ndms-4.2.5/configure
---- tvheadend_ndms-4.2.5.orig/configure	2018-03-16 18:37:08.887754494 +0300
-+++ tvheadend_ndms-4.2.5/configure	2018-03-16 18:46:56.860668149 +0300
+--- a/configure
++++ b/configure
 @@ -20,6 +20,7 @@ OPTIONS=(
    "pie:yes"
    "ccdebug:no"
@@ -9,7 +8,7 @@ diff -ruNp tvheadend_ndms-4.2.5.orig/configure tvheadend_ndms-4.2.5/configure
    "capmt:yes"
    "constcw:yes"
    "linuxdvb:yes"
-@@ -581,7 +582,7 @@ fi
+@@ -595,7 +596,7 @@ fi
  #
  # libdvbcsa, tvhcsa
  #
@@ -18,9 +17,8 @@ diff -ruNp tvheadend_ndms-4.2.5.orig/configure tvheadend_ndms-4.2.5/configure
    enable tvhcsa
    if enabled dvbcsa; then
      (check_cc_header "dvbcsa/dvbcsa" dvbcsa_h &&\
-diff -ruNp tvheadend_ndms-4.2.5.orig/Makefile tvheadend_ndms-4.2.5/Makefile
---- tvheadend_ndms-4.2.5.orig/Makefile	2018-03-16 18:37:08.895754869 +0300
-+++ tvheadend_ndms-4.2.5/Makefile	2018-03-16 18:46:56.860668149 +0300
+--- a/Makefile
++++ b/Makefile
 @@ -500,6 +500,12 @@ SRCS-CWC = \
  SRCS-${CONFIG_CWC} += $(SRCS-CWC)
  I18N-C += $(SRCS-CWC)
@@ -34,9 +32,8 @@ diff -ruNp tvheadend_ndms-4.2.5.orig/Makefile tvheadend_ndms-4.2.5/Makefile
  # CAPMT
  SRCS-CAPMT = \
  	src/descrambler/capmt.c
-diff -ruNp tvheadend_ndms-4.2.5.orig/Makefile.webui tvheadend_ndms-4.2.5/Makefile.webui
---- tvheadend_ndms-4.2.5.orig/Makefile.webui	2018-03-08 10:38:47.000000000 +0300
-+++ tvheadend_ndms-4.2.5/Makefile.webui	2018-03-16 18:46:56.860668149 +0300
+--- a/Makefile.webui
++++ b/Makefile.webui
 @@ -122,6 +122,7 @@ JAVASCRIPT += $(ROOTPATH)/app/cteditor.j
  JAVASCRIPT += $(ROOTPATH)/app/acleditor.js
  
@@ -45,9 +42,8 @@ diff -ruNp tvheadend_ndms-4.2.5.orig/Makefile.webui tvheadend_ndms-4.2.5/Makefil
  CACLIENT-$(CONFIG_CAPMT) = yes
  
  ifeq ($(CACLIENT-yes), yes)
-diff -ruNp tvheadend_ndms-4.2.5.orig/src/descrambler/caclient.c tvheadend_ndms-4.2.5/src/descrambler/caclient.c
---- tvheadend_ndms-4.2.5.orig/src/descrambler/caclient.c	2018-03-08 10:38:47.000000000 +0300
-+++ tvheadend_ndms-4.2.5/src/descrambler/caclient.c	2018-03-16 18:46:56.860668149 +0300
+--- a/src/descrambler/caclient.c
++++ b/src/descrambler/caclient.c
 @@ -24,6 +24,9 @@ const idclass_t *caclient_classes[] = {
  #if ENABLE_CWC
    &caclient_cwc_class,
@@ -69,9 +65,8 @@ diff -ruNp tvheadend_ndms-4.2.5.orig/src/descrambler/caclient.c tvheadend_ndms-4
  #if ENABLE_CAPMT
    if (c == &caclient_capmt_class)
      cac = capmt_create();
-diff -ruNp tvheadend_ndms-4.2.5.orig/src/descrambler/caclient.h tvheadend_ndms-4.2.5/src/descrambler/caclient.h
---- tvheadend_ndms-4.2.5.orig/src/descrambler/caclient.h	2018-03-08 10:38:47.000000000 +0300
-+++ tvheadend_ndms-4.2.5/src/descrambler/caclient.h	2018-03-16 18:46:56.860668149 +0300
+--- a/src/descrambler/caclient.h
++++ b/src/descrambler/caclient.h
 @@ -26,6 +26,7 @@ struct mpegts_mux;
  
  extern const idclass_t caclient_class;
@@ -88,9 +83,8 @@ diff -ruNp tvheadend_ndms-4.2.5.orig/src/descrambler/caclient.h tvheadend_ndms-4
  caclient_t *capmt_create(void);
  caclient_t *constcw_create(void);
  caclient_t *tsdebugcw_create(void);
-diff -ruNp tvheadend_ndms-4.2.5.orig/src/main.c tvheadend_ndms-4.2.5/src/main.c
---- tvheadend_ndms-4.2.5.orig/src/main.c	2018-03-08 10:38:47.000000000 +0300
-+++ tvheadend_ndms-4.2.5/src/main.c	2018-03-16 18:46:56.860668149 +0300
+--- a/src/main.c
++++ b/src/main.c
 @@ -145,7 +145,7 @@ const char      *tvheadend_cwd0;
  const char      *tvheadend_cwd;
  const char      *tvheadend_webroot;
@@ -100,9 +94,8 @@ diff -ruNp tvheadend_ndms-4.2.5.orig/src/main.c tvheadend_ndms-4.2.5/src/main.c
    { "caclient", NULL },
  #endif
  #if ENABLE_LINUXDVB || ENABLE_SATIP_CLIENT || ENABLE_HDHOMERUN_CLIENT
-diff -ruNp tvheadend_ndms-4.2.5.orig/src/tvhlog.c tvheadend_ndms-4.2.5/src/tvhlog.c
---- tvheadend_ndms-4.2.5.orig/src/tvhlog.c	2018-03-08 10:38:47.000000000 +0300
-+++ tvheadend_ndms-4.2.5/src/tvhlog.c	2018-03-16 18:46:56.860668149 +0300
+--- a/src/tvhlog.c
++++ b/src/tvhlog.c
 @@ -137,6 +137,7 @@ tvhlog_subsys_t tvhlog_subsystems[] = {
    [LS_CSA]           = { "csa",           N_("CSA (descrambling)") },
    [LS_CAPMT]         = { "capmt",         N_("CAPMT CA Client") },
@@ -111,9 +104,8 @@ diff -ruNp tvheadend_ndms-4.2.5.orig/src/tvhlog.c tvheadend_ndms-4.2.5/src/tvhlo
    [LS_DVBCAM]        = { "dvbcam",        N_("DVB CAM Client") },
    [LS_DVR]           = { "dvr",           N_("Digital Video Recorder") },
    [LS_EPG]           = { "epg",           N_("Electronic Program Guide") },
-diff -ruNp tvheadend_ndms-4.2.5.orig/src/tvhlog.h tvheadend_ndms-4.2.5/src/tvhlog.h
---- tvheadend_ndms-4.2.5.orig/src/tvhlog.h	2018-03-08 10:38:47.000000000 +0300
-+++ tvheadend_ndms-4.2.5/src/tvhlog.h	2018-03-16 18:46:56.860668149 +0300
+--- a/src/tvhlog.h
++++ b/src/tvhlog.h
 @@ -161,6 +161,7 @@ enum {
    LS_CSA,
    LS_CAPMT,
@@ -122,9 +114,8 @@ diff -ruNp tvheadend_ndms-4.2.5.orig/src/tvhlog.h tvheadend_ndms-4.2.5/src/tvhlo
    LS_DVBCAM,
    LS_DVR,
    LS_EPG,
-diff -ruNp tvheadend_ndms-4.2.5.orig/src/webui/static/app/caclient.js tvheadend_ndms-4.2.5/src/webui/static/app/caclient.js
---- tvheadend_ndms-4.2.5.orig/src/webui/static/app/caclient.js	2018-03-08 10:38:47.000000000 +0300
-+++ tvheadend_ndms-4.2.5/src/webui/static/app/caclient.js	2018-03-16 18:46:56.864670173 +0300
+--- a/src/webui/static/app/caclient.js
++++ b/src/webui/static/app/caclient.js
 @@ -24,7 +24,7 @@ tvheadend.caclient = function(panel, ind
  
      var list = 'enabled,name,username,password,hostname,mode,camdfilename,' +
@@ -134,9 +125,8 @@ diff -ruNp tvheadend_ndms-4.2.5.orig/src/webui/static/app/caclient.js tvheadend_
  
      tvheadend.idnode_form_grid(panel, {
          clazz: 'caclient',
-diff -ruNp tvheadend_ndms-4.2.5.orig/support/configure.inc tvheadend_ndms-4.2.5/support/configure.inc
---- tvheadend_ndms-4.2.5.orig/support/configure.inc	2018-03-08 10:38:47.000000000 +0300
-+++ tvheadend_ndms-4.2.5/support/configure.inc	2018-03-16 18:46:56.864670173 +0300
+--- a/support/configure.inc
++++ b/support/configure.inc
 @@ -545,6 +545,11 @@ EOF
  
    # Add build config string declaration
@@ -149,9 +139,8 @@ diff -ruNp tvheadend_ndms-4.2.5.orig/support/configure.inc tvheadend_ndms-4.2.5/
  extern const char* build_config_str;
  extern const char* build_timestamp;
  EOF
-diff -ruNp tvheadend_ndms-4.2.5.orig/src/descrambler/cccam.c tvheadend_ndms-4.2.5/src/descrambler/cccam.c
---- tvheadend_ndms-4.2.5.orig/src/descrambler/cccam.c	2018-03-16 19:24:36.536344105 +0300
-+++ tvheadend_ndms-4.2.5/src/descrambler/cccam.c	2018-03-16 19:20:10.380847099 +0300
+--- /dev/null
++++ b/src/descrambler/cccam.c
 @@ -0,0 +1,2022 @@
 +  /*
 + *  tvheadend, CCCAM interface

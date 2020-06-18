@@ -1,7 +1,6 @@
-diff -ruN tvheadend_ndms.orig/Makefile tvheadend_ndms/Makefile
---- tvheadend_ndms.orig/Makefile	2017-12-13 18:06:01.000000000 +0300
-+++ tvheadend_ndms/Makefile	2017-12-13 18:23:25.352307263 +0300
-@@ -800,6 +800,7 @@
+--- a/Makefile
++++ b/Makefile
+@@ -803,6 +803,7 @@ $(ROOTDIR)/data/dvb-scan/.stamp:
  	@echo "Receiving data/dvb-scan from https://github.com/tvheadend/dtv-scan-tables.git#tvheadend"
  	@rm -rf $(ROOTDIR)/data/dvb-scan/*
  	@$(ROOTDIR)/support/getmuxlist $(ROOTDIR)/data/dvb-scan

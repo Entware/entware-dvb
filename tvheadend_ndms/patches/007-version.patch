@@ -1,6 +1,6 @@
---- a/support/version	2018-02-27 12:05:34.000000000 +0300
-+++ b/support/version	2018-03-04 14:13:23.944333679 +0300
-@@ -17,7 +17,7 @@
+--- a/support/version
++++ b/support/version
+@@ -17,7 +17,7 @@ if [ -d ".git" ]; then
    fi
    VER=$(echo $VER | sed "s/^v//" | sed "s/-\([0-9]*\)-\(g[0-9a-f]*\)/-\1~\2/")
  elif [ -f "$(dirname "$0")/../debian/changelog" ]; then
