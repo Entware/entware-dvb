@@ -6,7 +6,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=scan-s2
 PKG_VERSION:=1.0
-PKG_RELEASE:=4a
+PKG_RELEASE:=4b
 PKG_SOURCE_VERSION:=default
 PKG_SOURCE_PROTO:=hg
 PKG_SOURCE_URL:=https://bitbucket.org/CrazyCat/scan-s2
