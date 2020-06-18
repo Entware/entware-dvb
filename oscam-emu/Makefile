@@ -9,7 +9,7 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=oscam-emu
-PKG_RELEASE:=1a
+PKG_RELEASE:=1b
 PKG_SOURCE_URL:=http://www.streamboard.tv/svn/oscam/trunk
 PKG_REV:=11420
 EMU_REV:=769
