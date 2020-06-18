@@ -11,7 +11,7 @@ include $(TOPDIR)/rules.mk
 PKG_NAME:=dvb-apps
 PKG_REV:=3d43b280298c
 PKG_VERSION:=r$(PKG_REV)
-PKG_RELEASE:=1
+PKG_RELEASE:=1a
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
 PKG_SOURCE_URL:=http://linuxtv.org/hg/dvb-apps
