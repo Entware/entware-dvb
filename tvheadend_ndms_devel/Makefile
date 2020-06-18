@@ -6,7 +6,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=tvheadend_ndms_devel
 PKG_VERSION:=4.3.0
-PKG_RELEASE:=6b
+PKG_RELEASE:=6c
 
 PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
 PKG_SOURCE_VERSION:=9b9ee6859be90fedb5d43ad1d770dfcdb8b1caf4

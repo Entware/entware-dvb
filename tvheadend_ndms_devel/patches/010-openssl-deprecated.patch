@@ -1,6 +1,6 @@
 --- a/src/main.c
 +++ b/src/main.c
-@@ -1162,10 +1162,12 @@
+@@ -1162,10 +1162,12 @@ main(int argc, char **argv)
    sigprocmask(SIG_BLOCK, &set, NULL);
    trap_init(argv[0]);
  
@@ -13,7 +13,7 @@
    /* Rand seed */
    randseed.thread_id = (void *)main_tid;
    gettimeofday(&randseed.tv, NULL);
-@@ -1368,8 +1370,11 @@
+@@ -1368,8 +1370,11 @@ main(int argc, char **argv)
    if(opt_fork)
      unlink(opt_pidpath);
  
@@ -25,7 +25,7 @@
    RAND_cleanup();
    CRYPTO_cleanup_all_ex_data();
    EVP_cleanup();
-@@ -1377,12 +1382,13 @@
+@@ -1377,12 +1382,13 @@ main(int argc, char **argv)
  #if !defined(OPENSSL_NO_COMP)
    COMP_zlib_cleanup();
  #endif

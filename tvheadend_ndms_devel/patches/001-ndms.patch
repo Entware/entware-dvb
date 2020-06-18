@@ -1,6 +1,5 @@
-diff -ruNp tvheadend/configure tvheadend.new/configure
---- tvheadend/configure	2018-03-16 20:14:00.251998685 +0300
-+++ tvheadend.new/configure	2018-03-16 22:14:58.847977852 +0300
+--- a/configure
++++ b/configure
 @@ -38,7 +38,7 @@ OPTIONS=(
    "avahi:auto"
    "zlib:auto"
@@ -10,9 +9,8 @@ diff -ruNp tvheadend/configure tvheadend.new/configure
    "libx264:yes"
    "libx264_static:yes"
    "libx265:yes"
-diff -ruNp tvheadend/fix_scan.patch tvheadend.new/fix_scan.patch
---- tvheadend/fix_scan.patch	1970-01-01 03:00:00.000000000 +0300
-+++ tvheadend.new/fix_scan.patch	2018-03-16 22:15:43.488304985 +0300
+--- /dev/null
++++ b/fix_scan.patch
 @@ -0,0 +1,2685 @@
 +diff -ruN tvheadend_ndms.orig/data/dvb-scan/dvb-t/ru-all_dvb_t tvheadend_ndms/data/dvb-scan/dvb-t/ru-all_dvb_t
 +--- tvheadend_ndms.orig/data/dvb-scan/dvb-t/ru-all_dvb_t	1970-01-01 03:00:00.000000000 +0300
@@ -2699,9 +2697,8 @@ diff -ruNp tvheadend/fix_scan.patch tvheadend.new/fix_scan.patch
 ++	HIERARCHY = NONE
 ++	STREAM_ID = 2
 ++	INVERSION = AUTO
-diff -ruNp tvheadend/Makefile tvheadend.new/Makefile
---- tvheadend/Makefile	2018-03-16 20:14:00.251998685 +0300
-+++ tvheadend.new/Makefile	2018-03-16 22:15:58.212413884 +0300
+--- a/Makefile
++++ b/Makefile
 @@ -52,7 +52,7 @@ CFLAGS  += -Wall -Wwrite-strings -Wno-de
  CFLAGS  += -Wmissing-prototypes
  CFLAGS  += -fms-extensions -funsigned-char -fno-strict-aliasing
@@ -2711,7 +2708,7 @@ diff -ruNp tvheadend/Makefile tvheadend.new/Makefile
  ifeq ($(CONFIG_ANDROID),yes)
  LDFLAGS += -ldl -lm
  else
-@@ -883,6 +883,7 @@ $(ROOTDIR)/data/dvb-scan/.stamp:
+@@ -866,6 +866,7 @@ $(ROOTDIR)/data/dvb-scan/.stamp:
  	@echo "Receiving data/dvb-scan from https://github.com/tvheadend/dtv-scan-tables.git#tvheadend"
  	@rm -rf $(ROOTDIR)/data/dvb-scan/*
  	@$(ROOTDIR)/support/getmuxlist $(ROOTDIR)/data/dvb-scan
@@ -2719,9 +2716,8 @@ diff -ruNp tvheadend/Makefile tvheadend.new/Makefile
  	@touch $@
  
  .PHONY: check_dvb_scan
-diff -ruNp tvheadend/src/input/mpegts/linuxdvb/linuxdvb_adapter.c tvheadend.new/src/input/mpegts/linuxdvb/linuxdvb_adapter.c
---- tvheadend/src/input/mpegts/linuxdvb/linuxdvb_adapter.c	2018-03-16 20:14:00.340001498 +0300
-+++ tvheadend.new/src/input/mpegts/linuxdvb/linuxdvb_adapter.c	2018-03-16 22:17:30.357105572 +0300
+--- a/src/input/mpegts/linuxdvb/linuxdvb_adapter.c
++++ b/src/input/mpegts/linuxdvb/linuxdvb_adapter.c
 @@ -272,6 +272,34 @@ linuxdvb_get_type(int linux_type)
    }
  }
@@ -2767,10 +2763,9 @@ diff -ruNp tvheadend/src/input/mpegts/linuxdvb/linuxdvb_adapter.c tvheadend.new/
    }
  
    /* Process each CA device */
-diff -ruNp tvheadend/src/tcp.c tvheadend.new/src/tcp.c
---- tvheadend/src/tcp.c	2018-03-16 20:14:00.352001882 +0300
-+++ tvheadend.new/src/tcp.c	2018-03-16 22:16:34.856686920 +0300
-@@ -1013,12 +1013,12 @@ tcp_default_ip_addr ( struct sockaddr_st
+--- a/src/tcp.c
++++ b/src/tcp.c
+@@ -1018,12 +1018,12 @@ tcp_default_ip_addr ( struct sockaddr_st
    ss.ss_family = family == PF_UNSPEC ? tcp_preferred_address_family : family;
    if (inet_pton(ss.ss_family,
                  ss.ss_family == AF_INET ?
@@ -2786,9 +2781,8 @@ diff -ruNp tvheadend/src/tcp.c tvheadend.new/src/tcp.c
  
    sock = tvh_socket(ss.ss_family, SOCK_STREAM, 0);
    if (sock < 0)
-diff -ruNp tvheadend/support/version tvheadend.new/support/version
---- tvheadend/support/version	2018-03-16 20:14:00.384002905 +0300
-+++ tvheadend.new/support/version	2018-03-16 22:17:45.433220285 +0300
+--- a/support/version
++++ b/support/version
 @@ -17,7 +17,7 @@ if [ -d ".git" ]; then
    fi
    VER=$(echo $VER | sed "s/^v//" | sed "s/-\([0-9]*\)-\(g[0-9a-f]*\)/-\1~\2/")

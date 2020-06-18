@@ -1,7 +1,6 @@
-diff -ruN tvheadend_ndms_devel-4.3.0.orig/configure tvheadend_ndms_devel-4.3.0/configure
---- tvheadend_ndms_devel-4.3.0.orig/configure	2018-03-30 16:56:55.558219923 +0300
-+++ tvheadend_ndms_devel-4.3.0/configure	2018-03-30 17:25:44.712400580 +0300
-@@ -649,9 +649,9 @@
+--- a/configure
++++ b/configure
+@@ -663,9 +663,9 @@ if enabled_or_auto tvhcsa; then
      enable tvhcsa
      enable dvbcsa
      if enabled dvbcsa; then
