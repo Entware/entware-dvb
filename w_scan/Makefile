@@ -6,7 +6,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=w_scan
 PKG_VERSION:=20170107
-PKG_RELEASE:=1a
+PKG_RELEASE:=1b
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
 PKG_SOURCE_URL:=http://wirbel.htpc-forum.de/w_scan
