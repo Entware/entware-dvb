@@ -6,7 +6,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=minisatip_ndms
 PKG_VERSION:=0.7
-PKG_RELEASE:=1
+PKG_RELEASE:=1a
 
 PKG_SOURCE_VERSION:=cea9e4deee1062c492bcef2fa7967468ec8c908d
 PKG_SOURCE_PROTO:=git
