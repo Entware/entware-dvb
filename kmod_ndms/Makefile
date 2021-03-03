@@ -13,7 +13,7 @@ PKG_RELEASE:=5a
 
 PKG_SOURCE:=kmod-$(PKG_VERSION).tar.xz
 PKG_SOURCE_URL:=https://www.kernel.org/pub/linux/utils/kernel/kmod/
-PKG_MD5SUM:=08297dfb6f2b3f625f928ca3278528af
+PKG_HASH:=610b8d1df172acc39a4fdf1eaa47a57b04873c82f32152e7a62e29b6ff9cb397
 
 include $(INCLUDE_DIR)/package.mk
 
