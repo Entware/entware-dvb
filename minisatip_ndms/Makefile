@@ -11,6 +11,7 @@ PKG_RELEASE:=1a
 PKG_SOURCE_VERSION:=cea9e4deee1062c492bcef2fa7967468ec8c908d
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_URL:=git://github.com/catalinii/minisatip.git
+PKG_MIRROR_HASH:=skip
 PKG_SOURCE:=minisatip-$(PKG_VERSION)-$(PKG_SOURCE_VERSION).tar.gz
 PKG_SOURCE_SUBDIR:=minisatip-$(PKG_VERSION)
 
