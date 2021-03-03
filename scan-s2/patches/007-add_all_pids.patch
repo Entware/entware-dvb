@@ -1,6 +1,5 @@
-diff -ruNp scan-s2.orig/dump-m3u.c scan-s2/dump-m3u.c
---- scan-s2.orig/dump-m3u.c	2018-01-14 13:40:48.000000000 +0300
-+++ scan-s2/dump-m3u.c	2018-01-14 13:35:41.000000000 +0300
+--- a/dump-m3u.c
++++ b/dump-m3u.c
 @@ -258,13 +258,21 @@ void m3u_dump_service_parameter_set (FIL
  			return;
  		}

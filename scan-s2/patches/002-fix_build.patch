@@ -1,57 +1,17 @@
-diff -ruNp scan-s2.orig/scan.c scan-s2/scan.c
---- scan-s2.orig/scan.c	-9223372036854775808.000000000
-+++ scan-s2/scan.c	2017-03-06 13:13:58.779824163 +0300
-@@ -1950,7 +1950,7 @@ static int __tune_to_transponder (int fr
+--- a/Makefile
++++ b/Makefile
+@@ -1,11 +1,11 @@
+-CC=gcc
++CC ?=gcc
  
- 	if ((ioctl(frontend_fd, FE_SET_PROPERTY, &cmdseq_clear)) == -1) {
- 		perror("FE_SET_PROPERTY DTV_CLEAR failed");
--		return;
-+		return -1;
- 	}
+ SRC=atsc_psip_section.c diseqc.c dump-vdr.c dump-zap.c dump-m3u.c lnb.c scan.c section.c 
+ HED=atsc_psip_section.h diseqc.h dump-vdr.h dump-zap.h dump-m3u.h lnb.h scan.h section.h list.h
+ OBJ=atsc_psip_section.o diseqc.o dump-vdr.o dump-zap.o dump-m3u.o lnb.o scan.o section.o
  
- 	if (verbosity >= 1) {
-@@ -2100,7 +2100,7 @@ static int __tune_to_transponder (int fr
+-BIND=/usr/local/bin/
+-INCLUDE=-I../s2/linux/include
++BIND=/opt/usr/bin/
++INCLUDE=-I./include
  
- 	if ((ioctl(frontend_fd, FE_SET_PROPERTY, &cmdseq_tune)) == -1) {
- 		perror("FE_SET_PROPERTY TUNE failed");
--		return;
-+		return -1;
- 	}
- 
- 	// wait for zero status indicating start of tunning
-@@ -2144,7 +2144,7 @@ static int __tune_to_transponder (int fr
- 			// get the actual parameters from the driver for that channel
- 			if ((ioctl(frontend_fd, FE_GET_PROPERTY, &cmdseq)) == -1) {
- 				perror("FE_GET_PROPERTY failed");
--				return;
-+				return -1;
- 			}
- 
- 			t->delivery_system = p[0].u.data;
-@@ -3351,7 +3351,7 @@ int main (int argc, char **argv)
- 		/* query for currently tuned parameters */
- 		if ((ioctl(frontend_fd, FE_GET_PROPERTY, &cmdseq)) == -1) {
- 			perror("FE_GET_PROPERTY failed");
--			return;
-+			return -1;
- 		}
- 		current_tp = alloc_transponder(p[0].u.data);
- 		current_tp->delivery_system = p[1].u.data;
---- scan-s2.orig/diseqc.c	1970-01-01 02:59:59.000000000 +0300
-+++ scan-s2/diseqc.c	2017-03-27 23:55:19.636211635 +0300
-@@ -1,3 +1,4 @@
-+#include <stdlib.h>
- #include <sys/ioctl.h>
- #include <time.h>
- #include <unistd.h>
---- scan-s2.orig/scan.h	1970-01-01 02:59:59.000000000 +0300
-+++ scan-s2/scan.h	2017-03-27 23:55:19.644211442 +0300
-@@ -135,5 +136,8 @@ typedef struct rotorslot {
- 	char angle_we[8];		// '19.2E'
- } rotorslot_t;
- 
-+float rotor_angle(int nn);
-+int rotor_nn(int orbital_pos, int we_flag);
-+
- #endif
+ TARGET=scan-s2
  

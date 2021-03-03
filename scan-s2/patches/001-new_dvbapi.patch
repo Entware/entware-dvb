@@ -1,6 +1,5 @@
-diff -ruNp scan-s2.orig/include/linux/dvb/dmx.h scan-s2/include/linux/dvb/dmx.h
---- scan-s2.orig/include/linux/dvb/dmx.h	1970-01-01 03:00:00.000000000 +0300
-+++ scan-s2/include/linux/dvb/dmx.h	2017-03-04 02:59:37.000000000 +0300
+--- /dev/null
++++ b/include/linux/dvb/dmx.h
 @@ -0,0 +1,155 @@
 +/*
 + * dmx.h
@@ -157,9 +156,8 @@ diff -ruNp scan-s2.orig/include/linux/dvb/dmx.h scan-s2/include/linux/dvb/dmx.h
 +#define DMX_REMOVE_PID           _IOW('o', 52, __u16)
 +
 +#endif /* _UAPI_DVBDMX_H_ */
-diff -ruNp scan-s2.orig/include/linux/dvb/frontend.h scan-s2/include/linux/dvb/frontend.h
---- scan-s2.orig/include/linux/dvb/frontend.h	1970-01-01 03:00:00.000000000 +0300
-+++ scan-s2/include/linux/dvb/frontend.h	2017-03-04 02:59:37.000000000 +0300
+--- /dev/null
++++ b/include/linux/dvb/frontend.h
 @@ -0,0 +1,602 @@
 +/*
 + * frontend.h
@@ -763,9 +761,8 @@ diff -ruNp scan-s2.orig/include/linux/dvb/frontend.h scan-s2/include/linux/dvb/f
 +#define FE_DISHNETWORK_SEND_LEGACY_CMD _IO('o', 80) /* unsigned int */
 +
 +#endif /*_DVBFRONTEND_H_*/
-diff -ruNp scan-s2.orig/include/linux/dvb/version.h scan-s2/include/linux/dvb/version.h
---- scan-s2.orig/include/linux/dvb/version.h	1970-01-01 03:00:00.000000000 +0300
-+++ scan-s2/include/linux/dvb/version.h	2017-03-04 02:59:37.000000000 +0300
+--- /dev/null
++++ b/include/linux/dvb/version.h
 @@ -0,0 +1,29 @@
 +/*
 + * version.h
@@ -796,21 +793,3 @@ diff -ruNp scan-s2.orig/include/linux/dvb/version.h scan-s2/include/linux/dvb/ve
 +#define DVB_API_VERSION_MINOR 10
 +
 +#endif /*_DVBVERSION_H_*/
-diff -ruNp scan-s2.orig/Makefile scan-s2/Makefile
---- scan-s2.orig/Makefile	2017-03-03 14:56:16.994981303 +0300
-+++ scan-s2/Makefile	2017-03-06 12:55:05.917684775 +0300
-@@ -1,11 +1,11 @@
--CC=gcc
-+# CC=gcc
- 
- SRC=atsc_psip_section.c diseqc.c dump-vdr.c dump-zap.c lnb.c scan.c section.c 
- HED=atsc_psip_section.h diseqc.h dump-vdr.h dump-zap.h lnb.h scan.h section.h list.h
- OBJ=atsc_psip_section.o diseqc.o dump-vdr.o dump-zap.o lnb.o scan.o section.o
- 
--BIND=/usr/local/bin/
--INCLUDE=-I../s2/linux/include
-+BIND=/opt/usr/bin/
-+INCLUDE=-I./include
- 
- TARGET=scan-s2
- 

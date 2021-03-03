@@ -1,7 +1,6 @@
-diff -ruN scan-s2.orig/Makefile scan-s2/Makefile
---- scan-s2.orig/Makefile	2017-03-29 01:36:43.000000000 +0300
-+++ scan-s2/Makefile	2017-03-29 01:45:10.608118747 +0300
-@@ -12,7 +12,7 @@
+--- a/Makefile
++++ b/Makefile
+@@ -12,7 +12,7 @@ TARGET=scan-s2
  all: $(TARGET)
  
  $(TARGET): $(OBJ)
@@ -10,7 +9,7 @@ diff -ruN scan-s2.orig/Makefile scan-s2/Makefile
  
  $(OBJ): $(HED)
  
-@@ -26,4 +26,4 @@
+@@ -26,4 +26,4 @@ clean:
  	rm -f $(OBJ) $(TARGET) *~
  
  %.o: %.c

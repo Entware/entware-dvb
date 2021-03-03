@@ -1,7 +1,6 @@
-diff -ruN scan-s2.orig/dump-m3u.c scan-s2/dump-m3u.c
---- scan-s2.orig/dump-m3u.c	2017-03-29 02:11:20.000000000 +0300
-+++ scan-s2/dump-m3u.c	2017-03-30 13:31:44.098465638 +0300
-@@ -251,7 +251,14 @@
+--- a/dump-m3u.c
++++ b/dump-m3u.c
+@@ -251,7 +251,14 @@ void m3u_dump_service_parameter_set (FIL
  
  		m3u_dvb_parameters (f, t, 1);
  

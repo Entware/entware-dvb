@@ -6,14 +6,16 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=scan-s2
 PKG_VERSION:=1.0
-PKG_RELEASE:=4b
-PKG_SOURCE_VERSION:=default
-PKG_SOURCE_PROTO:=hg
-PKG_SOURCE_URL:=https://bitbucket.org/CrazyCat/scan-s2
-PKG_SOURCE:=$(PKG_NAME).tar.gz
-PKG_SOURCE_SUBDIR:=$(PKG_NAME)
+PKG_RELEASE:=5
 
-PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME)
+PKG_SOURCE_VERSION:=06a32606d2bccc52664e6fa1cff68d8874342202
+PKG_SOURCE_PROTO:=git
+PKG_SOURCE_URL:=https://github.com/crazycat69/scan-s2
+PKG_MIRROR_HASH:=skip
+PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
+PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
+
+TAR_OPTIONS += --exclude='dump-m3u.o'
 
 include $(INCLUDE_DIR)/package.mk
 include $(INCLUDE_DIR)/nls.mk
@@ -23,7 +25,7 @@ define Package/scan-s2
   CATEGORY:=Utilities
   TITLE:=scan-s2 channels scanning tool for the Linux DVB S2 API
   DEPENDS:=$(ICONV_DEPENDS)
-  URL:=https://bitbucket.org/CrazyCat/scan-s2
+  URL:=https://github.com/crazycat69/scan-s2
 ifneq (,$(filter mips mipsel,$(ARCH)))
   PKGARCH:=$(BOARD)_kn
 endif

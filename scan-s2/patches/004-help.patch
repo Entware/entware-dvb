@@ -1,5 +1,5 @@
---- scan-s2.orig/scan.c	2017-03-28 12:21:31.648535075 +0300
-+++ scan-s2/scan.c	2017-03-28 12:20:26.632396485 +0300
+--- a/scan.c
++++ b/scan.c
 @@ -3092,7 +3092,7 @@ static void show_existing_tuning_data_fi
  #define DATADIR "/usr/local/share"
  #endif
