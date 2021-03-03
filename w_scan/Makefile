@@ -1,17 +1,17 @@
 #
 # Copyright (C) 2017 NDM Systems, McMCC
 #
+# XXX w_scan-20210218 (20170107 compile fix + repackage, no update)
 
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=w_scan
-PKG_VERSION:=20170107
-PKG_RELEASE:=1b
+PKG_VERSION:=20210218
+PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
-PKG_SOURCE_URL:=http://wirbel.htpc-forum.de/w_scan
-PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME)-$(PKG_VERSION)
-PKG_MD5SUM:=c7f9adf92d46b8da5391be80be6fbd72
+PKG_SOURCE_URL:=https://www.gen2vdr.de/wirbel/w_scan_cpp
+PKG_HASH:=75d7447ebeddfb9ce251f32a93f23190ed46dca44f5b701f2af11e1787b9eb08
 
 include $(INCLUDE_DIR)/package.mk
 include $(INCLUDE_DIR)/nls.mk
@@ -21,7 +21,7 @@ define Package/w_scan
   CATEGORY:=Utilities
   TITLE:=w_scan performs frequency scans for DVB and ATSC.
   DEPENDS:=$(ICONV_DEPENDS)
-  URL:=http://wirbel.htpc-forum.de/w_scan/index_en.html
+  URL:=https://www.gen2vdr.de/wirbel/w_scan_cpp/index2.html
 ifneq (,$(filter mips mipsel,$(ARCH)))
   PKGARCH:=$(BOARD)_kn
 endif
