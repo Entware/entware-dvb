@@ -6,7 +6,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=astra-sm
 PKG_VERSION:=0.2.88
-PKG_RELEASE:=2c
+PKG_RELEASE:=2d
 
 PKG_SOURCE_VERSION:=450d4ec79dcb9f267784a42484fcf65b36230b78
 PKG_SOURCE_PROTO:=git
@@ -45,12 +45,14 @@ define Build/Configure
 	CC="$(TARGET_CC)" \
 	CFLAGS="$(TARGET_CFLAGS) -I$(PKG_BUILD_DIR)/lua -pthread" \
 	LDFLAGS="$(TARGET_LDFLAGS) -L$(PKG_BUILD_DIR)/lua/.libs" \
-	./configure --without-ffmpeg \
-		    --prefix=/opt \
-		    --target=$(GNU_TARGET_NAME) \
-		    --host=$(GNU_TARGET_NAME) \
-		    --build=$(GNU_HOST_NAME) \
-		    --without-lua
+	./configure \
+		--prefix=/opt \
+		--target=$(GNU_TARGET_NAME) \
+		--host=$(GNU_TARGET_NAME) \
+		--build=$(GNU_HOST_NAME) \
+		--without-ffmpeg \
+		--without-libaio \
+		--without-lua
 endef
 
 define Package/astra-sm/postinst
