@@ -4,23 +4,25 @@
 
 include $(TOPDIR)/rules.mk
 
-PKG_NAME:=libdvbcsa
+PKG_NAME:=libdvbcsa_ndms
 PKG_VERSION:=1.1.0
-PKG_RELEASE:=1a
+PKG_RELEASE:=2
 
-PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
+PKG_SOURCE:=libdvbcsa-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=http://download.videolan.org/pub/videolan/libdvbcsa/$(PKG_VERSION)/
 PKG_HASH:=4db78af5cdb2641dfb1136fe3531960a477c9e3e3b6ba19a2754d046af3f456d
+
+PKG_BUILD_DIR:=$(BUILD_DIR)/libdvbcsa-$(PKG_VERSION)
 
 PKG_INSTALL:=1
 PKG_BUILD_PARALLEL:=1
 
 include $(INCLUDE_DIR)/package.mk
 
-define Package/libdvbcsa
+define Package/libdvbcsa_ndms
   SECTION:=libs
   CATEGORY:=Libraries
-  TITLE:=libdvbcsa
+  TITLE:=libdvbcsa_ndms
   URL:=http://www.videolan.org/developers/libdvbcsa.html
   MENU:=1
 ifneq (,$(filter mips mipsel,$(ARCH)))
@@ -28,13 +30,9 @@ ifneq (,$(filter mips mipsel,$(ARCH)))
 endif
 endef
 
-define Package/libdvbcsa/description
+define Package/libdvbcsa_ndms/description
  libdvbcsa is a free implementation of the DVB Common Scrambling
  Algorithm - DVB/CSA - with encryption and decryption capabilities
-endef
-
-define Build/Configure
-	$(call Build/Configure/Default)
 endef
 
 define Build/InstallDev
@@ -44,14 +42,14 @@ define Build/InstallDev
 	$(CP) $(PKG_INSTALL_DIR)/opt/lib/libdvbcsa.{a,so*} $(1)/opt/lib/
 endef
 
-define Package/libdvbcsa/install
+define Package/libdvbcsa_ndms/install
 	$(INSTALL_DIR) $(1)/opt/lib
 	$(CP) $(PKG_BUILD_DIR)/src/.libs/libdvbcsa.so* $(1)/opt/lib/
 endef
 
-define Package/libdvbcsa/postinst
+define Package/libdvbcsa_ndms/postinst
 #!/bin/sh
 ldconfig
 endef
 
-$(eval $(call BuildPackage,libdvbcsa))
+$(eval $(call BuildPackage,libdvbcsa_ndms))
