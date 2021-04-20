@@ -6,7 +6,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=astra-sm
 PKG_VERSION:=0.2.88
-PKG_RELEASE:=2d
+PKG_RELEASE:=3
 
 PKG_SOURCE_VERSION:=450d4ec79dcb9f267784a42484fcf65b36230b78
 PKG_SOURCE_PROTO:=git
@@ -24,7 +24,7 @@ define Package/astra-sm
   SECTION:=multimedia
   CATEGORY:=Multimedia
   TITLE:= Astra SM IPTV server for Linux
-  DEPENDS:=+librt +libpthread +libopenssl +libdvbcsa
+  DEPENDS:=+librt +libpthread +libopenssl +libdvbcsa_ndms
   URL:=https://gitlab.com/berdyansk/astra-sm
 ifneq (,$(filter mips mipsel,$(ARCH)))
   PKGARCH:=$(BOARD)_kn
