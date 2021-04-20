@@ -6,7 +6,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=tvheadend_ndms_devel
 PKG_VERSION:=4.3.0
-PKG_RELEASE:=6c
+PKG_RELEASE:=7
 
 PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
 PKG_SOURCE_VERSION:=9b9ee6859be90fedb5d43ad1d770dfcdb8b1caf4
@@ -32,7 +32,7 @@ define Package/tvheadend_ndms_devel
   SECTION:=multimedia
   CATEGORY:=Multimedia
   TITLE:=Tvheadend is a TV streaming server for Linux
-  DEPENDS:=+libpcre +libopenssl +librt +zlib +libdvbcsa +TVHEADEND_NDMS_DEVEL_AVAHI_SUPPORT:libavahi-client $(ICONV_DEPENDS)
+  DEPENDS:=+libpcre +libopenssl +librt +zlib +libdvbcsa_ndms +TVHEADEND_NDMS_DEVEL_AVAHI_SUPPORT:libavahi-client $(ICONV_DEPENDS)
   CONFLICTS:=tvheadend
   PROVIDES:=tvheadend_ndms
   URL:=https://tvheadend.org
