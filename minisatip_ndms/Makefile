@@ -6,7 +6,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=minisatip_ndms
 PKG_VERSION:=0.7
-PKG_RELEASE:=1a
+PKG_RELEASE:=2
 
 PKG_SOURCE_VERSION:=cea9e4deee1062c492bcef2fa7967468ec8c908d
 PKG_SOURCE_PROTO:=git
@@ -19,13 +19,17 @@ PKG_BUILD_DIR:=$(BUILD_DIR)/minisatip-$(PKG_VERSION)
 
 include $(INCLUDE_DIR)/package.mk
 
-DEP_CAS:=+libdvben50221 +libdvbapi +libucsi +ci-plus-sert
-
 define Package/minisatip_ndms
   SECTION:=multimedia
   CATEGORY:=Multimedia
   TITLE:= MiniSatIP server for Linux
-  DEPENDS:=+librt +libpthread +MINISATIP_NDMS_DVBAES_SUPPORT:libopenssl +MINISATIP_NDMS_DVBCSA_SUPPORT:libdvbcsa +MINISATIP_NDMS_DVBCA_SUPPORT:$(DEP_CAS)
+  DEPENDS:= \
+	+MINISATIP_NDMS_DVBAES_SUPPORT:libopenssl \
+	+MINISATIP_NDMS_DVBCA_SUPPORT:ci-plus-sert \
+	+MINISATIP_NDMS_DVBCA_SUPPORT:libdvbapi \
+	+MINISATIP_NDMS_DVBCA_SUPPORT:libdvben50221 \
+	+MINISATIP_NDMS_DVBCA_SUPPORT:libucsi \
+	+MINISATIP_NDMS_DVBCSA_SUPPORT:libdvbcsa_ndms
   URL:=https://github.com/catalinii/minisatip
   PROVIDES:=minisatip
 ifneq (,$(filter mips mipsel,$(ARCH)))
