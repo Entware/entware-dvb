@@ -1,0 +1,11 @@
+--- a/Makefile.hdhomerun
++++ b/Makefile.hdhomerun
+@@ -34,7 +34,7 @@ endif
+ 
+ LIBHDHR         = libhdhomerun_20171221
+ LIBHDHR_TB      = $(LIBHDHR).tgz
+-LIBHDHR_URL     = http://download.silicondust.com/hdhomerun/$(LIBHDHR_TB)
++LIBHDHR_URL     = http://src.entware.net/$(LIBHDHR_TB)
+ LIBHDHR_SHA1    = 6b019728eadea3af7a5686ed5ba44e970bca7365
+ 
+ # ###########################################################################

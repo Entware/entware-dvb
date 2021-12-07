@@ -6,7 +6,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=tvheadend_ndms
 PKG_VERSION:=4.2.6
-PKG_RELEASE:=5c
+PKG_RELEASE:=6
 
 PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
 PKG_SOURCE_VERSION:=42e737f28f511c53e7321774085c8761af41371a
@@ -58,14 +58,6 @@ define Package/tvheadend_ndms/config
   source "$(SOURCE)/Config.in"
   endmenu
 endef
-
-ifeq ($(CONFIG_GCC_USE_VERSION_7),y)
-TARGET_CFLAGS+= \
-	-Wno-error=misleading-indentation
-	-Wno-error=format-truncation \
-	-Wno-error=pointer-compare \
-	-Wno-error=implicit-function-declaration
-endif
 
 ifeq ($(CONFIG_GCC_USE_VERSION_8),y)
 TARGET_CFLAGS+= \
