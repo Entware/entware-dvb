@@ -6,7 +6,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=astra-sm
 PKG_VERSION:=0.2.88
-PKG_RELEASE:=3
+PKG_RELEASE:=4
 
 PKG_SOURCE_VERSION:=450d4ec79dcb9f267784a42484fcf65b36230b78
 PKG_SOURCE_PROTO:=git
@@ -50,6 +50,7 @@ define Build/Configure
 		--target=$(GNU_TARGET_NAME) \
 		--host=$(GNU_TARGET_NAME) \
 		--build=$(GNU_HOST_NAME) \
+		--without-check \
 		--without-ffmpeg \
 		--without-libaio \
 		--without-lua
