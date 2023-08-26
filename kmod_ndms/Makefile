@@ -8,41 +8,42 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=kmod_ndms
-PKG_VERSION:=24
-PKG_RELEASE:=5a
+PKG_VERSION:=30
+PKG_RELEASE:=1
 
 PKG_SOURCE:=kmod-$(PKG_VERSION).tar.xz
-PKG_SOURCE_URL:=https://www.kernel.org/pub/linux/utils/kernel/kmod/
-PKG_HASH:=610b8d1df172acc39a4fdf1eaa47a57b04873c82f32152e7a62e29b6ff9cb397
+PKG_SOURCE_URL:=@KERNEL/linux/utils/kernel/kmod
+PKG_HASH:=f897dd72698dc6ac1ef03255cd0a5734ad932318e4adbaebc7338ef2f5202f9f
+
+PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME)-$(PKG_VERSION)
 
 include $(INCLUDE_DIR)/package.mk
+
+PKG_UNPACK:=$(HOST_TAR) -C $(PKG_BUILD_DIR) --strip-components=1 -xJf $(DL_DIR)/$(PKG_SOURCE)
 
 define Package/kmod_ndms
   SECTION:=utils
   CATEGORY:=Utilities
   TITLE:=Linux kernel module handling (Build static)
   URL:=https://www.kernel.org/pub/linux/utils/kernel/kmod/
-  DEPENDS=+libusb-compat +dvb-firmware
+  DEPENDS:=+libusb-compat +dvb-firmware
   CONFLICTS:=kmod
 ifneq (,$(filter mips mipsel,$(ARCH)))
   PKGARCH:=$(BOARD)_kn
 endif
+  ALTERNATIVES:=\
+    200:/opt/sbin/depmod:/opt/sbin/kmod_ndms \
+    200:/opt/sbin/insmod:/opt/sbin/kmod_ndms \
+    200:/opt/sbin/lsmod:/opt/sbin/kmod_ndms \
+    200:/opt/sbin/modinfo:/opt/sbin/kmod_ndms \
+    200:/opt/sbin/modprobe:/opt/sbin/kmod_ndms \
+    200:/opt/sbin/rmmod:/opt/sbin/kmod_ndms
 endef
 
 define Package/kmod_ndms/description
-Linux kernel module handling
+ Linux kernel module handling.
  kmod is a set of tools to handle common tasks with Linux kernel modules like
  insert, remove, list, check properties, resolve dependencies and aliases.
-endef
-
-KMOD_BINARIES:= depmod insmod lsmod modinfo modprobe rmmod
-
-define Build/Prepare
-	mkdir -p $(PKG_BUILD_DIR)
-	tar xvfJ $(DL_DIR)/$(PKG_SOURCE) --strip-components=1 -C $(PKG_BUILD_DIR)
-	$(CP) ./files/usbdev_get_class.c $(PKG_BUILD_DIR)/
-	$(CP) ./files/Makefile.static $(PKG_BUILD_DIR)/
-	$(Build/Patch)
 endef
 
 define Build/Compile
@@ -61,14 +62,11 @@ define Package/kmod_ndms/install
 	$(INSTALL_DIR) $(1)/opt/etc/ndm/usb.d
 	$(INSTALL_BIN) ./files/000-kmod_loader.sh $(1)/opt/etc/ndm/usb.d/
 	$(INSTALL_DIR) $(1)/opt/etc/default
-
-	for a in $(KMOD_BINARIES); do \
-		ln -sf kmod_ndms $(1)/opt/sbin/$$$$a ; \
-	done
 endef
 
 define Package/kmod_ndms/postinst
 #!/bin/sh
+
 /opt/etc/init.d/S00kmod_config
 endef
 

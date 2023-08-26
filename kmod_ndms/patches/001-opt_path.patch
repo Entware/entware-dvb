@@ -1,16 +1,15 @@
-diff -ruNp kmod-24.orig/libkmod/libkmod.c kmod-24/libkmod/libkmod.c
---- kmod-24.orig/libkmod/libkmod.c	2016-03-11 02:08:24.000000000 +0300
-+++ kmod-24/libkmod/libkmod.c	2017-03-03 16:29:50.168532884 +0300
-@@ -64,6 +64,8 @@ static const char *default_config_paths[
- 	SYSCONFDIR "/modprobe.d",
+--- a/libkmod/libkmod.c
++++ b/libkmod/libkmod.c
+@@ -66,6 +66,8 @@ static const char *default_config_paths[
  	"/run/modprobe.d",
+ 	"/usr/local/lib/modprobe.d",
  	"/lib/modprobe.d",
 +	"/opt/etc/modprobe.d",
 +	"/opt/lib/modprobe.d",
  	NULL
  };
  
-@@ -206,7 +208,7 @@ static int log_priority(const char *prio
+@@ -208,7 +210,7 @@ static int log_priority(const char *prio
  	return 0;
  }
  
@@ -19,19 +18,18 @@ diff -ruNp kmod-24.orig/libkmod/libkmod.c kmod-24/libkmod/libkmod.c
  
  static char *get_kernel_release(const char *dirname)
  {
-diff -ruNp kmod-24.orig/tools/depmod.c kmod-24/tools/depmod.c
---- kmod-24.orig/tools/depmod.c	2017-02-24 10:18:02.000000000 +0300
-+++ kmod-24/tools/depmod.c	2017-03-03 16:28:37.748233193 +0300
-@@ -52,6 +52,8 @@ static const char *default_cfg_paths[] =
+--- a/tools/depmod.c
++++ b/tools/depmod.c
+@@ -55,6 +55,8 @@ static const char *default_cfg_paths[] =
  	"/run/depmod.d",
- 	SYSCONFDIR "/depmod.d",
+ 	"/usr/local/lib/depmod.d",
  	"/lib/depmod.d",
 +	"/opt/etc/depmod.d",
 +	"/opt/lib/depmod.d",
  	NULL
  };
  
-@@ -2655,7 +2657,7 @@ static int do_depmod(int argc, char *arg
+@@ -3009,7 +3011,7 @@ static int do_depmod(int argc, char *arg
  
  	cfg.dirnamelen = snprintf(cfg.dirname, PATH_MAX,
  				  "%s/lib/modules/%s",
@@ -40,10 +38,9 @@ diff -ruNp kmod-24.orig/tools/depmod.c kmod-24/tools/depmod.c
  
  	if (optind == argc)
  		all = 1;
-diff -ruNp kmod-24.orig/tools/modinfo.c kmod-24/tools/modinfo.c
---- kmod-24.orig/tools/modinfo.c	2017-02-22 21:09:45.000000000 +0300
-+++ kmod-24/tools/modinfo.c	2017-03-03 16:30:28.176689360 +0300
-@@ -423,7 +423,7 @@ static int do_modinfo(int argc, char *ar
+--- a/tools/modinfo.c
++++ b/tools/modinfo.c
+@@ -454,7 +454,7 @@ static int do_modinfo(int argc, char *ar
  	if (root != NULL || kversion != NULL) {
  		struct utsname u;
  		if (root == NULL)
@@ -52,10 +49,9 @@ diff -ruNp kmod-24.orig/tools/modinfo.c kmod-24/tools/modinfo.c
  		if (kversion == NULL) {
  			if (uname(&u) < 0) {
  				ERR("uname() failed: %m\n");
-diff -ruNp kmod-24.orig/tools/modprobe.c kmod-24/tools/modprobe.c
---- kmod-24.orig/tools/modprobe.c	2017-02-22 21:09:49.000000000 +0300
-+++ kmod-24/tools/modprobe.c	2017-03-03 16:30:58.008811820 +0300
-@@ -856,7 +856,7 @@ static int do_modprobe(int argc, char **
+--- a/tools/modprobe.c
++++ b/tools/modprobe.c
+@@ -960,7 +960,7 @@ static int do_modprobe(int argc, char **
  	if (root != NULL || kversion != NULL) {
  		struct utsname u;
  		if (root == NULL)
@@ -64,9 +60,8 @@ diff -ruNp kmod-24.orig/tools/modprobe.c kmod-24/tools/modprobe.c
  		if (kversion == NULL) {
  			if (uname(&u) < 0) {
  				ERR("uname() failed: %m\n");
-diff -ruNp kmod-24.orig/tools/static-nodes.c kmod-24/tools/static-nodes.c
---- kmod-24.orig/tools/static-nodes.c	2017-02-22 21:10:22.000000000 +0300
-+++ kmod-24/tools/static-nodes.c	2017-03-03 16:31:39.824982982 +0300
+--- a/tools/static-nodes.c
++++ b/tools/static-nodes.c
 @@ -212,15 +212,15 @@ static int do_static_nodes(int argc, cha
  		goto finish;
  	}

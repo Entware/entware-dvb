@@ -33,7 +33,7 @@ install	:
 	mkdir -p $(BINDIR)
 	cp kmod $(BINDIR)/
 
-LIBKMOD_OBJS = libkmod/libkmod.o libkmod/libkmod-elf.o libkmod/libkmod-index.o libkmod/libkmod-module.o \
+LIBKMOD_OBJS = libkmod/libkmod.o libkmod/libkmod-builtin.o libkmod/libkmod-elf.o libkmod/libkmod-index.o libkmod/libkmod-module.o \
 		libkmod/libkmod-config.o libkmod/libkmod-file.o libkmod/libkmod-list.o libkmod/libkmod-signature.o
 
 SHARED_OBJS = shared/array.o shared/hash.o shared/scratchbuf.o shared/strbuf.o shared/util.o
