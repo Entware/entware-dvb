@@ -7,7 +7,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=w_scan
 PKG_VERSION:=20210218
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
 PKG_SOURCE_URL:=https://www.gen2vdr.de/wirbel/w_scan_cpp
@@ -19,19 +19,19 @@ include $(INCLUDE_DIR)/nls.mk
 define Package/w_scan
   SECTION:=utils
   CATEGORY:=Utilities
-  TITLE:=w_scan performs frequency scans for DVB and ATSC.
+  TITLE:=a universal ATSC and DVB blind scanner
   DEPENDS:=$(ICONV_DEPENDS)
   URL:=https://www.gen2vdr.de/wirbel/w_scan_cpp/index2.html
-ifneq (,$(filter mips mipsel,$(ARCH)))
+ifneq (,$(filter aarch64 mips mipsel,$(ARCH)))
   PKGARCH:=$(BOARD)_kn
 endif
 endef
 
-TARGET_LDFLAGS += \
-	-liconv
+TARGET_LDFLAGS += $(if $(ICONV_FULL),-liconv)
 
 define Package/w_scan/description
-  w_scan is a small command line utility used to perform frequency scans for DVB and ATSC transmissions.
+  w_scan is a small command line utility used to perform frequency scans
+  for DVB and ATSC transmissions.
 endef
 
 define Package/w_scan/install
