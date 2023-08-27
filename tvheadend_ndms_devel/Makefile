@@ -6,22 +6,20 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=tvheadend_ndms_devel
 PKG_VERSION:=4.3.0
-PKG_RELEASE:=8
+PKG_RELEASE:=9
 
-PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
+PKG_SOURCE_PROTO:=git
 PKG_SOURCE_VERSION:=9b9ee6859be90fedb5d43ad1d770dfcdb8b1caf4
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION)-$(PKG_SOURCE_VERSION).tar.gz
-PKG_SOURCE_PROTO:=git
 PKG_SOURCE_URL:=https://github.com/tvheadend/tvheadend.git
 PKG_MIRROR_HASH:=8ca9304b536ff1c42ff69870119a4688b6fb275ca0e372b0466549afcc502fc8
-PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME)-$(PKG_VERSION)
 
 PKG_LICENSE:=GPL-3.0
 PKG_LICENSE_FILES:=LICENSE.md
 
 PKG_FIXUP:=autoreconf
 
-PKG_USE_MIPS16:=0
+PKG_BUILD_FLAGS:=no-mips16
 
 SHORT_GIT_VER:=$(shell echo $(PKG_SOURCE_VERSION) | cut -b -7)
 
@@ -32,21 +30,21 @@ define Package/tvheadend_ndms_devel
   SECTION:=multimedia
   CATEGORY:=Multimedia
   TITLE:=Tvheadend is a TV streaming server for Linux
-  DEPENDS:=+libpcre +libopenssl +librt +zlib +libdvbcsa_ndms +TVHEADEND_NDMS_DEVEL_AVAHI_SUPPORT:libavahi-client $(ICONV_DEPENDS)
+  DEPENDS:=+libpcre +libopenssl +zlib +libdvbcsa +TVHEADEND_NDMS_DEVEL_AVAHI_SUPPORT:libavahi-client $(ICONV_DEPENDS)
   CONFLICTS:=tvheadend
   PROVIDES:=tvheadend_ndms
   URL:=https://tvheadend.org
-ifneq (,$(filter mips mipsel,$(ARCH)))
+ifneq (,$(filter aarch64 mips mipsel,$(ARCH)))
   PKGARCH:=$(BOARD)_kn
 endif
 endef
 
 define Package/tvheadend_ndms_devel/description
   Warning! This is only developers version! Not recommendation for use, not stable!
-
+  .
   Tvheadend is a TV streaming server and recorder for Linux, FreeBSD and Android
   supporting DVB-S, DVB-S2, DVB-C, DVB-T, ATSC, IPTV, SAT>IP and HDHomeRun as input sources.
-
+  .
   Tvheadend offers the HTTP (VLC, MPlayer), HTSP (Kodi, Movian) and SAT>IP streaming.
 endef
 
@@ -58,21 +56,21 @@ define Package/tvheadend_ndms_devel/config
 endef
 
 ifeq ($(CONFIG_TVHEADEND_NDMS_DEVEL_CWC_SUPPORT),)
-  CONFIGURE_ARGS += --disable-cwc
+CONFIGURE_ARGS += --disable-cwc
 endif
 
 ifeq ($(CONFIG_TVHEADEND_NDMS_DEVEL_LINUXDVB_SUPPORT),)
-  CONFIGURE_ARGS += --disable-linuxdvb
+CONFIGURE_ARGS += --disable-linuxdvb
 endif
 
 ifeq ($(CONFIG_TVHEADEND_NDMS_DEVEL_DVBSCAN_SUPPORT),)
-  CONFIGURE_ARGS += --disable-dvbscan
+CONFIGURE_ARGS += --disable-dvbscan
 endif
 
 ifeq ($(CONFIG_TVHEADEND_NDMS_DEVEL_AVAHI_SUPPORT),)
-  CONFIGURE_ARGS += --disable-avahi
+CONFIGURE_ARGS += --disable-avahi
 else
-  CONFIGURE_ARGS += --enable-avahi
+CONFIGURE_ARGS += --enable-avahi
 endif
 
 CONFIGURE_ARGS += \
@@ -95,11 +93,13 @@ endef
 
 define Package/tvheadend_ndms_devel/postinst
 #!/bin/sh
+
 ln -sfn /opt/etc/init.d/S58tvheadend /opt/etc/default/usb_services/dvb/S58tvheadend
 endef
 
 define Package/tvheadend_ndms_devel/postrm
 #!/bin/sh
+
 rm -rf /opt/etc/default/usb_services/dvb/S58tvheadend
 endef
 
@@ -107,7 +107,6 @@ define Package/tvheadend_ndms_devel/install
 	$(INSTALL_DIR) $(1)/opt/etc/default/usb_services/dvb
 	$(INSTALL_DIR) $(1)/opt/etc/init.d
 	$(INSTALL_BIN) ./files/tvheadend.init $(1)/opt/etc/init.d/S58tvheadend
-
 	$(INSTALL_DIR) $(1)/opt/usr/sbin
 	$(INSTALL_BIN) $(PKG_BUILD_DIR)/build.linux/tvheadend $(1)/opt/usr/sbin/
 	$(INSTALL_BIN) ./files/tv_grab_ru  $(1)/opt/usr/sbin/
