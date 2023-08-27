@@ -11,7 +11,7 @@ GET_CLASS=`/opt/sbin/usbdev_get_class 0x${usb_vendor} 0x${usb_model}`
 DIR_KMOD=/opt/lib/modules/$VER_KMOD
 CHK_ALIAS=$DIR_KMOD/modules.alias
 CHK_SYMS=$DIR_KMOD/modules.symbols
-CHK_TEST=`/opt/sbin/modinfo $DIR_KMOD/kernel/compat.ko | grep ^version: | cut -f15 -d " "`
+CHK_TEST=`ndmc -c show version | grep release | cut -d: -f2 | sed 's,^[[:space:]],,'`
 CHK_SAVE=/opt/etc/default/kmod_ndms
 
 if [ ! -d $DIR_KMOD ]; then

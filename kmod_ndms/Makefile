@@ -26,18 +26,18 @@ define Package/kmod_ndms
   CATEGORY:=Utilities
   TITLE:=Linux kernel module handling (Build static)
   URL:=https://www.kernel.org/pub/linux/utils/kernel/kmod/
-  DEPENDS:=+libusb-compat +dvb-firmware
+  DEPENDS:=+libusb-compat
   CONFLICTS:=kmod
-ifneq (,$(filter mips mipsel,$(ARCH)))
+ifneq (,$(filter aarch64 mips mipsel,$(ARCH)))
   PKGARCH:=$(BOARD)_kn
 endif
-  ALTERNATIVES:=\
-    200:/opt/sbin/depmod:/opt/sbin/kmod_ndms \
-    200:/opt/sbin/insmod:/opt/sbin/kmod_ndms \
-    200:/opt/sbin/lsmod:/opt/sbin/kmod_ndms \
-    200:/opt/sbin/modinfo:/opt/sbin/kmod_ndms \
-    200:/opt/sbin/modprobe:/opt/sbin/kmod_ndms \
-    200:/opt/sbin/rmmod:/opt/sbin/kmod_ndms
+  ALTERNATIVES:= \
+	200:/opt/sbin/depmod:/opt/sbin/kmod_ndms \
+	200:/opt/sbin/insmod:/opt/sbin/kmod_ndms \
+	200:/opt/sbin/lsmod:/opt/sbin/kmod_ndms \
+	200:/opt/sbin/modinfo:/opt/sbin/kmod_ndms \
+	200:/opt/sbin/modprobe:/opt/sbin/kmod_ndms \
+	200:/opt/sbin/rmmod:/opt/sbin/kmod_ndms
 endef
 
 define Package/kmod_ndms/description
@@ -62,12 +62,6 @@ define Package/kmod_ndms/install
 	$(INSTALL_DIR) $(1)/opt/etc/ndm/usb.d
 	$(INSTALL_BIN) ./files/000-kmod_loader.sh $(1)/opt/etc/ndm/usb.d/
 	$(INSTALL_DIR) $(1)/opt/etc/default
-endef
-
-define Package/kmod_ndms/postinst
-#!/bin/sh
-
-/opt/etc/init.d/S00kmod_config
 endef
 
 $(eval $(call BuildPackage,kmod_ndms))

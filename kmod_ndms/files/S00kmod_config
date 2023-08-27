@@ -12,7 +12,7 @@ DIR_OPT_KMOD=/opt/lib/modules/$VER_KMOD
 DIR_FW_KMOD=/lib/modules/$VER_KMOD
 CHK_ALIAS=$DIR_OPT_KMOD/modules.alias
 CHK_SYMS=$DIR_OPT_KMOD/modules.symbols
-CHK_TEST=`/opt/sbin/modinfo $DIR_OPT_KMOD/kernel/compat.ko | grep ^version: | cut -f15 -d " "`
+CHK_TEST=`ndmc -c show version | grep release | cut -d: -f2 | sed 's,^[[:space:]],,'`
 CHK_SAVE=/opt/etc/default/kmod_ndms
 
 if [ ! -d $DIR_OPT_KMOD ] || [ ! -L $DIR_OPT_KMOD/kernel ]; then
