@@ -9,38 +9,38 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=dvb-center
 PKG_VERSION:=0.2
-PKG_RELEASE:=3b
+PKG_RELEASE:=4
 
 include $(INCLUDE_DIR)/package.mk
 
 define Package/dvb-center
-	SECTION:=dvb
-	CATEGORY:=keendev
-	DEPENDS:=+kmod_ndms +minisatip_ndms +xupnpd +scan-s2 +tvheadend_ndms
-	TITLE:=configs and scripts files for dvb-center
-    ifneq (,$(filter mips mipsel,$(ARCH)))
-	PKGARCH:=$(BOARD)_kn
-    endif
+  SECTION:=dvb
+  CATEGORY:=keendev
+  DEPENDS:=+dvb-firmware +kmod_ndms +minisatip_ndms +scan-s2 +tvheadend_ndms +xupnpd
+  TITLE:=configs and scripts files for dvb-center
+ifneq (,$(filter aarch64 mips mipsel,$(ARCH)))
+  PKGARCH:=$(BOARD)_kn
+endif
 endef
 
 define Package/dvb-center/description
-	It`s a metapackage to install config and scripts files
-	on Keenetic routers with NDMS v2
+  It's a metapackage to install config and scripts files
+  on Keenetic routers with NDMS v2+.
 endef
 
-define Build/Prepare
-endef
-
-define Build/Configure
-endef
-
-define Build/Compile
-endef
+Build/Configure:=:
+Build/Compile:=:
 
 define Package/dvb-center/install
 	$(INSTALL_DIR) $(1)/opt/etc/default/usb_services/dvb
 	$(INSTALL_DIR) $(1)/opt/etc/ndm/usb.d
 	$(INSTALL_BIN) ./files/002-dvb.sh $(1)/opt/etc/ndm/usb.d/
+endef
+
+define Package/dvb-center/postinst
+#!/bin/sh
+
+/opt/etc/init.d/S00kmod_config
 endef
 
 $(eval $(call BuildPackage,dvb-center))
