@@ -1,6 +1,5 @@
-diff -ruNp trunk.orig/config.h trunk/config.h
---- trunk.orig/config.h	2018-03-25 14:31:53.147349681 +0300
-+++ trunk/config.h	2018-03-25 14:46:42.842348711 +0300
+--- a/config.h
++++ b/config.h
 @@ -22,7 +22,7 @@
  //#define IPV6SUPPORT 1
  #define MODULE_MONITOR 1

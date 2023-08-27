@@ -1,7 +1,6 @@
-diff -ruNp trunk.patches/globals.h trunk/globals.h
---- trunk.patches/globals.h	2018-04-03 02:48:24.952386413 +0300
-+++ trunk/globals.h	2018-04-03 03:02:59.558440627 +0300
-@@ -365,6 +365,9 @@ typedef unsigned char uchar;
+--- a/globals.h
++++ b/globals.h
+@@ -366,6 +366,9 @@ typedef unsigned char uchar;
  #ifndef CS_SVN_VERSION
  #   define CS_SVN_VERSION "test"
  #endif
@@ -11,9 +10,8 @@ diff -ruNp trunk.patches/globals.h trunk/globals.h
  #ifndef CS_TARGET
  #   define CS_TARGET "unknown"
  #endif
-diff -ruNp trunk.patches/Makefile trunk/Makefile
---- trunk.patches/Makefile	2018-04-03 02:44:08.318254054 +0300
-+++ trunk/Makefile	2018-04-03 03:01:12.325689204 +0300
+--- a/Makefile
++++ b/Makefile
 @@ -5,7 +5,8 @@ SHELL = /bin/sh
  .PHONY: all tests help README.build README.config simple default debug config menuconfig allyesconfig allnoconfig defconfig clean distclean
  
@@ -35,15 +33,14 @@ diff -ruNp trunk.patches/Makefile trunk/Makefile
  LIB_DL = -ldl
 @@ -52,6 +53,7 @@ endif
  
- override STD_LIBS := $(LIB_PTHREAD) $(LIB_DL) $(LIB_RT)
+ override STD_LIBS := -lm $(LIB_PTHREAD) $(LIB_DL) $(LIB_RT)
  override STD_DEFS := -D'CS_SVN_VERSION="$(SVN_REV)"'
 +override STD_DEFS += -D'CS_EMU_VERSION="$(EMU_REV)"'
  override STD_DEFS += -D'CS_CONFDIR="$(CONF_DIR)"'
  
  # Compiler warnings
-diff -ruNp trunk.patches/module-dvbapi.c trunk/module-dvbapi.c
---- trunk.patches/module-dvbapi.c	2018-04-03 02:48:24.956386446 +0300
-+++ trunk/module-dvbapi.c	2018-04-03 03:06:13.063827549 +0300
+--- a/module-dvbapi.c
++++ b/module-dvbapi.c
 @@ -533,7 +533,7 @@ int32_t dvbapi_net_send(uint32_t request
  			if (cfg.dvbapi_extended_cw_api == 2)
  			  strcat(capabilities, ",e2");
@@ -53,9 +50,8 @@ diff -ruNp trunk.patches/module-dvbapi.c trunk/module-dvbapi.c
  			size += *info_len;
  			break;
  		}
-diff -ruNp trunk.patches/module-lcd.c trunk/module-lcd.c
---- trunk.patches/module-lcd.c	2018-04-03 02:44:10.102269013 +0300
-+++ trunk/module-lcd.c	2018-04-03 03:15:44.360059325 +0300
+--- a/module-lcd.c
++++ b/module-lcd.c
 @@ -81,6 +81,7 @@ static void refresh_lcd_file(void)
  
  			fprintf(fpsave, "Version: %s\n", CS_VERSION);
@@ -64,9 +60,8 @@ diff -ruNp trunk.patches/module-lcd.c trunk/module-lcd.c
  			if(days == 0)
  				{ fprintf(fpsave, "up: %02d:%02d:%02d\n", hours, mins, secs); }
  			else
-diff -ruNp trunk.patches/oscam.c trunk/oscam.c
---- trunk.patches/oscam.c	2018-04-03 02:48:24.956386446 +0300
-+++ trunk/oscam.c	2018-04-03 03:10:28.813703490 +0300
+--- a/oscam.c
++++ b/oscam.c
 @@ -144,7 +144,7 @@ static void show_usage(void)
  		   "| | | \\___ \\| |  / _` | '_ ` _ \\\n"
  		   "| |_| |___) | |_| (_| | | | | | |\n"
@@ -93,9 +88,8 @@ diff -ruNp trunk.patches/oscam.c trunk/oscam.c
  	fprintf(fp, "FATAL: Signal %d: %s Fault. Logged StackTrace:\n\n", sig, (sig == SIGSEGV) ? "Segmentation" : ((sig == SIGBUS) ? "Bus" : "Unknown"));
  	fclose(fp);
  
-diff -ruNp trunk.patches/oscam-conf.c trunk/oscam-conf.c
---- trunk.patches/oscam-conf.c	2018-04-03 02:44:10.086268878 +0300
-+++ trunk/oscam-conf.c	2018-04-03 03:13:07.970887467 +0300
+--- a/oscam-conf.c
++++ b/oscam-conf.c
 @@ -509,8 +509,8 @@ FILE *create_config_file(const char *con
  		cs_log("ERROR: Cannot create file \"%s\" (errno=%d %s)", temp_file, errno, strerror(errno));
  		return NULL;
@@ -107,9 +101,8 @@ diff -ruNp trunk.patches/oscam-conf.c trunk/oscam-conf.c
  	fprintf(f, "# Read more: http://www.streamboard.tv/svn/oscam/trunk/Distribution/doc/txt/%s.txt\n\n",
  			conf_filename);
  	return f;
-diff -ruNp trunk.patches/oscam-log.c trunk/oscam-log.c
---- trunk.patches/oscam-log.c	2018-04-03 02:44:09.766266195 +0300
-+++ trunk/oscam-log.c	2018-04-03 03:12:04.910417167 +0300
+--- a/oscam-log.c
++++ b/oscam-log.c
 @@ -232,7 +232,7 @@ int32_t cs_open_logfiles(void)
  	// according to syslog docu: calling closelog is not necessary and calling openlog multiple times is safe
  	// We use openlog to set the default syslog settings so that it's possible to allow switching syslog on and off

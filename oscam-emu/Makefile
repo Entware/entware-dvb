@@ -9,9 +9,9 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=oscam-emu
-PKG_RELEASE:=1b
+PKG_RELEASE:=2
 PKG_SOURCE_URL:=http://www.streamboard.tv/svn/oscam/trunk
-PKG_MIRROR_HASH:=b1739c40f6ed14f74319f80502cec3225fd12757d2190cf00edea4ea3223de38
+PKG_MIRROR_HASH:=10eaf05261fc47b1713edbea08b3975a0a16cd998a407bba88a2442e3f28b7bf
 PKG_REV:=11420
 EMU_REV:=769
 PKG_VER:=2018-04-18
@@ -23,6 +23,9 @@ PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
 PKG_SOURCE:=$(PKG_SOURCE_SUBDIR).tar.bz2
 PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME)-$(PKG_VERSION)
 
+# FIXME implausibly old time stamp
+TAR_OPTIONS += --warning=no-timestamp
+
 include $(INCLUDE_DIR)/package.mk
 
 define Package/oscam-emu
@@ -32,7 +35,7 @@ define Package/oscam-emu
   URL:=http://www.streamboard.tv/oscam/wiki/BuildingOscam
   DEPENDS:=+libopenssl +libpcsclite +libusb-1.0 +ccid +pcscd
   PROVIDES:=oscam
-ifneq (,$(filter mips mipsel,$(ARCH)))
+ifneq (,$(filter aarch64 mips mipsel,$(ARCH)))
   PKGARCH:=$(BOARD)_kn
 endif
 endef
