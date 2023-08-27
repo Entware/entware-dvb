@@ -6,14 +6,12 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=scan-s2
 PKG_VERSION:=1.0
-PKG_RELEASE:=5
+PKG_RELEASE:=6
 
-PKG_SOURCE_VERSION:=06a32606d2bccc52664e6fa1cff68d8874342202
 PKG_SOURCE_PROTO:=git
+PKG_SOURCE_VERSION:=06a32606d2bccc52664e6fa1cff68d8874342202
 PKG_SOURCE_URL:=https://github.com/crazycat69/scan-s2
-PKG_MIRROR_HASH:=6a1b9bd424f42b83836ffb727cee86863275d1f2f77a92e788de8c2730951b9c
-PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
-PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
+PKG_MIRROR_HASH:=dd9beaf037bdeef2186bc7027426bcdc2583aa020ce7d809c60b7fe08fb018ae
 
 TAR_OPTIONS += --exclude='dump-m3u.o'
 
@@ -23,21 +21,24 @@ include $(INCLUDE_DIR)/nls.mk
 define Package/scan-s2
   SECTION:=utils
   CATEGORY:=Utilities
-  TITLE:=scan-s2 channels scanning tool for the Linux DVB S2 API
+  TITLE:=channels scanning tool for the Linux DVB S2 API
   DEPENDS:=$(ICONV_DEPENDS)
   URL:=https://github.com/crazycat69/scan-s2
-ifneq (,$(filter mips mipsel,$(ARCH)))
+ifneq (,$(filter aarch64 mips mipsel,$(ARCH)))
   PKGARCH:=$(BOARD)_kn
 endif
 endef
 
 define Package/scan-s2/description
-  The scan-s2 utilty can be used to scan channels on currently locked (by szap-s2 utility) channel or
-  by specifying frequencies list that will be scanned one after another.
+  The scan-s2 utilty can be used to scan channels on currently locked
+  (by szap-s2 utility) channel or by specifying frequencies list that
+  will be scanned one after another.
 endef
 
 define Build/Compile
-	$(MAKE) -C $(PKG_BUILD_DIR) CC="$(TARGET_CC)" CFLAGS="$(TARGET_CFLAGS) $(ICONV_CFLAGS) $(ICONV_LDFLAGS)" CLIB="$(TARGET_LDFLAGS) -liconv"
+	$(MAKE) -C $(PKG_BUILD_DIR) CC="$(TARGET_CC)" \
+		CFLAGS="$(TARGET_CFLAGS) $(ICONV_CFLAGS) $(ICONV_LDFLAGS)" \
+		CLIB="$(TARGET_LDFLAGS) -liconv"
 endef
 
 define Package/scan-s2/install
