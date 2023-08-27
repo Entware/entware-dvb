@@ -1,6 +1,5 @@
-diff -ruN astra-sm.orig/src/include/linux/dvb/ca.h astra-sm/src/include/linux/dvb/ca.h
---- astra-sm.orig/src/include/linux/dvb/ca.h	1970-01-01 03:00:00.000000000 +0300
-+++ astra-sm/src/include/linux/dvb/ca.h	2018-04-10 02:49:13.308707155 +0300
+--- /dev/null
++++ b/src/include/linux/dvb/ca.h
 @@ -0,0 +1,90 @@
 +/*
 + * ca.h
@@ -92,9 +91,8 @@ diff -ruN astra-sm.orig/src/include/linux/dvb/ca.h astra-sm/src/include/linux/dv
 +#define CA_SET_PID        _IOW('o', 135, ca_pid_t)
 +
 +#endif
-diff -ruN astra-sm.orig/src/include/linux/dvb/dmx.h astra-sm/src/include/linux/dvb/dmx.h
---- astra-sm.orig/src/include/linux/dvb/dmx.h	1970-01-01 03:00:00.000000000 +0300
-+++ astra-sm/src/include/linux/dvb/dmx.h	2018-04-10 02:49:13.312707190 +0300
+--- /dev/null
++++ b/src/include/linux/dvb/dmx.h
 @@ -0,0 +1,155 @@
 +/*
 + * dmx.h
@@ -251,9 +249,8 @@ diff -ruN astra-sm.orig/src/include/linux/dvb/dmx.h astra-sm/src/include/linux/d
 +#define DMX_REMOVE_PID           _IOW('o', 52, __u16)
 +
 +#endif /* _UAPI_DVBDMX_H_ */
-diff -ruN astra-sm.orig/src/include/linux/dvb/frontend.h astra-sm/src/include/linux/dvb/frontend.h
---- astra-sm.orig/src/include/linux/dvb/frontend.h	1970-01-01 03:00:00.000000000 +0300
-+++ astra-sm/src/include/linux/dvb/frontend.h	2018-04-10 02:49:13.312707190 +0300
+--- /dev/null
++++ b/src/include/linux/dvb/frontend.h
 @@ -0,0 +1,602 @@
 +/*
 + * frontend.h
@@ -857,9 +854,8 @@ diff -ruN astra-sm.orig/src/include/linux/dvb/frontend.h astra-sm/src/include/li
 +#define FE_DISHNETWORK_SEND_LEGACY_CMD _IO('o', 80) /* unsigned int */
 +
 +#endif /*_DVBFRONTEND_H_*/
-diff -ruN astra-sm.orig/src/include/linux/dvb/version.h astra-sm/src/include/linux/dvb/version.h
---- astra-sm.orig/src/include/linux/dvb/version.h	1970-01-01 03:00:00.000000000 +0300
-+++ astra-sm/src/include/linux/dvb/version.h	2018-04-10 02:49:13.312707190 +0300
+--- /dev/null
++++ b/src/include/linux/dvb/version.h
 @@ -0,0 +1,29 @@
 +/*
 + * version.h
@@ -890,9 +886,8 @@ diff -ruN astra-sm.orig/src/include/linux/dvb/version.h astra-sm/src/include/lin
 +#define DVB_API_VERSION_MINOR 10
 +
 +#endif /*_DVBVERSION_H_*/
-diff -ruN astra-sm.orig/src/Makefile.am astra-sm/src/Makefile.am
---- astra-sm.orig/src/Makefile.am	2018-04-10 02:48:43.004443137 +0300
-+++ astra-sm/src/Makefile.am	2018-04-10 02:50:38.237447020 +0300
+--- a/src/Makefile.am
++++ b/src/Makefile.am
 @@ -1,7 +1,7 @@
  AM_CFLAGS = \
      $(WARN_CFLAGS) \

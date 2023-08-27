@@ -6,15 +6,13 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=astra-sm
 PKG_VERSION:=0.2.88
-PKG_RELEASE:=4
+PKG_RELEASE:=5
 
-PKG_SOURCE_VERSION:=450d4ec79dcb9f267784a42484fcf65b36230b78
 PKG_SOURCE_PROTO:=git
+PKG_SOURCE_VERSION:=450d4ec79dcb9f267784a42484fcf65b36230b78
+PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION)-$(PKG_SOURCE_VERSION).tar.gz
 PKG_SOURCE_URL:=https://gitlab.com/berdyansk/astra-sm.git
 PKG_MIRROR_HASH:=251c2d1c0b1547fadfb7d01bfbbc8caea8d790f89a6050cb068adeabe13b2ccd
-PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION)-$(PKG_SOURCE_VERSION).tar.gz
-PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
-PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME)-$(PKG_VERSION)
 
 PKG_FIXUP:=autoreconf
 
@@ -23,10 +21,10 @@ include $(INCLUDE_DIR)/package.mk
 define Package/astra-sm
   SECTION:=multimedia
   CATEGORY:=Multimedia
-  TITLE:= Astra SM IPTV server for Linux
-  DEPENDS:=+librt +libpthread +libopenssl +libdvbcsa_ndms
+  TITLE:=Astra SM IPTV server for Linux
+  DEPENDS:=+libdvbcsa +libopenssl
   URL:=https://gitlab.com/berdyansk/astra-sm
-ifneq (,$(filter mips mipsel,$(ARCH)))
+ifneq (,$(filter aarch64 mips mipsel,$(ARCH)))
   PKGARCH:=$(BOARD)_kn
 endif
 endef
@@ -40,29 +38,24 @@ define Package/astra-sm/description
   allow to customize business logic of the application.
 endef
 
-define Build/Configure
-	cd $(PKG_BUILD_DIR); \
-	CC="$(TARGET_CC)" \
-	CFLAGS="$(TARGET_CFLAGS) -I$(PKG_BUILD_DIR)/lua -pthread" \
-	LDFLAGS="$(TARGET_LDFLAGS) -L$(PKG_BUILD_DIR)/lua/.libs" \
-	./configure \
-		--prefix=/opt \
-		--target=$(GNU_TARGET_NAME) \
-		--host=$(GNU_TARGET_NAME) \
-		--build=$(GNU_HOST_NAME) \
-		--without-check \
-		--without-ffmpeg \
-		--without-libaio \
-		--without-lua
-endef
+TARGET_CFLAGS += -I$(PKG_BUILD_DIR)/lua -pthread
+TARGET_LDFLAGS += -L$(PKG_BUILD_DIR)/lua/.libs
+
+CONFIGURE_ARGS += \
+	--without-check \
+	--without-ffmpeg \
+	--without-libaio \
+	--without-lua
 
 define Package/astra-sm/postinst
 #!/bin/sh
+
 ln -sfn /opt/etc/init.d/S55astra /opt/etc/default/usb_services/dvb/S55astra
 endef
 
 define Package/astra-sm/postrm
 #!/bin/sh
+
 rm -rf /opt/etc/default/usb_services/dvb/S55astra
 endef
 
