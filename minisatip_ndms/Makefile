@@ -6,33 +6,30 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=minisatip_ndms
 PKG_VERSION:=0.7
-PKG_RELEASE:=2
+PKG_RELEASE:=3
 
-PKG_SOURCE_VERSION:=cea9e4deee1062c492bcef2fa7967468ec8c908d
 PKG_SOURCE_PROTO:=git
-PKG_SOURCE_URL:=git://github.com/catalinii/minisatip.git
-PKG_MIRROR_HASH:=47cf242bb20fc688a6f6cf9b80720c6eb14e34de49ff9c42b71604593ee93bd2
-PKG_SOURCE:=minisatip-$(PKG_VERSION)-$(PKG_SOURCE_VERSION).tar.gz
-PKG_SOURCE_SUBDIR:=minisatip-$(PKG_VERSION)
-
-PKG_BUILD_DIR:=$(BUILD_DIR)/minisatip-$(PKG_VERSION)
+PKG_SOURCE_VERSION:=cea9e4deee1062c492bcef2fa7967468ec8c908d
+PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION)-$(PKG_SOURCE_VERSION).tar.gz
+PKG_SOURCE_URL:=https://github.com/catalinii/minisatip
+PKG_MIRROR_HASH:=ef079318d41a0d9ddcf192f18f49eabddd8c5946ba6c6c12c39ac38cbc4c415e
 
 include $(INCLUDE_DIR)/package.mk
 
 define Package/minisatip_ndms
   SECTION:=multimedia
   CATEGORY:=Multimedia
-  TITLE:= MiniSatIP server for Linux
+  TITLE:=MiniSatIP server for Linux
   DEPENDS:= \
 	+MINISATIP_NDMS_DVBAES_SUPPORT:libopenssl \
 	+MINISATIP_NDMS_DVBCA_SUPPORT:ci-plus-sert \
 	+MINISATIP_NDMS_DVBCA_SUPPORT:libdvbapi \
 	+MINISATIP_NDMS_DVBCA_SUPPORT:libdvben50221 \
 	+MINISATIP_NDMS_DVBCA_SUPPORT:libucsi \
-	+MINISATIP_NDMS_DVBCSA_SUPPORT:libdvbcsa_ndms
+	+(MINISATIP_NDMS_DVBCSA_SUPPORT&&BUILD_PATENTED):libdvbcsa
   URL:=https://github.com/catalinii/minisatip
   PROVIDES:=minisatip
-ifneq (,$(filter mips mipsel,$(ARCH)))
+ifneq (,$(filter aarch64 mips mipsel,$(ARCH)))
   PKGARCH:=$(BOARD)_kn
 endif
 endef
@@ -47,38 +44,33 @@ define Package/minisatip_ndms/config
   source "$(SOURCE)/Config.in"
 endef
 
-CONFIGURE_ARGS += \
-	--disable-netceiver
-
 ifeq ($(CONFIG_MINISATIP_NDMS_DVBCSA_SUPPORT),)
-  CONFIGURE_ARGS += \
-	--disable-dvbcsa
+CONFIGURE_ARGS += --disable-dvbcsa
 endif
 
 ifeq ($(CONFIG_MINISATIP_NDMS_DVBCA_SUPPORT),)
-  CONFIGURE_ARGS += \
-	--disable-dvbca
+CONFIGURE_ARGS += --disable-dvbca
 endif
 
 ifeq ($(CONFIG_MINISATIP_NDMS_DVBAES_SUPPORT),)
-  CONFIGURE_ARGS += \
-	--disable-dvbaes
+CONFIGURE_ARGS += --disable-dvbaes
 endif
 
 ifeq ($(CONFIG_MINISATIP_NDMS_CLIENT_SUPPORT),)
-  CONFIGURE_ARGS += \
-	--disable-satipc
+CONFIGURE_ARGS += --disable-satipc
 endif
 
 TARGET_CFLAGS += -pthread
 
 define Package/minisatip_ndms/postinst
 #!/bin/sh
+
 ln -sfn /opt/etc/init.d/S54minisatip /opt/etc/default/usb_services/dvb/S54minisatip
 endef
 
 define Package/minisatip_ndms/postrm
 #!/bin/sh
+
 rm -rf /opt/etc/default/usb_services/dvb/S54minisatip
 endef
 

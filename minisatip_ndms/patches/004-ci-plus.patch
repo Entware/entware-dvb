@@ -1,6 +1,5 @@
-diff -ruNp minisatip-0.7.orig/src/ca.c minisatip-0.7/src/ca.c
---- minisatip-0.7.orig/src/ca.c	2018-03-30 20:39:21.368177085 +0300
-+++ minisatip-0.7/src/ca.c	2018-03-30 20:50:57.581389718 +0300
+--- a/src/ca.c
++++ b/src/ca.c
 @@ -1,30 +1,16 @@
  /*
 - * Copyright (C) 2015 Damjan Marion <damjan.marion@gmail.com>
