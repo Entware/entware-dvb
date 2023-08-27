@@ -1,6 +1,5 @@
-diff -ruNp dvb-apps-r3d43b280298c.orig/include/linux/dvb/ca.h dvb-apps-r3d43b280298c/include/linux/dvb/ca.h
---- dvb-apps-r3d43b280298c.orig/include/linux/dvb/ca.h	1970-01-01 03:00:00.000000000 +0300
-+++ dvb-apps-r3d43b280298c/include/linux/dvb/ca.h	2018-03-30 02:02:09.464849949 +0300
+--- /dev/null
++++ b/include/linux/dvb/ca.h
 @@ -0,0 +1,90 @@
 +/*
 + * ca.h
@@ -92,9 +91,8 @@ diff -ruNp dvb-apps-r3d43b280298c.orig/include/linux/dvb/ca.h dvb-apps-r3d43b280
 +#define CA_SET_PID        _IOW('o', 135, ca_pid_t)
 +
 +#endif
-diff -ruNp dvb-apps-r3d43b280298c.orig/include/linux/dvb/dmx.h dvb-apps-r3d43b280298c/include/linux/dvb/dmx.h
---- dvb-apps-r3d43b280298c.orig/include/linux/dvb/dmx.h	1970-01-01 03:00:00.000000000 +0300
-+++ dvb-apps-r3d43b280298c/include/linux/dvb/dmx.h	2018-03-30 02:02:09.464849949 +0300
+--- /dev/null
++++ b/include/linux/dvb/dmx.h
 @@ -0,0 +1,155 @@
 +/*
 + * dmx.h
@@ -251,9 +249,8 @@ diff -ruNp dvb-apps-r3d43b280298c.orig/include/linux/dvb/dmx.h dvb-apps-r3d43b28
 +#define DMX_REMOVE_PID           _IOW('o', 52, __u16)
 +
 +#endif /* _UAPI_DVBDMX_H_ */
-diff -ruNp dvb-apps-r3d43b280298c.orig/include/linux/dvb/frontend.h dvb-apps-r3d43b280298c/include/linux/dvb/frontend.h
---- dvb-apps-r3d43b280298c.orig/include/linux/dvb/frontend.h	1970-01-01 03:00:00.000000000 +0300
-+++ dvb-apps-r3d43b280298c/include/linux/dvb/frontend.h	2018-03-30 02:02:09.464849949 +0300
+--- /dev/null
++++ b/include/linux/dvb/frontend.h
 @@ -0,0 +1,602 @@
 +/*
 + * frontend.h
@@ -857,9 +854,8 @@ diff -ruNp dvb-apps-r3d43b280298c.orig/include/linux/dvb/frontend.h dvb-apps-r3d
 +#define FE_DISHNETWORK_SEND_LEGACY_CMD _IO('o', 80) /* unsigned int */
 +
 +#endif /*_DVBFRONTEND_H_*/
-diff -ruNp dvb-apps-r3d43b280298c.orig/include/linux/dvb/version.h dvb-apps-r3d43b280298c/include/linux/dvb/version.h
---- dvb-apps-r3d43b280298c.orig/include/linux/dvb/version.h	1970-01-01 03:00:00.000000000 +0300
-+++ dvb-apps-r3d43b280298c/include/linux/dvb/version.h	2018-03-30 02:02:09.464849949 +0300
+--- /dev/null
++++ b/include/linux/dvb/version.h
 @@ -0,0 +1,29 @@
 +/*
 + * version.h
@@ -890,9 +886,8 @@ diff -ruNp dvb-apps-r3d43b280298c.orig/include/linux/dvb/version.h dvb-apps-r3d4
 +#define DVB_API_VERSION_MINOR 10
 +
 +#endif /*_DVBVERSION_H_*/
-diff -ruNp dvb-apps-r3d43b280298c.orig/Makefile dvb-apps-r3d43b280298c/Makefile
---- dvb-apps-r3d43b280298c.orig/Makefile	2018-03-30 19:02:08.527062069 +0300
-+++ dvb-apps-r3d43b280298c/Makefile	2018-03-30 19:03:21.695607154 +0300
+--- a/Makefile
++++ b/Makefile
 @@ -1,7 +1,7 @@
  # Makefile for linuxtv.org dvb-apps
  
@@ -913,9 +908,8 @@ diff -ruNp dvb-apps-r3d43b280298c.orig/Makefile dvb-apps-r3d43b280298c/Makefile
  
  update:
  	@echo "Pulling changes & updating from master repository"
-diff -ruNp dvb-apps-r3d43b280298c.orig/Make.rules dvb-apps-r3d43b280298c/Make.rules
---- dvb-apps-r3d43b280298c.orig/Make.rules	2018-03-30 19:02:08.527062069 +0300
-+++ dvb-apps-r3d43b280298c/Make.rules	2018-03-30 19:04:53.572288559 +0300
+--- a/Make.rules
++++ b/Make.rules
 @@ -7,7 +7,7 @@ ifneq ($(lib_name),)
  # additional rules for libraries
  
@@ -934,9 +928,8 @@ diff -ruNp dvb-apps-r3d43b280298c.orig/Make.rules dvb-apps-r3d43b280298c/Make.ru
  
  bindir     ?= $(prefix)/bin
  includedir ?= $(prefix)/include
-diff -ruNp dvb-apps-r3d43b280298c.orig/util/av7110_loadkeys/generate-keynames.sh dvb-apps-r3d43b280298c/util/av7110_loadkeys/generate-keynames.sh
---- dvb-apps-r3d43b280298c.orig/util/av7110_loadkeys/generate-keynames.sh	2018-03-30 19:02:08.599062607 +0300
-+++ dvb-apps-r3d43b280298c/util/av7110_loadkeys/generate-keynames.sh	2018-03-30 19:06:05.336818779 +0300
+--- a/util/av7110_loadkeys/generate-keynames.sh
++++ b/util/av7110_loadkeys/generate-keynames.sh
 @@ -10,6 +10,10 @@ echo "#if !defined(KEY_OK)" >> $1
  echo "#include \"input_fake.h\"" >> $1
  echo "#endif" >> $1
@@ -948,9 +941,8 @@ diff -ruNp dvb-apps-r3d43b280298c.orig/util/av7110_loadkeys/generate-keynames.sh
  echo >> $1
  echo "struct input_key_name {" >> $1
  echo "        const char *name;" >> $1
-diff -ruNp dvb-apps-r3d43b280298c.orig/util/av7110_loadkeys/input_faketoo.h dvb-apps-r3d43b280298c/util/av7110_loadkeys/input_faketoo.h
---- dvb-apps-r3d43b280298c.orig/util/av7110_loadkeys/input_faketoo.h	1970-01-01 03:00:00.000000000 +0300
-+++ dvb-apps-r3d43b280298c/util/av7110_loadkeys/input_faketoo.h	2018-03-30 19:06:05.336818779 +0300
+--- /dev/null
++++ b/util/av7110_loadkeys/input_faketoo.h
 @@ -0,0 +1,18 @@
 +#ifndef _INPUT_FAKETOO_H
 +#define _INPUT_FAKETOO_H
@@ -970,9 +962,8 @@ diff -ruNp dvb-apps-r3d43b280298c.orig/util/av7110_loadkeys/input_faketoo.h dvb-
 +
 +#endif  /* !defined(KEY_10CHANNELSUP)  */
 +#endif  /* _INPUT_FAKETOO_H */
-diff -ruNp dvb-apps-r3d43b280298c.orig/util/scan/Makefile dvb-apps-r3d43b280298c/util/scan/Makefile
---- dvb-apps-r3d43b280298c.orig/util/scan/Makefile	2018-03-30 19:02:08.607062667 +0300
-+++ dvb-apps-r3d43b280298c/util/scan/Makefile	2018-03-30 19:07:02.653241150 +0300
+--- a/util/scan/Makefile
++++ b/util/scan/Makefile
 @@ -15,6 +15,7 @@ inst_bin = $(binaries)
  removing = atsc_psip_section.c atsc_psip_section.h
  

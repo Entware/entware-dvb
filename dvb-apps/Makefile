@@ -11,14 +11,15 @@ include $(TOPDIR)/rules.mk
 PKG_NAME:=dvb-apps
 PKG_REV:=3d43b280298c
 PKG_VERSION:=r$(PKG_REV)
-PKG_RELEASE:=1a
+PKG_RELEASE:=2
 
-PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
-PKG_SOURCE_URL:=http://linuxtv.org/hg/dvb-apps
-PKG_MIRROR_HASH:=a927764f6c18e2680b7e083e5870e91535dcf55289a945ad4cee12a65872b1e7
-PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
-PKG_SOURCE_VERSION:=$(PKG_REV)
 PKG_SOURCE_PROTO:=hg
+PKG_SOURCE_VERSION:=$(PKG_REV)
+PKG_SOURCE_URL:=https://linuxtv.org/hg/dvb-apps
+PKG_MIRROR_HASH:=d533337681a20e996dd226308105b721209a4dbf4a81dcb5f1221d5a19e5c7fc
+
+# FIXME implausibly old time stamp
+TAR_OPTIONS += --warning=no-timestamp
 
 PKG_INSTALL:=1
 
@@ -28,15 +29,14 @@ include $(INCLUDE_DIR)/nls.mk
 define Package/dvb-apps/Default
   SECTION:=multimedia
   CATEGORY:=Multimedia
-  TITLE:=Linux DVB
-  URL:=http://linuxtv.org/
   SUBMENU:=dvb-apps
+  TITLE:=Linux DVB
+  URL:=https://linuxtv.org
 endef
 
 define Package/dvb-apps/description/Default
   Linux DVB API applications and utilities.
 endef
-
 
 define Package/dvb-apps
   $(call Package/dvb-apps/Default)
@@ -141,15 +141,12 @@ define DvbBuildLibrary
   $$(eval $$(call BuildPackage,lib$(1)))
 endef
 
-
-
 $(eval $(call DvbBuildLibrary,dvbapi,dvbapi,,))
 $(eval $(call DvbBuildLibrary,dvbcfg,dvbcfg,,))
 $(eval $(call DvbBuildLibrary,dvben50221,dvben50221,,))
 $(eval $(call DvbBuildLibrary,dvbsec,dvbsec,,))
 $(eval $(call DvbBuildLibrary,esg,esg,,))
 $(eval $(call DvbBuildLibrary,ucsi,ucsi,,))
-
 
 # 1: short name
 # 2: description
