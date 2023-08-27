@@ -8,24 +8,24 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=ci-plus-sert
-PKG_RELEASE:=1
 PKG_VERSION:=dreamciplus_4.7r9
+PKG_RELEASE:=1
 
 include $(INCLUDE_DIR)/package.mk
 
 define Package/ci-plus-sert
-	SECTION:=base
-	CATEGORY:=Base system
-	TITLE:=DVB CI+ certificates
-	PKGARCH:=all
+  SECTION:=base
+  CATEGORY:=Base system
+  TITLE:=DVB CI+ certificates
+  PKGARCH:=all
 endef
 
 define Package/ci-plus-sert/description
-	DVB CI+ certificates for CAM modules.
+  DVB CI+ certificates for CAM modules.
 endef
 
-define Build/Compile
-endef
+Build/Configure:=:
+Build/Compile:=:
 
 define Package/ci-plus-sert/install
 	$(INSTALL_DIR) $(1)/opt/etc/ssl/certs
