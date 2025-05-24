@@ -53,6 +53,12 @@ ifneq ($(CONFIG_PACKAGE_list-smargo-emu),)
 	MAKE_FLAGS += LIST_SMARGO_BIN=Distribution/list-smargo
 endif
 
+define Build/Prepare
+	$(call Build/Prepare/Default)
+	# fix "Timestamp out of range"
+	$(FIND) $(PKG_BUILD_DIR) -exec touch {} +
+endef
+
 define Build/Compile
 	$(MAKE) -C $(PKG_BUILD_DIR) $(TARGET_CONFIGURE_OPTS) CC="$(TARGET_CC)" \
 		LDFLAGS="$(TARGET_CFLAGS) $(TARGET_LDFLAGS)" \
