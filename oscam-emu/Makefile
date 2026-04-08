@@ -10,21 +10,15 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=oscam-emu
 PKG_RELEASE:=2
-PKG_SOURCE_URL:=http://www.streamboard.tv/svn/oscam/trunk
-PKG_MIRROR_HASH:=10eaf05261fc47b1713edbea08b3975a0a16cd998a407bba88a2442e3f28b7bf
 PKG_REV:=11420
 EMU_REV:=769
 PKG_VER:=2018-04-18
 PKG_VERSION:=$(PKG_VER)-r$(PKG_REV)_r$(EMU_REV)
 
-PKG_SOURCE_PROTO:=svn
-PKG_SOURCE_VERSION:=$(PKG_REV)
-PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
-PKG_SOURCE:=$(PKG_SOURCE_SUBDIR).tar.bz2
-PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME)-$(PKG_VERSION)
-
-# FIXME implausibly old time stamp
-TAR_OPTIONS += --warning=no-timestamp
+PKG_SOURCE_PROTO:=git
+PKG_SOURCE_VERSION:=55451bdd503bdc7285fd2feef7a9e1b1d59bc5dd
+PKG_SOURCE_URL:=https://git.streamboard.tv/common/oscam
+PKG_MIRROR_HASH:=5a04ca1106ffe4b7ea7135d9245e0f13f361b055a36cc37c9756669120aae3d2
 
 include $(INCLUDE_DIR)/package.mk
 
